@@ -167,5 +167,3 @@ ax.xaxis.set_major_formatter(DateFormatter('%Y-%m'))
 ax.tick_params(axis="x", rotation=90)
 ax.legend()
 plt.show()
-
-# git test
