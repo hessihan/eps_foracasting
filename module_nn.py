@@ -60,7 +60,7 @@ print(f"module {__name__} imported")
 if __name__ == "__main__":
     
     # Reading data, convert pandas.DataFrame to torch.tensor
-    ts = pd.read_csv("./sample_ts.csv")
+    ts = pd.read_csv("data/output/sample_ts.csv")
 
     # y, x (lag 4)
     y = ts["１株当たり利益［３ヵ月］"].drop([0, 1, 2, 3], axis=0)
