@@ -53,9 +53,6 @@ class LSTM(torch.nn.Module):
     def __init__(self, input_features=4, hidden_units=100, output_units=1):
         "Instantiate model layers."
         super(LSTM, self).__init__()
-        
-
-print(f"module {__name__} imported")
 
 if __name__ == "__main__":
     
