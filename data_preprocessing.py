@@ -8,13 +8,13 @@ import warnings
 
 warnings.simplefilter("ignore")
 
-# reading input csv
-financial = pd.read_csv("data/input/FINFSTA_TOYOTA_199703_202004.csv", header=0)
-nikkei_forecast = pd.read_csv("data/input/EARNING_TOYOTA_199703_202004.csv", header=0)
-self_forecast = pd.read_csv("data/input/FINHISA_TOYOTA_199703_202003.csv", header=0)
+# rearaw csv
+financial = pd.read_csv("data/raw/FINFSTA_TOYOTA_199703_202004.csv", header=0)
+analyst_forecast = pd.read_csv("data/raw/EARNING_TOYOTA_199703_202004.csv", header=0)
+manager_forecast = pd.read_csv("data/raw/FINHISA_TOYOTA_199703_202003.csv", header=0)
 
 # cleaning data
-for df in [financial, nikkei_forecast, self_forecast]:
+for df in [financial, analyst_forecast, manager_forecast]:
     df.drop([0, 1], axis=0, inplace=True)
     df.reset_index(drop=True, inplace=True)
     df.replace("-", np.nan, inplace=True)
@@ -59,4 +59,23 @@ nan_index = ts["１株当たり利益［３ヵ月］"][ts["１株当たり利益
 ts["１株当たり利益［３ヵ月］"][ts["１株当たり利益［３ヵ月］"].isnull()] = ts.loc[nan_index]["１株当たり利益［累計］"] - ts.loc[nan_index - 1]["１株当たり利益［累計］"]
 
 # Export cleaned data
-ts.to_csv("data/output/sample_ts.csv")
+ts.to_csv("data/cleaned/sample_ts.csv")
+
+# Analyst and manager's earning forecast data
+
+# 日本経済新聞社予想
+anl_eps = analyst_forecast[['決算期', '決算月数', '本決算・中間決算フラグ', '実績・予想フラグ', '連結基準フラグ', 'データ更新日', 
+                            '一株利益']]
+# EPS予測がNaNなら行削除
+anl_eps = anl_eps[anl_eps["一株利益"].notna()]
+
+# save as csv
+anl_eps.to_csv("data/cleaned/anl.csv")
+
+# 業績予想(会社発表)
+mng_eps = manager_forecast[['決算期', '決算月数', '決算種別フラグ', '連結基準フラグ', '実績・予想フラグ', '資料公表日／決算発表日', '最新予想フラグ', 
+                            '１株当たり利益＜累計＞']]
+mng_eps = mng_eps[mng_eps["１株当たり利益＜累計＞"].notna()]
+
+# save as csv
+mng_eps.to_csv("data/cleaned/mng.csv")
