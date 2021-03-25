@@ -54,10 +54,11 @@ class LSTM(torch.nn.Module):
         "Instantiate model layers."
         super(LSTM, self).__init__()
 
+# Debugging
 if __name__ == "__main__":
     
     # Reading data, convert pandas.DataFrame to torch.tensor
-    ts = pd.read_csv("data/output/sample_ts.csv")
+    ts = pd.read_csv("data/cleaned/sample_ts.csv")
 
     # y, x (lag 4)
     y = ts["１株当たり利益［３ヵ月］"].drop([0, 1, 2, 3], axis=0)
@@ -99,7 +100,7 @@ if __name__ == "__main__":
 
     # Construct loss and optimizer
     criterion = torch.nn.MSELoss(reduction="mean")
-    optimizer = torch.optim.Adam(ffnn.parameters(), lr=1e-2) # link to ffnn parameters
+    optimizer = torch.optim.Adam(ffnn.parameters(), lr=1e-2) # link to ffnn parameters (lr should be 1e-2)
 
     # Learning iteration
     import matplotlib.pyplot as plt

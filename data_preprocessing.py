@@ -8,7 +8,9 @@ import warnings
 
 warnings.simplefilter("ignore")
 
-# rearaw csv
+# y and X
+
+# read raw csv
 financial = pd.read_csv("data/raw/FINFSTA_TOYOTA_199703_202004.csv", header=0)
 analyst_forecast = pd.read_csv("data/raw/EARNING_TOYOTA_199703_202004.csv", header=0)
 manager_forecast = pd.read_csv("data/raw/FINHISA_TOYOTA_199703_202003.csv", header=0)
@@ -36,7 +38,7 @@ eps_record = eps_record.astype({
 })
 #print(eps_record.dtypes)
 
-# plot record
+# plot eps record
 fig = plt.figure(figsize=(16*2, 9))
 ax = fig.add_subplot(111)
 

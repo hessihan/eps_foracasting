@@ -105,10 +105,10 @@ def rolling_window(window, prim_train, test, order, seasonal_order, silent=True)
         
     return y_hat
 
-
+# Debugging
 if __name__ == "__main__":
     # read cleaned data generated from data_preprocessing.py
-    ts = pd.read_csv("data/output/sample_ts.csv", index_col=0)
+    ts = pd.read_csv("data/cleaned/sample_ts.csv", index_col=0)
 
     # y, x (lag 1 y) 
     # !!!!!! lag 4 for quarterly ? or statsmodel have done well in sm.tsa.SARIMAX?
