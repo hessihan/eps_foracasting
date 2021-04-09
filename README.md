@@ -12,7 +12,7 @@ Variable selection from whole large accounting datasets (might be LASSO?).
 ## Additional research
 
 ---
-
+* Creating dashboard interface using Python Dash.
 * Binary (up or down) forecast.
 * Comparing the performance of Model-based earning forecest (time-series, NN) with analysts and managers' forcast. (the problem is those forecasts are not quarterly recorded)
 ## Model

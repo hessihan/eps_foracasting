@@ -12,15 +12,20 @@ class Dataset():
         # read csv as pandas dataframe
         self.data = pd.read_csv(file_path, header=0)
     
-    def cleaning(self):
+    def cleaning(self, nan_sign="-", cut_period=(2, 13)):
         """
         
-        Cleaning raw data (delete headers, reindex, replace nan).
-            
+        Cleaning raw data (delete headers, replace nan, cut half-year-recorded period, reindex).
+
+        Parameters
+        ----------
+        nan_sign : value
+            value which to be replaced with np.nan
         """
         self.data.drop([0, 1], axis=0, inplace=True)
+        self.data.replace(nan_sign, np.nan, inplace=True)
+        self.data.drop(range(2, 13), axis=0, inplace=True)
         self.data.reset_index(drop=True, inplace=True)
-        self.data.replace("-", np.nan, inplace=True)
         
     def change_data_types(self, date_col, num_col):
         """
@@ -47,16 +52,12 @@ class Dataset():
         """
         
         Substituting cummulative values to get quarterly data.
-        Setting 3 columns for monthly values for quarterly --> how to deal with 決算発表日?
         
         Parameters
         ----------
         cum_col : list
             cummulative and quaterly valued columns name tuple list
             [(［累計］, ［３ヵ月］), ...]
-        
-        mon_col : list
-            monthly valued columns name list
                     
         """
         # make sure not substituting on 1st quarter (June)
@@ -77,7 +78,32 @@ class Dataset():
             
         """
         self.data = self.data[col_name]
+        return None
+    
+    def detrend(self, ):
+        """
+        
+        De-trend time series data.
+        
+        """
+        return None
 
+    def deseasonalize(self, ):
+        """
+
+        De-seasonalize time series data.
+
+        """
+        return None
+
+    def standardize(self,)
+        """
+
+        Standardize into -1 ~ 1.
+
+        """
+        return None
+    
     def build(self):
         """
         
@@ -89,20 +115,20 @@ class Dataset():
 # Debugging
 if __name__ == "__main__":
     
+    # Define parameters preliminary
     file_path = "data/raw/FINFSTA_TOYOTA_199703_202004.csv"
-    col_name = ['決算期', '決算月数', '決算発表日', 
-                '売上高・営業収益［累計］', '売上総利益［累計］', '営業利益［累計］', '経常利益／税金等調整前当期純利益［累計］', '当期純利益（連結）［累計］', '１株当たり利益［累計］',
-                '売上高・営業収益［３ヵ月］', '売上総利益［３ヵ月］', '営業利益［３ヵ月］', '経常利益／税金等調整前当期純利益［３ヵ月］', '当期純利益（連結）［３ヵ月］', '１株当たり利益［３ヵ月］',
-                '棚卸資産', '資本的支出', '期末従業員数', '販売費及び一般管理費［累計］', '販売費及び一般管理費［３ヵ月］', '受取手形・売掛金／売掛金及びその他の短期債権']
-    date_col = ['決算期', '決算発表日']
-    num_col = {'決算月数': "int8", '売上高・営業収益［累計］': "float64", '売上総利益［累計］': "float64", 
-               '営業利益［累計］': "float64", '経常利益／税金等調整前当期純利益［累計］': "float64", 
-               '当期純利益（連結）［累計］': "float64", '１株当たり利益［累計］': "float64", 
-               '棚卸資産': "float64", '資本的支出': "float64", '期末従業員数': "float64", 
-               '販売費及び一般管理費［累計］': "float64", '受取手形・売掛金／売掛金及びその他の短期債権': "float64", 
-               '売上高・営業収益［３ヵ月］': "float64", '売上総利益［３ヵ月］': "float64", '営業利益［３ヵ月］': "float64", 
-               '経常利益／税金等調整前当期純利益［３ヵ月］': "float64", '当期純利益（連結）［３ヵ月］': "float64", '１株当たり利益［３ヵ月］': "float64", '販売費及び一般管理費［３ヵ月］': "float64"}
     
+    earning_v = ['売上高・営業収益', '売上総利益', '営業利益', '経常利益／税金等調整前当期純利益', '当期純利益（連結）', '１株当たり利益']
+    account_v_bs = ['棚卸資産', '資本的支出', '期末従業員数', '受取手形・売掛金／売掛金及びその他の短期債権']
+    account_v_pl = ['販売費及び一般管理費']
+    
+    num_col = ['決算月数'] + [i + '［累計］' for i in earning_v + account_v_pl] + [i + '［３ヵ月］' for i in earning_v + account_v_pl] + account_v_bs
+    num_col = dict(zip(num_col, ["float64"] * len(num_col)))
+
+    # Instanciate Dataset class
     dataset = Dataset(file_path)
     dataset.cleaning()
     dataset.change_data_types(date_col, num_col)
+
+    
+    dataset.data["決算期"].dt.month != 3
