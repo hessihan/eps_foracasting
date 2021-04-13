@@ -15,7 +15,23 @@ Variable selection from whole large accounting datasets (might be LASSO?).
 * Creating dashboard interface using Python Dash.
 * Binary (up or down) forecast.
 * Comparing the performance of Model-based earning forecest (time-series, NN) with analysts and managers' forcast. (the problem is those forecasts are not quarterly recorded)
+
 ## Model
 
 ---
+
+* Random Walk (benchmark)
+* SARIMA (classic statistical time series model)
+* Vanila Neural Network
+* Long Short-Term Memory: LSTM
+
+* "Univariate" or "Multivariate".
+* "Expanding window" or "Rolling window" or just "No window, just test with one training"
+
+## Data Sources
+
+---
+
+* Nikkei NEEDS FinancialQUEST (small request limit)
+* FSA EDINET (optionnal, only recent 5 years data recorded)
 

@@ -478,3 +478,16 @@ SARIMAに勝った負けたで終わるのは避けるべき。
 De-trending, de-seasonizing, standardizing will make better predictions.
 https://m.youtube.com/watch?v=svNwWSgz2NM&feature=youtu.be
 どうやってoriginal valueに戻す?
+
+2021/04/13
+累計値の欠損は、3ヶ月で埋めて、累計から四半期に変換。
+累計から四半期変換したデータと3ヶ月データで違うところもあるが(理由不明)、3ヶ月データは欠損が多いため、
+3ヶ月で欠損処理した累計から四半期変換したデータを用いる。
+一応データクリーニングは完了
+資本的支出はinterpolateで埋めちゃったけど、cumulativeかseasonalityがあるに違いない。(BSだから資産、cumulativeではないはず?)
+standardizationはまだ。資本的支出はdeseasonalizeしてからinterpolateするべき?
+
+Question: 欠損値処理はstandardizeしてからか、standardizeは欠損値処理してからじゃないとうまくできないのか?
+
+次回はとりあえずstandardizaせずレベルのままモデルにX入れてみる。
+
