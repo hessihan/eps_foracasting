@@ -485,9 +485,32 @@ https://m.youtube.com/watch?v=svNwWSgz2NM&feature=youtu.be
 3ヶ月で欠損処理した累計から四半期変換したデータを用いる。
 一応データクリーニングは完了
 資本的支出はinterpolateで埋めちゃったけど、cumulativeかseasonalityがあるに違いない。(BSだから資産、cumulativeではないはず?)
-standardizationはまだ。資本的支出はdeseasonalizeしてからinterpolateするべき?
+stationalize, normalize(scaling)はまだ。資本的支出はdeseasonalizeしてからinterpolateするべき?
 
-Question: 欠損値処理はstandardizeしてからか、standardizeは欠損値処理してからじゃないとうまくできないのか?
+Question: 欠損値処理はstationalize, normalizeしてからか、stationalize, normalizeは欠損値処理してからじゃないとうまくできないのか?
 
-次回はとりあえずstandardizaせずレベルのままモデルにX入れてみる。
+次回はとりあえずstationalize, normalizeせずレベルのままモデルにX入れてみる。
 
+2021/0414
+前回2007年からだったけど、今回は2002年からのデータ。72 periodになってる。
+univariateを推定しなおし、BR >> MLP, G >> F, RW の結果に。(MLPはwindowなし。)
+
+	random walk	SARIMA: BR	SARIMA: G	SARIMA: F	MLP
+MAE	87.295625	66.077148	74.753328	88.923733	75.874780
+MAPE	1.207818	0.689469	1.218414	1.300829	0.749869
+MSE	12151.358681	7104.267580	11791.377932	14700.944361	8567.061686
+RMSE	110.233201	84.286817	108.588111	121.247451	92.558423
+RMSPE	3.113151	1.466094	3.329172	3.343005	1.575647
+
+NNの結果はランダムなので、seedで固定。
+
+時系列モデルの多変量版
+SARIMAX(逆の因果無し) or VAR(y, xお互いに関係)?
+vector autoregressionの方がよさそう?
+
+どちらにしろ、今の状態だとwindowがSARIMAに固定してあるから、他のモデル(SARIMAX, VAR, MLP, LSTM)に応用が利かない。
+
+次回
+* モデルをインプットとするようなwindow()関数を作る。
+* X を入れた予測
+* NN の window

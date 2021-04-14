@@ -1,83 +1,40 @@
-import datetime
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from matplotlib.dates import DateFormatter
+# Execute Data Preprocessing
+from modules.dataset import Dataset
 
-import warnings
+if __name__ == "__main__":
+    # Define parameters preliminary
+    file_path = "data/raw/FINFSTA_TOYOTA_199703_202004.csv"
+    
+    earning_v = ['売上高・営業収益', '売上総利益', '営業利益', '経常利益／税金等調整前当期純利益', '当期純利益（連結）', '１株当たり利益']
+    account_v_bs = ['棚卸資産', '資本的支出', '期末従業員数', '受取手形・売掛金／売掛金及びその他の短期債権']
+    account_v_pl = ['販売費及び一般管理費']
+    
+    num_col = ['決算月数'] + [i + '［累計］' for i in earning_v + account_v_pl] + [i + '［３ヵ月］' for i in earning_v + account_v_pl] + account_v_bs
+    num_col = dict(zip(num_col, ["float64"] * len(num_col)))
+    
+    date_col = ['決算期', '決算発表日']
+    
+    
+    # Instanciate Dataset class
+    dataset = Dataset(file_path)
+    dataset.cleaning()
+    dataset.change_data_types(date_col, num_col)
 
-warnings.simplefilter("ignore")
+    # fillnan with "itp" method columns (account_v_bs)
+    dataset.fill_nan(account_v_bs, method="itp")
 
-# y and X
+    # cut half-year periods
+    dataset.cut(cut_period=(0, 11))
 
-# read raw csv
-financial = pd.read_csv("data/raw/FINFSTA_TOYOTA_199703_202004.csv", header=0)
-analyst_forecast = pd.read_csv("data/raw/EARNING_TOYOTA_199703_202004.csv", header=0)
-manager_forecast = pd.read_csv("data/raw/FINHISA_TOYOTA_199703_202003.csv", header=0)
+    # generate quarterly data by subtracting cumsum
+    dataset.to_quarter(earning_v + account_v_pl)
 
-# cleaning data
-for df in [financial, analyst_forecast, manager_forecast]:
-    df.drop([0, 1], axis=0, inplace=True)
-    df.reset_index(drop=True, inplace=True)
-    df.replace("-", np.nan, inplace=True)
+    # fillnan with "itp" method columns (earning_v + account_v_pl)
+    ####
 
-# selecting columns
-eps_record = financial[[
-    '決算期', '決算月数', '連結基準フラグ', '決算種別フラグ', '決算発表日', 
-    '１株当たり利益［累計］', '１株当たり利益［３ヵ月］'
-]]
-
-# to datetime
-for date_col in ["決算期", '決算発表日']:
-    eps_record[date_col] = pd.to_datetime(eps_record[date_col])
-
-# to float
-eps_record = eps_record.astype({
-    '決算月数': 'int8', '連結基準フラグ': 'int8', '決算種別フラグ': 'int8',
-    '１株当たり利益［累計］': 'float64', '１株当たり利益［３ヵ月］': 'float64'
-})
-#print(eps_record.dtypes)
-
-# plot eps record
-fig = plt.figure(figsize=(16*2, 9))
-ax = fig.add_subplot(111)
-
-ax.plot(eps_record["決算期"], eps_record["１株当たり利益［累計］"], marker="o", label="annual EPS")
-ax.plot(eps_record["決算期"], eps_record["１株当たり利益［３ヵ月］"], marker="o", label="quaterly EPS")
-
-ax.set_xticks(eps_record["決算期"])
-ax.xaxis.set_major_formatter(DateFormatter('%Y-%m'))
-ax.tick_params(axis="x", rotation=90)
-ax.legend()
-plt.show()
-
-# extract data 2007/06 ~
-start_period = eps_record[eps_record["決算期"] == "2007-06-01"].index.values[0]
-ts = eps_record.loc[start_period:]
-ts.reset_index(drop=True, inplace=True)
-
-# fill nan for 3 months data
-nan_index = ts["１株当たり利益［３ヵ月］"][ts["１株当たり利益［３ヵ月］"].isnull()].index.values[0]
-ts["１株当たり利益［３ヵ月］"][ts["１株当たり利益［３ヵ月］"].isnull()] = ts.loc[nan_index]["１株当たり利益［累計］"] - ts.loc[nan_index - 1]["１株当たり利益［累計］"]
-
-# Export cleaned data
-ts.to_csv("data/cleaned/sample_ts.csv")
-
-# Analyst and manager's earning forecast data
-
-# 日本経済新聞社予想
-anl_eps = analyst_forecast[['決算期', '決算月数', '本決算・中間決算フラグ', '実績・予想フラグ', '連結基準フラグ', 'データ更新日', 
-                            '一株利益']]
-# EPS予測がNaNなら行削除
-anl_eps = anl_eps[anl_eps["一株利益"].notna()]
-
-# save as csv
-anl_eps.to_csv("data/cleaned/anl.csv")
-
-# 業績予想(会社発表)
-mng_eps = manager_forecast[['決算期', '決算月数', '決算種別フラグ', '連結基準フラグ', '実績・予想フラグ', '資料公表日／決算発表日', '最新予想フラグ', 
-                            '１株当たり利益＜累計＞']]
-mng_eps = mng_eps[mng_eps["１株当たり利益＜累計＞"].notna()]
-
-# save as csv
-mng_eps.to_csv("data/cleaned/mng.csv")
+    # select columns
+    col = date_col + ["決算月数"] + [i for i in earning_v + account_v_pl] + account_v_bs
+    dataset.extract(col)
+    
+    # output dataset
+    dataset.data.to_csv("./data/cleaned/dataset.csv")

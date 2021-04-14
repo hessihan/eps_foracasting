@@ -11,8 +11,8 @@ import torch
 import math
 import pandas as pd
 
-# Define nn.Module subclass: FFNN
-class FFNN(torch.nn.Module):
+# Define nn.Module subclass: MLP
+class MLP(torch.nn.Module):
     """
     a three-layer feedforward network with an identify
     transfer function in the output unit and logistic functions in the middle-layer
@@ -23,7 +23,7 @@ class FFNN(torch.nn.Module):
         """
         Instantiate model layers.
         """
-        super(FFNN, self).__init__()
+        super(MLP, self).__init__()
         # Fully connected layer
         # https://towardsdatascience.com/building-neural-network-using-pytorch-84f6e75f9a
         # Inputs to hidden layer, affine operation: y = Wx + b
@@ -90,17 +90,17 @@ if __name__ == "__main__":
     print(output.size())
     #######################################################################################
 
-    # Construct ffnn
-    ffnn = FFNN()
-    print(ffnn)
-    # Access to ffnn weights
-    print(list(ffnn.parameters())) # iteretor, just for printing
-    print(ffnn.hidden.weight.size(), ffnn.hidden.bias.size()) # editable ?
-    print(ffnn.output.weight.size(), ffnn.output.bias.size())
+    # Construct mlp
+    mlp = MLP()
+    print(mlp)
+    # Access to mlp weights
+    print(list(mlp.parameters())) # iteretor, just for printing
+    print(mlp.hidden.weight.size(), mlp.hidden.bias.size()) # editable ?
+    print(mlp.output.weight.size(), mlp.output.bias.size())
 
     # Construct loss and optimizer
     criterion = torch.nn.MSELoss(reduction="mean")
-    optimizer = torch.optim.Adam(ffnn.parameters(), lr=1e-2) # link to ffnn parameters (lr should be 1e-2)
+    optimizer = torch.optim.Adam(mlp.parameters(), lr=1e-2) # link to mlp parameters (lr should be 1e-2)
 
     # Learning iteration
     import matplotlib.pyplot as plt
@@ -110,12 +110,12 @@ if __name__ == "__main__":
     num_iteration = 20000
     for step in range(num_iteration):
         # Forward pass
-        y_pred = ffnn(x)
+        y_pred = mlp(x)
         # let y_pred be the same size as y
         y_pred = y_pred.squeeze(1)
 
         # Compute loss
-        loss = criterion(y_pred, y) # link to ffnn output
+        loss = criterion(y_pred, y) # link to mlp output
         if step % 1000 == 999:
             print(f"step {step}: loss {loss.item()}")
             ax.plot(x_label, y_pred.detach().numpy(), label="step: " + str(step))
