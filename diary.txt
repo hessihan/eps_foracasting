@@ -514,3 +514,7 @@ vector autoregressionの方がよさそう?
 * モデルをインプットとするようなwindow()関数を作る。
 * X を入れた予測
 * NN の window
+
+2021/04/17
+https://drivendata.github.io/cookiecutter-data-science/#requirements
+リポジトリの構造、デザインをわかりやすく改良。

@@ -1,5 +1,5 @@
 # Execute Data Preprocessing
-from modules.dataset import Dataset
+from src.data.build_dataset import Dataset
 
 if __name__ == "__main__":
     # Define parameters preliminary
@@ -37,4 +37,4 @@ if __name__ == "__main__":
     dataset.extract(col)
     
     # output dataset
-    dataset.data.to_csv("./data/cleaned/dataset.csv")
+    dataset.data.to_csv("./data/processed/dataset.csv")
