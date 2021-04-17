@@ -1,6 +1,6 @@
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
 /.vscode
-*/__pycache__/*
+**/__pycache__/
 /_trash
 /diary.txt
