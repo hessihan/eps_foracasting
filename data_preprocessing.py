@@ -1,5 +1,5 @@
 # Execute Data Preprocessing
-from src.data.build_dataset import Dataset
+from src.data.buid_dataset import Dataset
 
 if __name__ == "__main__":
     # Define parameters preliminary

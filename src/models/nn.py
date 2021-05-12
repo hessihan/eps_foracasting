@@ -54,6 +54,9 @@ class LSTM(torch.nn.Module):
         "Instantiate model layers."
         super(LSTM, self).__init__()
 
+# save model
+# https://pytorch.org/tutorials/beginner/saving_loading_models.html
+        
 # Debugging
 if __name__ == "__main__":
     

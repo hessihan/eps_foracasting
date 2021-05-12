@@ -21,8 +21,8 @@ Variable selection from whole large accounting datasets (might be LASSO?).
 ---
 
 * Random Walk (benchmark)
-* SARIMA (classic statistical time series model)
-* Vanila Neural Network
+* SARIMAs
+* Multi-layer Perceptron (MLP) 
 * Long Short-Term Memory: LSTM
 
 * "Univariate" or "Multivariate".
