@@ -1,6 +1,7 @@
 # this is a kind of main execution file.
 # Call SARIMA.py and nn.py, using moving_window to predict and output fitted model list and y_hat vectors.
 # save trained models as pickle file.
+
 if __name__ == "__main__":
     
     # import external libraries
@@ -13,17 +14,19 @@ if __name__ == "__main__":
     # import internal modules
     sys.path.insert(1, '../')
     from models.sarima_multivariate import SARIMAModelList
-    from utils.ts_split import train_test_split
-
+    from utils.data_editor import train_test_split
+    
+    # Prepare Data
+    
     # read processed data
     df = pd.read_csv("../../data/processed/dataset.csv")
     
-    # column names
+    # save column names
     earning_v = df.columns[4: 10].values
     account_v_bs = df.columns[11:].values
     account_v_pl = df.columns[10:11].values
     
-    # y
+    # y: "１株当たり利益［３ヵ月］"
     y = df[earning_v[-1]]
     
     # x 
@@ -40,6 +43,7 @@ if __name__ == "__main__":
     # Fit SARIMA
     
     # Brown & Rozeff
+    
     # call SARIMAModelList class
     sarima_br = SARIMAModelList(order=(1, 0, 0), 
                           seasonal_order=(0, 1, 1, 4), 
@@ -53,14 +57,15 @@ if __name__ == "__main__":
     y_hat_sarima_br.name = "y_hat_sarima_br"
     
     # save y_hat as csv file
-    y_hat_sarima_br.to_csv('../../assets/y_hats/y_hat_sarima_br.csv')
+    y_hat_sarima_br.to_csv('../../assets/y_hats/y_hat_sarima_br_mv.csv')
     
     # save the class object as pickle file
-    pickle.dump(sarima_br, open('../../assets/trained_models/sarima_br.pkl', 'wb'))
+    pickle.dump(sarima_br, open('../../assets/trained_models/sarima_br_mv.pkl', 'wb'))
     # load pickle file
     #loaded_model = pickle.load(open('../../assets/trained_models/sarima_br.pkl', 'rb'))
     
     # Griffin
+    
     sarima_g = SARIMAModelList(order=(0, 1, 1), 
                           seasonal_order=(0, 1, 1, 4), 
                           y_prim_train=y_train,
@@ -71,10 +76,11 @@ if __name__ == "__main__":
                          )
     y_hat_sarima_g = sarima_g.fit_rolling_window(len(y_train))
     y_hat_sarima_g.name = "y_hat_sarima_g"
-    y_hat_sarima_g.to_csv('../../assets/y_hats/y_hat_sarima_g.csv')
-    pickle.dump(sarima_g, open('../../assets/trained_models/sarima_g.pkl', 'wb'))
+    y_hat_sarima_g.to_csv('../../assets/y_hats/y_hat_sarima_g_mv.csv')
+    pickle.dump(sarima_g, open('../../assets/trained_models/sarima_g_mv.pkl', 'wb'))
     
     # Foster
+    
     sarima_f = SARIMAModelList(order=(1, 0, 0), 
                           seasonal_order=(0, 1, 0, 4), 
                           y_prim_train=y_train,
@@ -85,5 +91,5 @@ if __name__ == "__main__":
                          )
     y_hat_sarima_f = sarima_f.fit_rolling_window(len(y_train))
     y_hat_sarima_f.name = "y_hat_sarima_f"
-    y_hat_sarima_f.to_csv('../../assets/y_hats/y_hat_sarima_f.csv')
-    pickle.dump(sarima_f, open('../../assets/trained_models/sarima_f.pkl', 'wb'))
+    y_hat_sarima_f.to_csv('../../assets/y_hats/y_hat_sarima_f_mv.csv')
+    pickle.dump(sarima_f, open('../../assets/trained_models/sarima_f_mv.pkl', 'wb'))

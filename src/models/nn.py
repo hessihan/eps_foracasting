@@ -4,6 +4,7 @@
 # https://qiita.com/hoolly728/items/c398afd5a21669b8ce0f
 # https://hilinker.hatenablog.com/entry/2018/06/23/204910
 # https://dajiro.com/entry/2020/05/06/183255
+# https://pytorch.org/tutorials/beginner/nlp/sequence_models_tutorial.html
 
 # Pytorch Neural Networks Scripting
 
@@ -19,15 +20,15 @@ class MLP(torch.nn.Module):
     units can approximate any continuous functions arbitrarily well, given sufficiently
     many middle-layer units.
     """
-    def __init__(self, input_features=4, hidden_units=100, output_units=1):
+    def __init__(self, input_features=None, hidden_units=100, output_units=1):
         """
         Instantiate model layers.
         """
-        super(MLP, self).__init__()
+        super().__init__()
         # Fully connected layer
         # https://towardsdatascience.com/building-neural-network-using-pytorch-84f6e75f9a
         # Inputs to hidden layer, affine operation: y = Wx + b
-        # How many units should be in hidden layers?
+        # How many units should be in hidden layers? 100 units for now. 
         self.hidden = torch.nn.Linear(input_features, hidden_units) 
         # hidden to Output layer, 1 units
         self.output = torch.nn.Linear(hidden_units, output_units)
@@ -63,7 +64,7 @@ if __name__ == "__main__":
     # Reading data, convert pandas.DataFrame to torch.tensor
     ts = pd.read_csv("data/cleaned/sample_ts.csv")
 
-    # y, x (lag 4)
+    # y, x (lag 4 for now)
     y = ts["１株当たり利益［３ヵ月］"].drop([0, 1, 2, 3], axis=0)
     y = y.reset_index(drop=True)
 

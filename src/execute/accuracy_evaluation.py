@@ -67,4 +67,5 @@ if __name__ == "__main__":
     y_hats = dict(zip(method_name, y_hats))
     
     a = accuracy_table(y_test, y_hats, indicators)
+    a.to_csv("../../assets/accuracy_table.csv")
     print(a)
