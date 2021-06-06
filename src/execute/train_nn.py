@@ -1,5 +1,4 @@
 # this is some sort of main execution file.
-# 
 
 if __name__ == "__main__":
     
@@ -13,9 +12,13 @@ if __name__ == "__main__":
     # import internal modules
     sys.path.insert(1, '../')
     from models.nn import MLP
-    from utils.data_editor import train_test_split, lag
+    from utils.data_editor import lag, train_test_split
     
-    # Prepare Data
+    # set seeds for reproductibility
+    np.random.seed(0)
+    torch.manual_seed(0)
+    
+    # Prepare Data --> 関数
     
     # read processed data
     df = pd.read_csv("../../data/processed/dataset.csv")
@@ -32,44 +35,50 @@ if __name__ == "__main__":
     #     '販売費及び一般管理費']
     x = df[np.append(account_v_bs, account_v_pl)]
     
-    # time series train test split (4/5) : (1/5), yearly bases
-    y_train, y_test = train_test_split(y, ratio=(4,1))
-    x_train, x_test = train_test_split(x, ratio=(4,1))
-    
-    # save y_test as csv for calculating accuracy indicators
-    # y_test.name = "y_test"
-    # y_test.to_csv('../../assets/y_hats/y_test.csv')
-    
-    # Unlike SARIMA package, NN needs to prepare lagged inputs if needed.
+    # Unlike statsmodel SARIMA package, NN needs to prepare lagged inputs manually if needed.
     # y_lag and x_lag (lag 4 for now)
     num_lag = 4
-    y_train_lag = lag(y_train, num_lag, drop_nan=False, reset_index=False)
-    x_train_lag = lag(x_train, num_lag, drop_nan=False, reset_index=False)
+    y_lag = lag(y, num_lag, drop_nan=False, reset_index=False)
+    x_lag = lag(x, num_lag, drop_nan=False, reset_index=False)
 
-    # Define overall target (y_train) and features (y_train_lag and x_train_lag)
-    target = y_train
-    feature = pd.concat([y_train_lag, x_train_lag], axis=1)
-    feature = feature.dropna(axis=0)
-    target = target[feature.index]
+    # Redefine data name as target (y) and feature (y_lag and x_lag)
+    target = y
+    feature = pd.concat([y_lag, x_lag], axis=1)
     
-    date = df["決算期"][target.index] # for plotting !!!! <-- 改善の余地あり, targetはtensorになってindexがなくなるから
+    # time series train test split (4/5) : (1/5), yearly bases
+    target_train, target_test = train_test_split(target, ratio=(4,1))
+    feature_train, feature_test = train_test_split(feature, ratio=(4,1))
+    
+    # drop nan caused by lag()
+    feature_train = feature_train.dropna(axis=0)
+    target_train = target_train[feature_train.index]
+    
+    train_date = df["決算期"][target_train.index] # for plotting !!!! <-- 改善の余地あり, targetはtensorになってindexがなくなるから
     
     # setting torch
     dtype = torch.float # double float problem in layer 
     device = torch.device("cpu")
     
     # Make data to torch.tensor
-    target = torch.tensor(target.values, dtype=dtype)
-    feature = torch.tensor(feature.values, dtype=dtype)
+    target_train = torch.tensor(target_train.values, dtype=dtype)
+    feature_train = torch.tensor(feature_train.values, dtype=dtype)
+    target_test = torch.tensor(target_test.values, dtype=dtype)
+    feature_test = torch.tensor(feature_test.values, dtype=dtype)
     
     # Fit NN
     
     # MLP
     
     # Construct MLP class
-    mlp = MLP(input_features=feature.size()[1], hidden_units=100, output_units=1)
+    mlp = MLP(input_features=feature_train.size()[1], hidden_units=100, output_units=1)
     print(mlp)
-    
+
+    ##################################################################################
+    # Save the pre_trained model
+    PATH = '../../assets/trained_models/MLP_mv_pretrained.pth'
+    torch.save(mlp.state_dict(), PATH)
+    ##################################################################################
+
     # Access to mlp weights
     print(list(mlp.parameters())) # iteretor, just for printing
     print(mlp.hidden.weight.size(), mlp.hidden.bias.size()) # editable ?
@@ -83,21 +92,20 @@ if __name__ == "__main__":
     import matplotlib.pyplot as plt
     
     fig, ax = plt.subplots(figsize=(16, 9))
-    ax.plot(date, target.detach().numpy(), label="true")
+    ax.plot(train_date, target_train.detach().numpy(), label="true")
     
-    torch.manual_seed(0)
     num_iteration = 20000
     for step in range(num_iteration):
         # Forward pass
-        target_pred = mlp(feature)
+        target_pred = mlp(feature_train)
         # let y_pred be the same size as y
         target_pred = target_pred.squeeze(1)
 
         # Compute loss
-        loss = criterion(target_pred, target) # link to mlp output
+        loss = criterion(target_pred, target_train) # link to mlp output
         if step % 1000 == 999:
             print(f"step {step}: loss {loss.item()}")
-            ax.plot(date, target_pred.detach().numpy(), label="step: " + str(step))
+            ax.plot(train_date, target_pred.detach().numpy(), label="step: " + str(step))
 
         # Zero gradients, perform backward pass, and update weights
         optimizer.zero_grad()
@@ -107,10 +115,12 @@ if __name__ == "__main__":
     ax.legend()
     plt.show()
     
-    # predict y_hat
-    y_hat_mlp_mv = mlp(x_test_tensor).squeeze().detach().numpy()
-    y_hat_mlp_mv
+    # predict y_hat (target_hat)
+    y_hat_mlp_mv = mlp(feature_test).squeeze().detach().numpy()
+    y_hat_mlp_mv = pd.Series(y_hat_mlp_mv)
+    y_hat_mlp_mv.name = 'y_hat_mlp_mv'
+    y_hat_mlp_mv.to_csv('../../assets/y_hats/y_hat_mlp_mv.csv')
     
-    # Save the trained model
-    PATH = './lstm.pth'
-    torch.save(model.state_dict(), PATH)
+    # Save the pre_trained model
+    PATH = '../../assets/trained_models/MLP_mv.pth'
+    torch.save(mlp.state_dict(), PATH)

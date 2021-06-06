@@ -1,4 +1,4 @@
-# Evaluate predicted value (y_hat) for each methods.
+# Evaluate predicted value (y_hats) for each methods.
 
 # build forecasting accuracy indicators table
 def accuracy_table(y_test, y_hats, indicators):
@@ -54,6 +54,7 @@ if __name__ == "__main__":
     y_hat_sarima_br = np.loadtxt("../../assets/y_hats/y_hat_sarima_br.csv", delimiter=',', skiprows=1, usecols=1)
     y_hat_sarima_g = np.loadtxt("../../assets/y_hats/y_hat_sarima_g.csv", delimiter=',', skiprows=1, usecols=1)
     y_hat_sarima_f = np.loadtxt("../../assets/y_hats/y_hat_sarima_f.csv", delimiter=',', skiprows=1, usecols=1)
+    y_hat_mlp_mv = np.loadtxt("../../assets/y_hats/y_hat_mlp_mv.csv", delimiter=',', skiprows=1, usecols=1)
     
     # cumpute forecast accuracy indicators
     # accuracy function dict
@@ -62,10 +63,10 @@ if __name__ == "__main__":
     indicators = dict(zip(ind_name, indicators))
     
     # y_hats dictionary
-    method_name = ["SARIMA: BR", "SARIMA: G", "SARIMA: F"]
-    y_hats = [y_hat_sarima_br, y_hat_sarima_g, y_hat_sarima_f]
+    method_name = ["SARIMA: BR", "SARIMA: G", "SARIMA: F", "MLP"]
+    y_hats = [y_hat_sarima_br, y_hat_sarima_g, y_hat_sarima_f, y_hat_mlp_mv]
     y_hats = dict(zip(method_name, y_hats))
     
     a = accuracy_table(y_test, y_hats, indicators)
-    a.to_csv("../../assets/accuracy_table.csv")
+    a.to_csv("../../assets/accuracy_table_mv.csv")
     print(a)
