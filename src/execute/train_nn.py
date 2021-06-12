@@ -69,32 +69,40 @@ if __name__ == "__main__":
     
     # MLP
     
+    ### ! Hyper-Parameter ! ##########################################################
+    hidden_units = 1000
+    learning_rate = 1e-3
+    num_iteration = 20000
+    # Optimizer
+    
+    model_name = 'mlp_mv_hid1k_lr1en3_iter20k'
+    ##################################################################################
+    
     # Construct MLP class
-    mlp = MLP(input_features=feature_train.size()[1], hidden_units=100, output_units=1)
-    print(mlp)
+        
+    mlp = MLP(input_features=feature_train.size()[1], hidden_units=hidden_units, output_units=1)
+    # print(mlp)
 
-    ##################################################################################
     # Save the pre_trained model
-    PATH = '../../assets/trained_models/MLP_mv_pretrained.pth'
-    torch.save(mlp.state_dict(), PATH)
-    ##################################################################################
+    # PATH = ''
+    # torch.save(mlp.state_dict(), PATH)
 
     # Access to mlp weights
-    print(list(mlp.parameters())) # iteretor, just for printing
-    print(mlp.hidden.weight.size(), mlp.hidden.bias.size()) # editable ?
-    print(mlp.output.weight.size(), mlp.output.bias.size())
+    # print(list(mlp.parameters())) # iteretor, just for printing
+    # print(mlp.hidden.weight.size(), mlp.hidden.bias.size()) # editable ?
+    # print(mlp.output.weight.size(), mlp.output.bias.size())
 
     # Construct loss and optimizer
     criterion = torch.nn.MSELoss(reduction="mean")
-    optimizer = torch.optim.Adam(mlp.parameters(), lr=1e-2) # link to mlp parameters (lr should be 1e-2)
+    optimizer = torch.optim.Adam(mlp.parameters(), lr=learning_rate) # link to mlp parameters (lr should be 1e-2)
 
     # Train the model: Learning iteration
+    
     import matplotlib.pyplot as plt
     
     fig, ax = plt.subplots(figsize=(16, 9))
     ax.plot(train_date, target_train.detach().numpy(), label="true")
     
-    num_iteration = 20000
     for step in range(num_iteration):
         # Forward pass
         target_pred = mlp(feature_train)
@@ -113,14 +121,16 @@ if __name__ == "__main__":
         optimizer.step()
     
     ax.legend()
+    fig.savefig("../../assets/y_hats/train_process_" + model_name + ".png", format="png", dpi=300)
     plt.show()
+    
     
     # predict y_hat (target_hat)
     y_hat_mlp_mv = mlp(feature_test).squeeze().detach().numpy()
     y_hat_mlp_mv = pd.Series(y_hat_mlp_mv)
     y_hat_mlp_mv.name = 'y_hat_mlp_mv'
-    y_hat_mlp_mv.to_csv('../../assets/y_hats/y_hat_mlp_mv.csv')
+    y_hat_mlp_mv.to_csv('../../assets/y_hats/y_hat_' + model_name + '.csv')
     
     # Save the pre_trained model
-    PATH = '../../assets/trained_models/MLP_mv.pth'
+    PATH = '../../assets/trained_models/' + model_name + '.pth'
     torch.save(mlp.state_dict(), PATH)
