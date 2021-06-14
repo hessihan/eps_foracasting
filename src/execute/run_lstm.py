@@ -1,4 +1,6 @@
+# Run NN-LSTM
 # this is some sort of main execution file.
+# https://github.com/yunjey/pytorch-tutorial
 
 if __name__ == "__main__":
     
@@ -64,10 +66,8 @@ if __name__ == "__main__":
     feature_train = torch.tensor(feature_train.values, dtype=dtype)
     target_test = torch.tensor(target_test.values, dtype=dtype)
     feature_test = torch.tensor(feature_test.values, dtype=dtype)
-    
-    # Fit NN
-    
-    # MLP
+
+    # Train MLP
     
     ### ! Hyper-Parameter ! ##########################################################
     hidden_units = 1000

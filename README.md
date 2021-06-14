@@ -35,3 +35,9 @@ Variable selection from whole large accounting datasets (might be LASSO?).
 * Nikkei NEEDS FinancialQUEST (small request limit)
 * FSA EDINET (optionnal, only recent 5 years data recorded)
 
+## Getting Started
+```
+git clone https://github.com/hessihan/eps_foracasting
+cd PATH_TO_EXECUTE_FILE
+python EXECUTE_FILE.py
+```
