@@ -72,8 +72,9 @@ if __name__ == "__main__":
     ### ! Hyper-Parameter ! ##########################################################
     hidden_units = 1000
     learning_rate = 1e-3
-    num_iteration = 20000
+    num_epoch = 20000
     # Optimizer
+    
     
     model_name = 'mlp_mv_hid1k_lr1en3_iter20k'
     ##################################################################################

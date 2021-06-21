@@ -38,6 +38,8 @@ Variable selection from whole large accounting datasets (might be LASSO?).
 ## Getting Started
 ```
 git clone https://github.com/hessihan/eps_foracasting
-cd PATH_TO_EXECUTE_FILE
-python EXECUTE_FILE.py
+python dash/app.py
+
+#cd PATH_TO_EXECUTE_FILE
+#python EXECUTE_FILE.py
 ```
