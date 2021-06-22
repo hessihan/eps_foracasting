@@ -52,20 +52,17 @@ if __name__ == "__main__":
     y_test = np.loadtxt("../../assets/y_hats/y_test.csv", delimiter=',', skiprows=1, usecols=1)
     
     # read y_hat csv
-    y_hats = [
-        np.loadtxt("../../assets/y_hats/y_hat_sarima_br.csv", delimiter=',', skiprows=1, usecols=1),
-        np.loadtxt("../../assets/y_hats/y_hat_sarima_g.csv", delimiter=',', skiprows=1, usecols=1),
-        np.loadtxt("../../assets/y_hats/y_hat_sarima_f.csv", delimiter=',', skiprows=1, usecols=1),
-        np.loadtxt("../../assets/y_hats/y_hat_mlp_mv_hid100_lr1en2_iter20k.csv", delimiter=',', skiprows=1, usecols=1),
-        np.loadtxt("../../assets/y_hats/y_hat_mlp_mv_hid100_lr1en3_iter20k.csv", delimiter=',', skiprows=1, usecols=1),
-        np.loadtxt("../../assets/y_hats/y_hat_mlp_mv_hid100_lr1en5_iter20k.csv", delimiter=',', skiprows=1, usecols=1),
-        np.loadtxt("../../assets/y_hats/y_hat_mlp_mv_hid200_lr1en3_iter20k.csv", delimiter=',', skiprows=1, usecols=1),
-        np.loadtxt("../../assets/y_hats/y_hat_mlp_mv_hid1k_lr1en3_iter20k.csv", delimiter=',', skiprows=1, usecols=1),
-        np.loadtxt("../../assets/y_hats/y_hat_lstm_mv_hid100_lr0.005_epoch1000.csv", delimiter=',', skiprows=1, usecols=1),
-        np.loadtxt("../../assets/y_hats/y_hat_lstm_mv_hid100_lr0.001_epoch1000.csv", delimiter=',', skiprows=1, usecols=1),
-        np.loadtxt("../../assets/y_hats/y_hat_lstm_mv_hid200_lr0.001_epoch1000.csv", delimiter=',', skiprows=1, usecols=1),
-        np.loadtxt("../../assets/y_hats/y_hat_lstm_mv_hid500_lr0.001_epoch1000.csv", delimiter=',', skiprows=1, usecols=1),
-    ]
+    y_hat_sarima_br = np.loadtxt("../../assets/y_hats/y_hat_sarima_br.csv", delimiter=',', skiprows=1, usecols=1)
+    y_hat_sarima_g = np.loadtxt("../../assets/y_hats/y_hat_sarima_g.csv", delimiter=',', skiprows=1, usecols=1)
+    y_hat_sarima_f = np.loadtxt("../../assets/y_hats/y_hat_sarima_f.csv", delimiter=',', skiprows=1, usecols=1)
+    y_hat_mlp_mv_hid100_lr1en2_iter20k = np.loadtxt("../../assets/y_hats/y_hat_mlp_mv_hid100_lr1en2_iter20k.csv", delimiter=',', skiprows=1, usecols=1)
+    y_hat_mlp_mv_hid100_lr1en3_iter20k = np.loadtxt("../../assets/y_hats/y_hat_mlp_mv_hid100_lr1en3_iter20k.csv", delimiter=',', skiprows=1, usecols=1)
+    y_hat_mlp_mv_hid100_lr1en5_iter20k = np.loadtxt("../../assets/y_hats/y_hat_mlp_mv_hid100_lr1en5_iter20k.csv", delimiter=',', skiprows=1, usecols=1)
+    y_hat_mlp_mv_hid200_lr1en3_iter20k = np.loadtxt("../../assets/y_hats/y_hat_mlp_mv_hid200_lr1en3_iter20k.csv", delimiter=',', skiprows=1, usecols=1)
+    y_hat_mlp_mv_hid1k_lr1en3_iter20k = np.loadtxt("../../assets/y_hats/y_hat_mlp_mv_hid1k_lr1en3_iter20k.csv", delimiter=',', skiprows=1, usecols=1)
+    y_hat_lstm_mv_hid100_lr0005_epoch1000 = np.loadtxt("../../assets/y_hats/y_hat_lstm_mv_hid100_lr0.005_epoch1000.csv", delimiter=',', skiprows=1, usecols=1)
+    y_hat_lstm_mv_hid100_lr0001_epoch1000 = np.loadtxt("../../assets/y_hats/y_hat_lstm_mv_hid100_lr0.001_epoch1000.csv", delimiter=',', skiprows=1, usecols=1)
+    
     # cumpute forecast accuracy indicators
     # accuracy function dict
     ind_name = ["MAE", "MAPE", "MSE", "RMSE", "RMSPE"]
@@ -81,10 +78,17 @@ if __name__ == "__main__":
                    "MLP: hid 1k, lr 1e-3, step 20k",
                    "LSTM hid 100, lr 0.005, epoch 1k",
                    "LSTM hid 100, lr 0.001, epoch 1k",
-                   "LSTM hid 200, lr 0.001, epoch 1k",
-                   "LSTM hid 500, lr 0.001, epoch 1k",
                   ]
-
+    y_hats = [
+        y_hat_sarima_br, y_hat_sarima_g, y_hat_sarima_f, 
+        y_hat_mlp_mv_hid100_lr1en2_iter20k, 
+        y_hat_mlp_mv_hid100_lr1en3_iter20k, 
+        y_hat_mlp_mv_hid100_lr1en5_iter20k,
+        y_hat_mlp_mv_hid200_lr1en3_iter20k,
+        y_hat_mlp_mv_hid1k_lr1en3_iter20k,
+        y_hat_lstm_mv_hid100_lr0005_epoch1000,
+        y_hat_lstm_mv_hid100_lr0001_epoch1000
+    ]
     y_hats = dict(zip(method_name, y_hats))
     
     a = accuracy_table(y_test, y_hats, indicators)

@@ -46,7 +46,104 @@ class MLP(torch.nn.Module):
         # identify transfer function (do nothing)
         return out
 
+class LSTM(torch.nn.Module):
+    """
+    long short-term memory network.
+    Nso batches (batch_size=1), single hidden lstm layer.
         
+    Parameters
+    ----------
+    input_size : int
+        the number of features in the input layer
+    hidden_size : int
+        the number of units (neurons) in each hidden layer
+        (single hidden lstm layer for now)
+    output_size : int, Default: 1
+        the number of dimension for the output
+
+    !! value changes not recomemnded !!
+    num_layers : int, Default: 1
+        Number of recurrent layers
+        (single lstm layer for now)
+    batch_size : int, Default: 1
+        size of batches
+        (No batches for now; batch_size=1)
+    
+    Reference :
+    https://stackabuse.com/time-series-prediction-using-lstm-with-pytorch-in-python
+    https://colab.research.google.com/github/dlmacedo/starter-academic/blob/master/content/courses/deeplearning/notebooks/pytorch/Time_Series_Prediction_with_LSTM_Using_PyTorch.ipynb
+    https://curiousily.com/posts/time-series-forecasting-with-lstm-for-daily-coronavirus-cases/
+    https://github.com/yunjey/pytorch-tutorial/blob/master/tutorials/02-intermediate/recurrent_neural_network/main.py#L39-L58
+    """
+    def __init__(self, input_dim, hidden_dim, output_dim=1, num_layers=1, batch_size=1):
+        super().__init__()
+        self.input_dim = input_dim
+        self.hidden_dim = hidden_dim
+        self.output_dim = output_dim
+        self.num_layers = num_layers
+        self.batch_size = batch_size
+        
+        # the layers
+        # first layer (hidden lstm layer)
+        # https://pytorch.org/docs/stable/generated/torch.nn.LSTM.html
+        self.hidden_lstm = torch.nn.LSTM(input_size=input_dim, 
+                                         hidden_size=hidden_dim, 
+                                         # num_layers=num_layers, 
+                                         bias=True,
+                                         batch_first=True)
+        # second layer (linear output layer)
+        self.output = torch.nn.Linear(hidden_dim, 
+                                      output_dim, 
+                                      bias=True)
+
+    def forward(self, x):
+        """
+        Set initial hidden and cell states as zeros (stateless LSTM)
+        and forward propagate LSTM.
+
+        math::
+            \begin{array}{ll} \\
+                i_t = \sigma(W_{ii} x_t + b_{ii} + W_{hi} h_{t-1} + b_{hi}) \\
+                f_t = \sigma(W_{if} x_t + b_{if} + W_{hf} h_{t-1} + b_{hf}) \\
+                g_t = \tanh(W_{ig} x_t + b_{ig} + W_{hg} h_{t-1} + b_{hg}) \\
+                o_t = \sigma(W_{io} x_t + b_{io} + W_{ho} h_{t-1} + b_{ho}) \\
+                c_t = f_t \odot c_{t-1} + i_t \odot g_t \\
+                h_t = o_t \odot \tanh(c_t) \\
+            \end{array}
+        
+        :math:`h_t` is the hidden state at time `t`, :math:`c_t` is the cell state at time `t`.
+        
+        (input, (h_0, c_0)) are the inputs and
+        (output, (h_n, c_n)) are the returns of lstm layer for t = n lstm cell.
+        
+        Parameters
+        ----------
+        x: inputs; shape (seq_len, batch_size=1, input_dim)
+            tensor containing the features of the input sequence. 
+            must include batch_size(=1) dimension as dim=1
+        
+        Returns
+        -------
+        h: 
+        """
+        # reset_hidden_state (stateless LSTM)
+        # hidden state (lstm層のアクティベーション) of shape (batch, num_layers, hidden_size): batch_first=True
+        h_0 = torch.zeros(self.batch_size, 1 * self.num_layers, self.hidden_dim)
+        # cell state (メモリセル) of shape (batch, num_layers, hidden_size): batch_first=True
+        c_0 = torch.zeros(self.batch_size, 1 * self.num_layers, self.hidden_dim)
+        
+        # Forward pass
+        # input to hidden LSTM layer
+        # out: tensor of shape (batch_size, seq_length, hidden_size): batch_first=True
+        h_all_time, (h_latest, c_latest) = self.hidden_lstm(x, (h_0, c_0))
+        
+        # change shape of h_all_time from (batch, num_layers, hidden_size) to (batch*num_layers, hidden_size)
+        h = h_latest.view(-1, self.hidden_dim)
+        
+        # hidden LSTM layer to output layer
+        out = self.output(h)
+        return out
+    
 # Debugging
 if __name__ == "__main__":
     

@@ -1,6 +1,8 @@
+import numpy as np
 import pandas as pd
+import torch
 
-def train_test_split(data, ratio=(4, 1)):
+def train_test_split(data, test_size=None, ratio=(4, 1)):
     """
     Time Series train test split (maintaining time order).
     
@@ -8,6 +10,8 @@ def train_test_split(data, ratio=(4, 1)):
     ----------
     data : pd.DataFrame
         (periods, vars) shaped dataframe
+    test_size : int
+        Absolute test data size.
     ratio : tuple
         (train, test) ratio. 
         
@@ -16,9 +20,13 @@ def train_test_split(data, ratio=(4, 1)):
     train_data, test_data : pd.DataFrame
         (train_periods, vars), (test_periods, vars) shaped two dataframes
     """
-    # train test split (4/5) : (1/5), yearly bases for quaterly data
-    test_size = ratio[1] * (len(data) // sum(ratio)) + (len(data) // sum(ratio)) % ratio[0]
-    train_size = len(data) - test_size
+    if test_size != None:
+    # split test with absolute size
+        pass
+    else:
+    # train test split with ratio (4/5) : (1/5), yearly bases for quaterly data
+        test_size = ratio[1] * (len(data) // sum(ratio)) + (len(data) // sum(ratio)) % ratio[0]
+        train_size = len(data) - test_size
     
     return data.iloc[:-test_size], data.iloc[-test_size:]
 
@@ -57,26 +65,81 @@ def lag(data, lag, drop_nan=False, reset_index=False):
 
     return data_lag
 
-# create target and feature for NN
-def target_feature():
+# Unlike MLP, LSTM needs to prepare lagged inputs with seq_len matrix.
+# inherit from the torch.utils.data.Dataset class
+class TimeseriesDataset(torch.utils.data.Dataset):   
+    """
+    Torch based time-series dataset object class.
+    This object could be the input for torch.utils.data.DataLoader() when running LSTM. 
+    For MLP, you might have to squeeze the output matrix of DataLoader to vector.
+
+    Parameters
+    ----------
+    feature_lag1 : torch.tensor
+        explanatory variables matrix with only 1 lag.
+    feature_lag1 : torch.tensor
+        explained variable vector with no lag.
+    seq_len : int
+        There're so many names for this.
+            * rolling window size
+            * sliding window size
+            * training window size
+            * sequence length
+        Anyway, this is the number of window lags of inputs for one step ahead prediction.
+    
+    Reference:
+    https://stackoverflow.com/questions/57893415/pytorch-dataloader-for-time-series-task
+    """
+    def __init__(self, feature_lag1, target, seq_len=None):
+        self.feature_lag1 = feature_lag1
+        self.target = target
+        self.seq_len = seq_len
+
+    def __len__(self):
+        return self.feature_lag1.__len__() - (self.seq_len-1)
+
+    def __getitem__(self, index):
+        return (self.feature_lag1[index:index+self.seq_len], self.target[index+self.seq_len-1])
+
+# create target and features for NN
+def target_feature_beta():
     """
     Create target (model output: 1 dim) and feature (model input: multi dim) for NN.
     yとxは今のところearningかaccountingかをしめしてるので、
     targetとfeature(モデルのインプットとアウトプット)を指定しないといけない。
-    テストの際もちょっとでーたがぐちゃるからそこら辺をやる。
+    テストの際もちょっとデータがぐちゃるからそこら辺をやる。
     """
 
 # tuple で inout sequence 作成 (training window 指定、サンプルサイズは len(input_data)-tw に減る)
-def create_inout_sequence(input_data, tw):
+def window_sequence_beta(table_data, window_size):
     """
-    """
-    inout_seq = []
-    for i in range(len(input_data)-tw):
-        train_seq = input_data[i: i+tw]
-        train_label = input_data[i+tw: i+tw+1]
-        inout_seq.append((train_seq, train_label))
+    Input original normal table time-series data and return a list of sliding windows 
+    in tuple shape (train_window, train_point), which is rolling window format.
+    
+    https://stackoverflow.com/questions/53791838/elegant-way-to-generate-indexable-sliding-window-timeseries
+    https://stackoverflow.com/questions/57893415/pytorch-dataloader-for-time-series-task
+    https://stackoverflow.com/questions/47482009/pandas-rolling-window-to-return-an-array
+    
+    Parameters
+    ----------
+    table_data : pd.DataFrame or pd.Series
+        (periods, vars) shaped normal time-series dataframe
+    window_size : int
+        size of rolling (sliding, training) window for a single sequence
+
+    Returns
+    -------
+    seq_list : list of tuples
+        a tuple is containing a rolling_window and label set. (train_window, train_point)
         
-    return inout_seq
+    """
+    seq_list = []
+    for i in range(len(input_data)-window_size):
+        train_window = input_data[i: i+window_size]
+        train_point = input_data[i+window_size: i+window_size+1]
+        inout_seq.append((train_window, train_point))
+        
+    return seq_list
 
 if __name__ == '__main__':
     # debug

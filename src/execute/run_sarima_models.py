@@ -19,7 +19,7 @@ if __name__ == "__main__":
     # Prepare Data
     
     # read processed data
-    df = pd.read_csv("../../data/processed/dataset.csv")
+    df = pd.read_csv("../../dataset/processed/dataset.csv")
     
     # save column names
     earning_v = df.columns[4: 10].values

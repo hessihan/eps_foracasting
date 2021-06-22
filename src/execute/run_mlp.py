@@ -22,7 +22,7 @@ if __name__ == "__main__":
     # Prepare Data --> 関数
     
     # read processed data
-    df = pd.read_csv("../../data/processed/dataset.csv")
+    df = pd.read_csv("../../dataset/processed/dataset.csv")
 
     # save column names
     earning_v = df.columns[4: 10].values
@@ -124,7 +124,7 @@ if __name__ == "__main__":
     plt.show()
     
     
-    # predict y_hat (target_hat)
+    # predict y_hat (target_hat) <- 良くないかも、with torch_nograd() と model.eval()
     y_hat_mlp_mv = mlp(feature_test).squeeze().detach().numpy()
     y_hat_mlp_mv = pd.Series(y_hat_mlp_mv)
     y_hat_mlp_mv.name = 'y_hat_mlp_mv'
