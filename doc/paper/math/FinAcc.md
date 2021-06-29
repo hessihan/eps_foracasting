@@ -27,19 +27,22 @@ $$\begin{eqnarray}
 
 ## 残余利益モデル (RIM: Residual Income Model)
 
-株式の本質的価値$V^{RIM}_{0}$
+時点$t$(評価時点)における株式の本質的価値$V^{RIM}_{t}$
 
 $$\begin{eqnarray}
-    RI_t &=& NI_t - r_e BV_{t-1} \\
-    V^{RIM}_{0} &=& BV_0 + \frac {E[RI_1]} {1 + r_e} + \frac {E[RI_2]} {(1 + r_e)^2} + \frac {E[RI_3]} {(1 + r_e)^3} +  \cdots \\    
-    &=& BV_0 + \sum^{\infty}_{t=1} \frac {E[RI_t]} {(1 + r_e)^t} \\
-    &=& BV_0 + \sum^{\infty}_{t=1} \frac {E[NI_t - r_e BV_{t-1}]} {(1 + r_e)^t} \tag{*} \\
-    &=& BV_0 + \sum^{\infty}_{t=1} \frac {E[(ROE_t - r_e) BV_{t-1}]} {(1 + r_e)^t} \tag{*} \\
-    RI_t &:& \text{t期の残余利益} \\
-    NI_t &:& \text{当期純利益(クリーンサープラス関係が成り立つならt期の純資産の増減} \Delta BV_t と一致) \\
-    BV_t &:& \text{t期末における純資産簿価} \\
-    ROE_t &:& \text{tの株主資本利益率} = \frac {NI_t} {BV_t} \\
+    (RI_t &=& NI_t - r_e BV_{t-1}) \\
+    RI_{t+1} &=& NI_{t+1} - r_e BV_{t} \\
+    V^{RIM}_{t} &=& BV_t + \frac {E[RI_{t+1}]} {1 + r_e} + \frac {E[RI_{t+2}]} {(1 + r_e)^2} + \frac {E[RI_{t+3}]} {(1 + r_e)^3} +  \cdots \\    
+    &=& BV_t + \sum^{\infty}_{\tau=1} \frac {E[RI_{t+\tau}]} {(1 + r_e)^t} \\
+    &=& BV_t + \sum^{\infty}_{\tau=1} \frac {E[NI_{t+\tau} - r_e BV_{t+\tau-1}]} {(1 + r_e)^\tau} \tag{*} \\
+    &=& BV_t + \sum^{\infty}_{\tau=1} \frac {E[(FROE_{t+\tau} - r_e) BV_{t+\tau-1}]} {(1 + r_e)^\tau} \tag{*} \\
+    RI_{t} &:& \text{$t$期の残余利益} \\
+    NI_{t} &:& \text{$t$期の当期純利益(クリーンサープラス関係が成り立つなら$t$期の純資産の増減 $\Delta BV_{t}$ と一致)} \\
+    BV_{t} &:& \text{$t$期末における純資産簿価} \\
+    FROE_{t+1} &:& \text{$t+1$期の予想株主資本利益率(ROE)} = \frac {FNI_{t+1}} {BV_{t}}\
 \end{eqnarray}$$
+
+無限期間の予測は不可能なので、端末
 
 ちなみに両辺を発行済み株式数で割ると、$V^{RIM'}_{0}$を株式の理論価格として解釈できる。
 
