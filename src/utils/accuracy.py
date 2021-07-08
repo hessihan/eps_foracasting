@@ -14,17 +14,49 @@ def MAE(true, pred):
 
 # MAPE
 def MAPE(true, pred):
-    "Mean Absolute Percentage Error"
+    """
+    Mean Absolute Percentage Error
+    
+    Error is calculated with rate.
+    """
     return np.mean(np.abs((pred - true) / true))
 
 # MSE
-def MSE(true, pred):
-    "Mean Squared Error"
-    return mean_squared_error(true, pred)
+def MSE(true, pred, rate=True):
+    """
+    Mean Squared Error
+    
+    Parameters
+    ----------
+    rate : bool, default=True
+        Calculate MSE with rate of error if True.
+        
+        math'''
+            \frac {1} {N} \sum^{N}_{i=1}( \frac {(Y_t - \hat{y}_t)} {Y_t} )^2
+        '''
+        
+        if False, calculate ordinary MSE.
+        
+        math'''
+            \frac {1} {N} \sum^{N}_{i=1}(Y_t - \hat{y}_t)^2
+        '''
+    """
+    if rate:
+        mse = np.mean(((true - pred) / true)**2)
+    else:
+        mse = mean_squared_error(true, pred)
+    return mse
 
 # RMSE
 def RMSE(true, pred):
-    "Root Mean Squared Error"
+    """
+    Root Mean Squared Error
+    
+    Parameters
+    ----------
+    rate : bool
+        RMSE may also need to be calculated with rate of error
+    """
     return np.sqrt(mean_squared_error(true, pred))
     
 # RMSPE
