@@ -4,10 +4,11 @@
 
 # import external modules
 import sys
+import warnings
 import pandas as pd
 import statsmodels.api as sm
 
-# import internal modules
+warnings.filterwarnings('ignore')
 
 # Define SARIMA model class
 # the object to store fitted models?????
@@ -39,11 +40,12 @@ class SARIMAModelList(object):
         False to allow outputting model summary and acf, pacf plot for model residual.
         
     """
-    def __init__(self, order, seasonal_order, y_prim_train, y_test, x_prim_train, x_test, silent=True):
+    def __init__(self, order, seasonal_order, y_prim_train, y_test, multivariate, x_prim_train, x_test, silent=True):
         self.models = []
         self.order = order
         self.seasonal_order = seasonal_order
         self.y_prim_train = y_prim_train
+        self.multivariate = multivariate
         self.y_test = y_test
         self.x_prim_train = x_prim_train
         self.x_test = x_test
@@ -60,16 +62,21 @@ class SARIMAModelList(object):
             Size of the rolling window.
             
         """
-        y_hat = pd.Series([], dtype=self.y_test.dtype)
+        y_pred = []
+        pred_index = []
         for i in range(len(self.y_test)):
-            
             # prepare temporary train data
             # expand training data
             y_temp_train = self.y_prim_train.append(self.y_test.iloc[:i])
-            x_temp_train = self.x_prim_train.append(self.x_test.iloc[:i])
             # drop the head of training data
             y_temp_train = y_temp_train[-window:]
-            x_temp_train = x_temp_train[-window:]
+
+            if self.multivariate:
+                # prepare X for multivariate
+                x_temp_train = self.x_prim_train.append(self.x_test.iloc[:i])
+                x_temp_train = x_temp_train[-window:]
+            else:
+                x_temp_train=None
 
             # define and estimate SARIMAX model from statsmodels
             sarima = sm.tsa.SARIMAX(
@@ -80,10 +87,10 @@ class SARIMAModelList(object):
                 enforce_stationarity=False,
                 enforce_invertibility=False
             ).fit()
-            
+
             # append fitted model to list
             self.models.append(sarima)
-            
+
             # describe if silent == False
             if not self.silent:
                 print(sarima.summary())
@@ -92,20 +99,23 @@ class SARIMAModelList(object):
                 resid = sarima.resid
                 sm.graphics.tsa.plot_acf(resid)
                 sm.graphics.tsa.plot_pacf(resid)
-            
+
             # predict one period ahead
-            next_period = y_temp_train.index.values[-1] + 1
-            y_hat = y_hat.append(sarima.predict(start=next_period - i, # always train-size + 1 - 1 (start from zero) = window-size
-                                                end=next_period - i,
-                                                exog=self.x_test.loc[next_period]
-                                               )
-                                )
+            pred_index.append(self.y_test.index[i])
+            # always predict one step ahead (row number len(y_train)+1 = 41, (40 start from 0))
+            if self.multivariate:
+                y_pred.append(sarima.predict(window, exog=self.x_test.iloc[i]).values[0])
+            else:
+                y_pred.append(sarima.predict(window).values[0])
+                
+        pred_index = pd.MultiIndex.from_tuples(pred_index, names=self.y_test.index.names)
+        y_hat = pd.Series(y_pred, index=pred_index, dtype=self.y_test.dtype)
         return y_hat
     
     def predict_window(self, ):
         """
         
-        Return rolling window prediction of y based on fitted model list.
+        Return rolling window prediction of y from saved fitted model list.
         
         """
         y_hat = pd.Series([], dtype=test.dtype)

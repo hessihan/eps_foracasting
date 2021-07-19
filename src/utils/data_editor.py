@@ -14,6 +14,7 @@ def train_test_split(data, test_size=None, ratio=(4, 1)):
         Absolute test data size.
     ratio : tuple
         (train, test) ratio. 
+        yearly bases for quaterly data.
         
     Returns
     -------
