@@ -40,7 +40,7 @@ class SARIMAModelList(object):
         False to allow outputting model summary and acf, pacf plot for model residual.
         
     """
-    def __init__(self, order, seasonal_order, y_prim_train, y_test, multivariate, x_prim_train, x_test, silent=True):
+    def __init__(self, order, seasonal_order, y_prim_train, y_test, multivariate, x_prim_train, x_test, silent=True, store_models=False):
         self.models = []
         self.order = order
         self.seasonal_order = seasonal_order
@@ -50,6 +50,7 @@ class SARIMAModelList(object):
         self.x_prim_train = x_prim_train
         self.x_test = x_test
         self.silent = silent
+        self.store_models = store_models
         
     def fit_rolling_window(self, window):
         """
@@ -89,7 +90,8 @@ class SARIMAModelList(object):
             ).fit()
 
             # append fitted model to list
-            self.models.append(sarima)
+            if store_models:
+                self.models.append(sarima)
 
             # describe if silent == False
             if not self.silent:

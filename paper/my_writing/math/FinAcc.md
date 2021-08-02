@@ -1,6 +1,3 @@
-$$\begin{eqnarray}
-\end{eqnarray}$$
-
 $$\begin{align}
 & a + b = 0 \\
 & 2 = 0 \\
@@ -54,7 +51,6 @@ $$\begin{eqnarray}
     EPS_t &:& \text{1株当たり当期純利益} = \frac{NI_t} {発行済み株式総数} \\
     BPS_t &:& \text{1株当たり純資産} \\
 \end{eqnarray}$$
-
 ## CAPM
 
 $$\begin{eqnarray}
