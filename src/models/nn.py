@@ -12,6 +12,12 @@ import torch
 import math
 import pandas as pd
 
+# Time Series torch Dataset class for rolling window process preparation
+# https://discuss.pytorch.org/t/dataloader-for-a-lstm-model-with-a-sliding-window/22235
+# https://stackoverflow.com/questions/57893415/pytorch-dataloader-for-time-series-task
+# for pandas dataframe version, check below
+# https://stackoverflow.com/questions/53791838/elegant-way-to-generate-indexable-sliding-window-timeseries
+
 # Define nn.Module subclass: MLP
 class MLP(torch.nn.Module):
     """

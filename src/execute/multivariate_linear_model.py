@@ -26,7 +26,7 @@ if __name__ == "__main__":
 #     fitted_model_mlm1_list = []
 #     fitted_model_mlm2_list = []
     
-    # For Loop firms and fit, predict SARIMA
+    # For Loop firms and fit, predict
     for i in df.index.get_level_values(0).unique().values:
     
         # y : "EPS"

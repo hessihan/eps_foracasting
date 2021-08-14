@@ -65,7 +65,7 @@ class MLMModelList(object):
         y_full = self.y_prim_train.append(self.y_test)
         x_full = self.x_prim_train.append(self.x_test)
 
-        # lag X (and lag y as explanatpry variable)
+        # lag X (and lag y as explanatpry variable) # ここでyのラグをxに含めてx_fullとしている
         x_full = pd.concat([y_full.shift(1), y_full.shift(4), x_full.shift(self.x_lag)], axis=1)
 
         y_pred = []
