@@ -97,8 +97,8 @@ if __name__ == "__main__":
     y_test = pd.read_csv("../../assets/y_hats/univariate/y_test.csv", index_col=[0, 1, 2])
     
     # read y_hat csv
-#     dir_path = "./../../assets/y_hats/univariate/"
-    dir_path = "./../../assets/y_hats/multivariate/"
+    dir_path = "./../../assets/y_hats/univariate/"
+#     dir_path = "./../../assets/y_hats/multivariate/"
 
     # get all paths in selected directody
     file_paths = os.listdir(dir_path)
@@ -115,26 +115,28 @@ if __name__ == "__main__":
     indicators = dict(zip(ind_name, indicators))
     
     # y_hats dictionary
-#     method_name = ["SARIMA: BR",
-#                    "SARIMA: G", 
-#                    "SARIMA: F"
-#                   ]
-    method_name = ["MLM.1",
-                   "MLM.2"
+    method_name = ["SARIMA: BR",
+                   "SARIMA: G", 
+                   "SARIMA: F",
+                   "MLP"
                   ]
+#     method_name = ["MLM.1",
+#                    "MLM.2"
+#                   ]
 
 
     y_hats = dict(zip(method_name, y_hats))
     
     # accuracy table for all firm mean
     a = accuracy_table(y_test, y_hats, indicators)
-#     a.to_csv("../../assets/y_hats/univariate/accuracy_table_u.csv")
-    a.to_csv("../../assets/y_hats/multivariate/accuracy_table_m.csv")
+    a.to_csv("../../assets/y_hats/univariate/accuracy_table_u.csv")
+#     a.to_csv("../../assets/y_hats/multivariate/accuracy_table_m.csv")
     print(a)
     
     # accuracy table for each individual firms
     ai = accuracy_table_i(y_test, y_hats, indicators)
-    ai.to_csv("../../assets/y_hats/multivariate/accuracy_table_mi.csv")
+    ai.to_csv("../../assets/y_hats/univariate/accuracy_table_ui.csv")
+#     ai.to_csv("../../assets/y_hats/multivariate/accuracy_table_mi.csv")
     print(ai)
     
 #     # plot each y_hat series

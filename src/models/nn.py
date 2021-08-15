@@ -17,6 +17,41 @@ import pandas as pd
 # https://stackoverflow.com/questions/57893415/pytorch-dataloader-for-time-series-task
 # for pandas dataframe version, check below
 # https://stackoverflow.com/questions/53791838/elegant-way-to-generate-indexable-sliding-window-timeseries
+class TimeSeriesDataset(torch.utils.data.Dataset):
+    def __init__(self, feature, target, train_window):
+        """
+        Time Series torch Dataset class for rolling window process preparation
+
+        Parameters
+        ----------
+        feature: 
+            nD tensor X
+        target: 
+            1D tensor y
+        window : int
+             window size for each rolling window
+
+        Return
+        ------
+        len(target) - train_window == len(target_test) sets of feature_train and target_train tensors (sibgel batch axis = 0)
+        overview:
+            ((batch_size=1, train_window, num_features), (batch_size=1, train_window))
+            ...
+            ((batch_size=1, train_window, num_features), (batch_size=1, train_window)). 
+            # len(target) - train_window == len(target_test)
+        """
+        self.target = target
+        self.feature = feature
+        self.train_window = train_window
+
+    def __len__(self):
+        # num of output rolling window sets
+        return len(self.target) - self.train_window
+
+    def __getitem__(self, index):
+        train_feature_window = self.feature[index: index + self.train_window]
+        train_target_window = self.target[index: index + self.train_window]
+        return train_feature_window, train_target_window
 
 # Define nn.Module subclass: MLP
 class MLP(torch.nn.Module):
