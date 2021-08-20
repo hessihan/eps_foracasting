@@ -10,8 +10,8 @@ def accuracy_table(y_test, y_hats, indicators):
     ----------
     y_test : pd.Series
         The true data
-    y_hats : dict
-        The predicted data. {"name" : np.array}
+    y_hats : pd.DataFrame
+        The predicted data
     indicators : dict
         The forecasting accuracy functions. {"name" : function}
         Each function is called from src/utils/accuracy.py
@@ -24,20 +24,20 @@ def accuracy_table(y_test, y_hats, indicators):
     """
     l = []
     # loop for each accuracy indicators
-    for ind in indicators.keys():
+    for ind in indicators:
         m = []
         # loop for each forecasting model
-        for model in y_hats.keys():
+        for model in y_hats.columns:
             m.append(indicators[ind](y_test.values, y_hats[model].values))
         l.append(m)
     
     a = pd.DataFrame(l,
-                     index=indicators.keys(),
-                     columns=y_hats.keys()
+                     index=indicators,
+                     columns=y_hats.columns
                     )
     return a
 
-def accuracy_table_i(y_test, y_hats, indicators):
+def accuracy_table_i(y_test, y_hats_all, indicators):
     """
     
     Return a forecasting accuracy indicators table for each y_hats of forecasting methods
@@ -47,8 +47,8 @@ def accuracy_table_i(y_test, y_hats, indicators):
     ----------
     y_test : pd.Series
         The true data
-    y_hats : dict
-        The predicted data. {"name" : np.array}
+    y_hats_all : pd.DataFrame
+        The predicted data for all firms
     indicators : dict
         The forecasting accuracy functions. {"name" : function}
         Each function is called from src/utils/accuracy.py
@@ -59,27 +59,17 @@ def accuracy_table_i(y_test, y_hats, indicators):
         Forecasting accuracy indicators table.
     
     """
-    l = []
-    # loop for each forecasting model
-    for model in y_hats.keys():
-        m = []
-        index_tuples = []
-        # loop for each firm
-        for firm in y_test.index.get_level_values(0).unique():
-            # loop for each accuracy indicators
-            for ind in indicators.keys():
-                m.append(indicators[ind](
-                    y_test.loc[pd.IndexSlice[firm, :, :], :].values, 
-                    y_hats[model].loc[pd.IndexSlice[firm, :, :], :].values
-                ))
-                index_tuples.append((firm, ind))
-        l.append(m)
-    
-    a = pd.DataFrame(l).T
-    a.index = pd.MultiIndex.from_tuples(index_tuples)
-    a.columns = y_hats.keys()
+    ai = pd.DataFrame()
+    for firm in y_test.index.get_level_values(0).unique():
+        a = accuracy_table(y_test.loc[firm],
+                           y_hats_all.loc[firm],
+                           indicators
+                          )
+        a.index = pd.MultiIndex.from_tuples([(firm, i) for i in a.index])
+        ai = pd.concat([ai, a], axis=0)
+    ai
                     
-    return a
+    return ai
 
 if __name__ == "__main__":
     # import external packages
@@ -95,57 +85,117 @@ if __name__ == "__main__":
     
     # read y_test cdv
     y_test = pd.read_csv("../../assets/y_hats/univariate/y_test.csv", index_col=[0, 1, 2])
+    y_test = y_test[y_test.columns[0]] # to series
+    
+    ## make y_hats_all dataframe
+    
+    # Random walk prediction
+    y_hat_rw = pd.DataFrame(pd.read_csv("../../data/processed/tidy_df.csv", index_col=[0, 1, 2]).groupby(level=[0])['EPS'].shift(1).loc[y_test.index])
+    y_hat_rw.columns = ["y_hat_rw"]
+    y_hat_rw.to_csv("./../../assets/y_hats/univariate/y_hat_rw.csv")
+    
+    y_hats_all = pd.DataFrame(y_test)
     
     # read y_hat csv
+    
+    # univariate
     dir_path = "./../../assets/y_hats/univariate/"
-#     dir_path = "./../../assets/y_hats/multivariate/"
 
     # get all paths in selected directody
     file_paths = os.listdir(dir_path)
-    y_hats = []
     for path in file_paths:
         if path[:5] == "y_hat":
             # "y_hat"から始まるファイルのみ読み込み
-            y_hats.append(pd.read_csv(dir_path + path, index_col=[0, 1, 2]))
+            y_hats_all = pd.concat([y_hats_all, pd.read_csv(dir_path + path, index_col=[0, 1, 2])], axis=1)
+
+    # multivariate
+    dir_path = "./../../assets/y_hats/multivariate/"
+
+    # get all paths in selected directody
+    file_paths = os.listdir(dir_path)
+    for path in file_paths:
+        if path[:5] == "y_hat":
+            # "y_hat"から始まるファイルのみ読み込み
+            y_hats_all = pd.concat([y_hats_all, pd.read_csv(dir_path + path, index_col=[0, 1, 2])], axis=1)
     
-    # cumpute forecast accuracy indicators
-    # accuracy function dict
-    ind_name = ["MAE", "MAPE", "MSE", "RMSE", "RMSPE"]
-    indicators = [MAE, MAPE, MSE, RMSE, RMSPE]
+    y_hats_all.to_csv("./../../assets/y_hats/y_hats_all.csv")
+    
+    ## sample specific (firm x quarter) error table
+    
+    # exact error
+    error = []
+    for i in y_hats_all.columns:
+        error.append(y_test - y_hats_all[i])
+    error = pd.DataFrame(error).T
+    error.columns = ["y_test - " + i for i in  y_hats_all.columns]
+    error.to_csv("../../assets/y_hats/error.csv")
+    
+    # absolute error
+    error_abs = abs(error)
+    error_abs.columns = ["|" + i + "|" for i in error.columns]
+    error_abs.to_csv("../../assets/y_hats/error_abs.csv")
+    
+    # percentage error
+    error_p = []
+    for i in error.columns:
+        error_p.append(error[i] / y_test)
+    error_p = pd.DataFrame(error_p).T
+    error_p.columns = ["(" + i + ") / y_test" for i in error.columns]
+    error_p.to_csv("../../assets/y_hats/error_p.csv")
+    
+    # absolute percentage error
+    error_p_abs = abs(error_p)
+    error_p_abs.columns = ["|" + i + "|" for i in error_p.columns]
+    error_p_abs.to_csv("../../assets/y_hats/error_p_abs.csv")
+    
+    ## agregate forceast accuracy score
+    
+    # forecast accuracy indicators
+    ind_name = ["Max_error", "Max_percentage_error", "MAE", "MAPE", "MSE", "RMSE", "RMSPE"]
+    indicators = [Max_error, Max_percentage_error, MAE, MAPE, MSE, RMSE, RMSPE]
     indicators = dict(zip(ind_name, indicators))
     
-    # y_hats dictionary
-    method_name = ["SARIMA: BR",
-                   "SARIMA: G", 
-                   "SARIMA: F",
-                   "MLP"
-                  ]
-#     method_name = ["MLM.1",
-#                    "MLM.2"
-#                   ]
-
-
-    y_hats = dict(zip(method_name, y_hats))
-    
     # accuracy table for all firm mean
-    a = accuracy_table(y_test, y_hats, indicators)
-    a.to_csv("../../assets/y_hats/univariate/accuracy_table_u.csv")
-#     a.to_csv("../../assets/y_hats/multivariate/accuracy_table_m.csv")
+    a = accuracy_table(y_test, y_hats_all, indicators)
+    a.to_csv("../../assets/y_hats/accuracy_table.csv")
     print(a)
     
     # accuracy table for each individual firms
-    ai = accuracy_table_i(y_test, y_hats, indicators)
-    ai.to_csv("../../assets/y_hats/univariate/accuracy_table_ui.csv")
-#     ai.to_csv("../../assets/y_hats/multivariate/accuracy_table_mi.csv")
+    ai = accuracy_table_i(y_test, y_hats_all, indicators)
+    ai.to_csv("../../assets/y_hats/accuracy_table_i.csv")
     print(ai)
     
-#     # plot each y_hat series
-#     fig = plt.figure(figsize=(16, 9))
-#     ax = fig.add_subplot(111)
-#     ax.plot(y_test, marker="o", label="y: record")
-#     for i in y_hats.keys():
-#         ax.plot(y_hats[i], marker="o", label=i, linestyle="--")
-#     ax.legend()
-#     plt.title("Plot y_hats for Test Data (Multivariate)")
-# #     fig.savefig("../../assets/y_hats_plot_mv.png", format="png", dpi=300)
-#     plt.show()
+    ## Upper bound |(Y_t - \hat Y_t) / Y_t| = 1 if exceed 1
+    
+    # absolute percentage error
+    error_p_abs_ub = error_p_abs.copy()
+    error_p_abs_ub[error_p_abs_ub > 1] = 1
+    error_p_abs_ub.to_csv("../../assets/y_hats/error_p_abs_ub.csv")
+    
+#     error_p_sq_ub = error_p.copy()
+#     error_p_sq_ub[abs(error_p_sq_ub) > 1] = 1
+#     error_p_sq_ub = error_p_sq_ub ** 2
+    
+    # squared percentage error
+    error_p_sq_ub = error_p_abs_ub ** 2
+    error_p_sq_ub.to_csv("../../assets/y_hats/error_p_abs_ub.csv")
+    
+    # large error
+    (error_p_abs_ub == 1).sum()
+    (error_p_abs_ub == 1).sum() / len(error_p_abs_ub)
+    
+        # i
+    (error_p_abs_ub == 1).sum(level=0)
+    
+    # aggregate table
+    accuracy_table_ub = pd.DataFrame([error_p_abs_ub.mean(), 
+                                      error_p_sq_ub.mean(), 
+                                      (error_p_abs_ub == 1).sum() / len(error_p_abs_ub)
+                                     ])
+    accuracy_table_ub.index = ["MAPE", "MSPE", "Large Forecast Error"]
+    accuracy_table_ub.columns = y_hats_all.columns
+    accuracy_table_ub = accuracy_table_ub.T
+    accuracy_table_ub.to_csv("../../assets/y_hats/accuracy_table_ub.csv")
+    
+        # i
+    error_p_abs_ub.mean(level=0)

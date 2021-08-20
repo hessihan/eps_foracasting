@@ -6,6 +6,17 @@
 import numpy as np
 from sklearn.metrics import mean_absolute_error
 from sklearn.metrics import mean_squared_error
+from sklearn.metrics import max_error
+
+# Max error
+def Max_error(true, pred):
+    "Maximum absolute residual error"
+    return max_error(true, pred)
+
+# Max percentage error
+def Max_percentage_error(true, pred):
+    "Maximum absolute percentage residual error"
+    return np.max(np.abs((true - pred) / true))
 
 # MAE
 def MAE(true, pred):

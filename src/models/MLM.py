@@ -29,23 +29,26 @@ class MLMModelList(object):
         primitive training data of y
     y_test : pandas.Series
         the remaining test data of y which is used to modify train data of y through window
-    x_lag : int, 1 or 4
-        number of lag for fundamental accounting variables.
     x_prim_train : pandas.Series
         primitive training data of x
     x_test : pandas.Series
         the remaining test data of x which is used to modify train data of x through window
+    y_lag : list of int (1 ~ 4)
+        number of lag for target variables.
+    x_lag : list of int (1 ~ 4)
+        number of lag for fundamental accounting variables.
     silent : bool (defualt True)
         False to allow outputting model summary and acf, pacf plot for model residual.
         
     """
-    def __init__(self, y_prim_train, y_test, x_lag, x_prim_train, x_test, silent=True, store_models=False):
+    def __init__(self, y_prim_train, y_test, x_prim_train, x_test, y_lag, x_lag, silent=True, store_models=False):
         self.models = []
         self.y_prim_train = y_prim_train
         self.y_test = y_test
-        self.x_lag = x_lag
         self.x_prim_train = x_prim_train
         self.x_test = x_test
+        self.y_lag = y_lag
+        self.x_lag = x_lag
         self.silent = silent
         self.store_models = store_models
         
@@ -63,10 +66,14 @@ class MLMModelList(object):
         # 一回 train_test_split してるのにもう一回統合してるのは非効率だけど
         # merge train and test for full period
         y_full = self.y_prim_train.append(self.y_test)
-        x_full = self.x_prim_train.append(self.x_test)
+        afv_full = self.x_prim_train.append(self.x_test)
 
         # lag X (and lag y as explanatpry variable) # ここでyのラグをxに含めてx_fullとしている
-        x_full = pd.concat([y_full.shift(1), y_full.shift(4), x_full.shift(self.x_lag)], axis=1)
+#         x_full = pd.concat([y_full.shift(1), y_full.shift(4), x_full.shift(self.x_lag)], axis=1)
+        x_full = pd.concat([y_full.shift(i) for i in self.y_lag] + [afv_full.shift(i) for i in self.x_lag], axis=1)
+        x_full.columns = [y_full.name + "_lag" + str(i) for i in self.y_lag] + [j + "_lag" + str(k) for j in afv_full.columns for k in self.x_lag]
+        
+#         print("features: ", x_full.columns)
 
         y_pred = []
         pred_index = []
@@ -80,6 +87,11 @@ class MLMModelList(object):
             y_temp_train = y_full.loc[temp_train_index]
             x_temp_train = x_full.loc[temp_train_index]
             
+#             print(y_temp_train.shape)
+#             print(y_temp_train.index)
+#             print(x_temp_train.shape)
+#             print(x_temp_train.index)
+            
             # drop nan
             anynan_index = x_temp_train[x_temp_train.isna().any(axis=1)].index
             x_temp_train.drop(anynan_index, inplace=True)
@@ -88,7 +100,7 @@ class MLMModelList(object):
             # define and estimate Linear regression model from sklearn
             reg = LinearRegression(fit_intercept=True).fit(x_temp_train.values, y_temp_train.values.reshape(-1, 1))
             
-            # append fitted model to list
+            # append fitted model to list --> 各 window を別々のpickle fileとして保存しないとメモリが足りない
             if self.store_models:
                 self.models.append(reg)
                 
@@ -117,3 +129,47 @@ class MLMModelList(object):
         for i in self.models:
             None
         return y_hat
+    
+# debug
+if __name__ == "__main__":
+    
+    # import external libraries
+    import sys
+    import numpy as np
+    import pandas as pd
+    import pickle
+    
+    # import internal modules
+    sys.path.insert(1, '../')
+    from models.MLM import MLMModelList
+    from utils.data_editor import train_test_split
+    
+    # Prepare Data
+    
+    # read processed data
+    df = pd.read_csv("../../data/processed/tidy_df.csv", index_col=[0, 1, 2])
+    
+    i = df.index.get_level_values(0).unique().values[0]
+    
+    # y : "EPS"
+    y = df.loc[pd.IndexSlice[i, :, :], "EPS"]
+
+    # x, exogenous regressors : 'INV', 'AR', 'CAPX', 'GM', 'SA', 'ETR', 'LF'
+    x = df.loc[pd.IndexSlice[i, :, :], ['INV', 'AR', 'CAPX', 'GM', 'SA', 'ETR', 'LF']]
+
+    # time series train test split (4/5) : (1/5), yearly bases
+    y_train, y_test = train_test_split(y, ratio=(4,1))
+    x_train, x_test = train_test_split(x, ratio=(4,1))
+    
+    # MLM
+    mlm = MLMModelList(
+        y_prim_train=y_train,
+        y_test=y_test,
+        x_prim_train=x_train,
+        x_test=x_test, 
+        y_lag=[1, 2, 3, 4],
+        x_lag=[1, 2, 3, 4],
+        silent=True,
+        store_models=False
+    )
+    mlm.fit_rolling_window(window=len(y_train)-4)

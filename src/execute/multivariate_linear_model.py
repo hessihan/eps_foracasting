@@ -20,6 +20,8 @@ if __name__ == "__main__":
     y_test_list = []
     y_hat_mlm1_list = []
     y_hat_mlm2_list = []
+    y_hat_mlm3_list = []
+    y_hat_mlm4_list = []
     
 #     # empty list for fitted class with fitted models for each windows 
 #     # (memory ran out!!!)
@@ -46,13 +48,14 @@ if __name__ == "__main__":
         
         # Fit MLM
         
-        # MLM.1 (lag1 X)
+        # MLM.1 (y_lag1, y_lag4, X_lag1) from Zhang et al. (2004)
         mlm1 = MLMModelList(
             y_prim_train=y_train,
             y_test=y_test,
-            x_lag=1,
             x_prim_train=x_train,
-            x_test=x_test, 
+            x_test=x_test,
+            y_lag=[1, 4],
+            x_lag=[1],
             silent=True,
             store_models=False
         )
@@ -62,13 +65,14 @@ if __name__ == "__main__":
         y_hat_mlm1_list.append(y_hat_mlm1)
 #         fitted_model_mlm1_list.append(mlm1)
         
-        # MLM.2 (lag4 X)
+        # MLM.2 (y_lag1, y_lag4, X_lag4) from Zhang et al. (2004)
         mlm2 = MLMModelList(
             y_prim_train=y_train,
             y_test=y_test,
-            x_lag=4,
             x_prim_train=x_train,
-            x_test=x_test, 
+            x_test=x_test,
+            y_lag=[1, 4],
+            x_lag=[4],
             silent=True,
             store_models=False
         )
@@ -78,6 +82,38 @@ if __name__ == "__main__":
         y_hat_mlm2_list.append(y_hat_mlm2)
 #         fitted_model_mlm2_list.append(mlm2)
 
+        # MLM.3 (y_lag1, y_lag2, y_lag3, y_lag4, X_lag4) from Cao and Parry (2009)
+        mlm3 = MLMModelList(
+            y_prim_train=y_train,
+            y_test=y_test,
+            x_prim_train=x_train,
+            x_test=x_test,
+            y_lag=[1, 2, 3, 4],
+            x_lag=[4],
+            silent=True,
+            store_models=False
+        )
+        
+        # fit MLM.3: rolling window size = len(y_train) - 4 (max lag size)
+        y_hat_mlm3 = mlm3.fit_rolling_window(window=len(y_train)-4)
+        y_hat_mlm3_list.append(y_hat_mlm3)
+    
+        # MLM.4 (y_lag1, y_lag2, y_lag3, y_lag4, X_lag1, X_lag2, X_lag3, X_lag4) original
+        mlm4 = MLMModelList(
+            y_prim_train=y_train,
+            y_test=y_test,
+            x_prim_train=x_train,
+            x_test=x_test,
+            y_lag=[1, 2, 3, 4],
+            x_lag=[1, 2, 3, 4],
+            silent=True,
+            store_models=False
+        )
+        
+        # fit MLM.4: rolling window size = len(y_train) - 4 (max lag size)
+        y_hat_mlm4 = mlm4.fit_rolling_window(window=len(y_train)-4)
+        y_hat_mlm4_list.append(y_hat_mlm4)
+        
         print(i, " Done")
 
     y_test_series = pd.concat(y_test_list)
@@ -90,9 +126,17 @@ if __name__ == "__main__":
     y_hat_mlm2_series = pd.concat(y_hat_mlm2_list)
     y_hat_mlm2_series.name = "y_hat_mlm2"
     
+    y_hat_mlm3_series = pd.concat(y_hat_mlm3_list)
+    y_hat_mlm3_series.name = "y_hat_mlm3"
+
+    y_hat_mlm4_series = pd.concat(y_hat_mlm4_list)
+    y_hat_mlm4_series.name = "y_hat_mlm4"
+    
     # save y_hat as csv file
     y_hat_mlm1_series.to_csv('../../assets/y_hats/multivariate/y_hat_mlm1.csv')
     y_hat_mlm2_series.to_csv('../../assets/y_hats/multivariate/y_hat_mlm2.csv')
+    y_hat_mlm3_series.to_csv('../../assets/y_hats/multivariate/y_hat_mlm3.csv')
+    y_hat_mlm4_series.to_csv('../../assets/y_hats/multivariate/y_hat_mlm4.csv')
     
 #     # save the class object as pickle file
 #     pickle.dump(fitted_model_mlm1_list, open('../../assets/trained_models/multivariate/mlm1.pkl', 'wb'))  
