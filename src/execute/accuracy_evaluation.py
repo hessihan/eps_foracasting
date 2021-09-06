@@ -1,4 +1,14 @@
 # Evaluate predicted value (y_hats) for each methods.
+# import external packages
+import os
+import sys
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# import internal modules
+sys.path.insert(1, '../')
+from utils.accuracy import *
 
 # build forecasting accuracy indicators table
 def accuracy_table(y_test, y_hats, indicators):
@@ -72,17 +82,6 @@ def accuracy_table_i(y_test, y_hats_all, indicators):
     return ai
 
 if __name__ == "__main__":
-    # import external packages
-    import os
-    import sys
-    import numpy as np
-    import pandas as pd
-    import matplotlib.pyplot as plt
-    
-    # import internal modules
-    sys.path.insert(1, '../')
-    from utils.accuracy import *
-    
     # read y_test cdv
     y_test = pd.read_csv("../../assets/y_hats/univariate/y_test.csv", index_col=[0, 1, 2])
     y_test = y_test[y_test.columns[0]] # to series
@@ -184,7 +183,7 @@ if __name__ == "__main__":
     (error_p_abs_ub == 1).sum()
     (error_p_abs_ub == 1).sum() / len(error_p_abs_ub)
     
-        # i
+    # i
     (error_p_abs_ub == 1).sum(level=0)
     
     # aggregate table

@@ -20,7 +20,7 @@ import pandas as pd
 class TimeSeriesDataset(torch.utils.data.Dataset):
     def __init__(self, feature, target, train_window):
         """
-        Time Series torch Dataset class for rolling window process preparation
+        Time Series torch Dataset class for rolling window process (and for simple batch dataset) preparation.
 
         Parameters
         ----------
@@ -28,8 +28,8 @@ class TimeSeriesDataset(torch.utils.data.Dataset):
             nD tensor X
         target: 
             1D tensor y
-        window : int
-             window size for each rolling window
+        window : int > 0 or None
+             window size for each rolling window. `None` for no rolling sample (just an all sample batch for mini-batch loader)
 
         Return
         ------
@@ -45,13 +45,20 @@ class TimeSeriesDataset(torch.utils.data.Dataset):
         self.train_window = train_window
 
     def __len__(self):
-        # num of output rolling window sets
-        return len(self.target) - self.train_window
+        
+        if self.train_window == None:
+            return len(self.target)
+        else:
+             # num of output rolling window sets
+            return len(self.target) - self.train_window
 
     def __getitem__(self, index):
-        train_feature_window = self.feature[index: index + self.train_window]
-        train_target_window = self.target[index: index + self.train_window]
-        return train_feature_window, train_target_window
+        if self.train_window == None:
+            return self.feature[index], self.target[index]
+        else:
+            train_feature_window = self.feature[index: index + self.train_window]
+            train_target_window = self.target[index: index + self.train_window]
+            return train_feature_window, train_target_window
 
 # Define nn.Module subclass: MLP
 class MLP(torch.nn.Module):

@@ -8,6 +8,8 @@ from sklearn.metrics import mean_absolute_error
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import max_error
 
+# vector to scalar metrics
+
 # Max error
 def Max_error(true, pred):
     "Maximum absolute residual error"
@@ -74,3 +76,49 @@ def RMSE(true, pred):
 def RMSPE(true, pred):
     "Root Mean Squared Percentage Error"
     return np.sqrt(np.mean(((pred - true) / true)**2))
+
+# sample level (vec2vec, scalar2scalar) error metrics
+
+# exact error
+def Error(true, pred):
+    """
+    Exact error
+    
+    Return
+    ------
+    true - pred
+    """
+    return true - pred
+
+# absolute error
+def AbsoluteError(true, pred):
+    """
+    Exact error
+    
+    Return
+    ------
+    abs(true - pred)
+    """
+    return abs(true - pred)
+
+# percentage error
+def PercentageError(true, pred):
+    """
+    Percentage error
+    
+    Return
+    ------
+    (true - pred) / true
+    """
+    return (true - pred) / true
+
+# absolute percentage error
+def AbsolutePercentageError(true, pred):
+    """
+    Absolute percentage error
+    
+    Return
+    ------
+    abs((true - pred) / true)
+    """
+    return abs((true - pred) / true)
