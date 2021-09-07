@@ -1,0 +1,13 @@
+企業名,会計年度,四半期,rolling_sample,pruned_trials,complete_trials,best_trial_val_error,best_trial_params,final_train_epochs,final_train_min_loss,y_test,y_hat
+あらた,2018,Q1,0,202,98,0.05293010547757149,"dict_items([('hidden_units', 910), ('learning_rate', 0.16667932639082866)])",9,"tensor(294.8598, grad_fn=<MseLossBackward>)",105.42,63.03497
+あらた,2018,Q2,1,222,78,0.055514752864837646,"dict_items([('hidden_units', 917), ('learning_rate', 0.17999293031407979)])",9,"tensor(276.1591, grad_fn=<MseLossBackward>)",90.44,66.01619
+あらた,2018,Q3,2,185,115,0.039248812943696976,"dict_items([('hidden_units', 750), ('learning_rate', 0.22920386515828697)])",9,"tensor(410.2990, grad_fn=<MseLossBackward>)",106.24,72.22819
+あらた,2018,Q4,3,195,105,0.032492201775312424,"dict_items([('hidden_units', 729), ('learning_rate', 0.2371297451437618)])",9,"tensor(525.1676, grad_fn=<MseLossBackward>)",99.22,75.604126
+あらた,2019,Q1,4,201,99,0.033427003771066666,"dict_items([('hidden_units', 281), ('learning_rate', 0.6201008340946769)])",19,"tensor(274.5338, grad_fn=<MseLossBackward>)",116.85,79.44925
+あらた,2019,Q2,5,193,107,0.031960923224687576,"dict_items([('hidden_units', 682), ('learning_rate', 0.24700115940159367)])",14,"tensor(362.3783, grad_fn=<MseLossBackward>)",101.76,116.80452
+あらた,2019,Q3,6,216,84,0.00599678372964263,"dict_items([('hidden_units', 201), ('learning_rate', 0.9993579811579648)])",114,"tensor(79.5196, grad_fn=<MseLossBackward>)",113.93,103.90848
+あらた,2019,Q4,7,212,88,0.007509313523769379,"dict_items([('hidden_units', 903), ('learning_rate', 0.22078869571841428)])",22,"tensor(220.1487, grad_fn=<MseLossBackward>)",79.9,110.83114
+あらた,2020,Q1,8,188,112,0.017132537439465523,"dict_items([('hidden_units', 515), ('learning_rate', 0.39062091138854976)])",254,"tensor(15.3187, grad_fn=<MseLossBackward>)",145.23,109.6425
+あらた,2020,Q2,9,189,111,0.03214975818991661,"dict_items([('hidden_units', 849), ('learning_rate', 0.2287578344855456)])",14,"tensor(436.6965, grad_fn=<MseLossBackward>)",120.68,115.3719
+あらた,2020,Q3,10,188,112,0.03493103012442589,"dict_items([('hidden_units', 400), ('learning_rate', 0.5219915833974035)])",14,"tensor(539.3670, grad_fn=<MseLossBackward>)",153.35,129.18114
+あらた,2020,Q4,11,174,126,0.04908398911356926,"dict_items([('hidden_units', 590), ('learning_rate', 0.3413475393166422)])",460,"tensor(0.5298, grad_fn=<MseLossBackward>)",61.403446,116.706474

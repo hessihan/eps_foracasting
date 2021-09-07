@@ -7,6 +7,7 @@ import time
 import numpy as np
 import pandas as pd
 import torch
+from sklearn.preprocessing import StandardScaler
 import optuna
 from optuna.trial import TrialState
 import matplotlib.pyplot as plt
@@ -61,8 +62,9 @@ def get_data_loaders(train_val_dataset, train_window_size):
     # 分け方は一応 full-psuedo で val 12, train 24でsplit。(val に rolling windowはしない)
     # batch はとりあえずなしで。
     train_dataset = torch.utils.data.dataset.Subset(train_val_dataset, list(range(0, train_window_size)))
-    train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=len(train_dataset), shuffle=False)
     val_dataset = torch.utils.data.dataset.Subset(train_val_dataset, list(range(train_window_size, len(train_val_dataset))))
+    
+    train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=len(train_dataset), shuffle=False)
     val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=len(val_dataset), shuffle=False)
 
     return train_loader, val_loader
@@ -73,7 +75,7 @@ def objective(trial):
     learning_rate = trial.suggest_float("learning_rate", 1e-5, 1e-0, log=True)
     
     # instanciate model
-    mlp = MLP(input_features=4, hidden_units=hidden_units, output_units=1)
+    mlp = MLP(input_features=32, hidden_units=hidden_units, output_units=1)
 
     # Construct loss and optimizer
     criterion = torch.nn.MSELoss(reduction="mean")
@@ -130,7 +132,7 @@ def objective(trial):
         return val_error
     
 if __name__ == "__main__":
-    print("umlp start")
+    print("mmlp start")
     # Set Seed
     np.random.seed(0)
     torch.manual_seed(0)
@@ -138,16 +140,16 @@ if __name__ == "__main__":
     # Config
     NUM_EPOCHS = 10000
     PATIENCE = 5
-    STANDARDIZE_X = False
+    SCALE_X = True
     
-    TEST_WINDOW_SIZE = 1
     TRAIN_VAL_WINDOW_SIZE = 36
-    VAL_WINDOW_SIZE = 10
     TRAIN_WINDOW_SIZE = 30
+    VAL_WINDOW_SIZE = TRAIN_VAL_WINDOW_SIZE - TRAIN_WINDOW_SIZE
+    TEST_WINDOW_SIZE = 1
     BATCH_SIZE = None
     NUM_TRIALS = 300
     
-    MODEL_NAME = "umlp_tuned"
+    MODEL_NAME = "mmlp_tuned_scaled"
     PLOT_OPTUNA = False
     VERBOSE = False
     # ------------
@@ -156,10 +158,10 @@ if __name__ == "__main__":
     # read processed data
     df = pd.read_csv("../../data/processed/tidy_df.csv", index_col=[0, 1, 2])
     # samll firm data setting for debugging
-    df = df.loc[pd.IndexSlice[df.index.get_level_values(0).unique()[0:2], :, :], :]
+    df = df.loc[pd.IndexSlice[df.index.get_level_values(0).unique()[0], :, :], :]
     
     # empty list for agregated dataframes
-    y_hat_umlp_list = []
+    y_hat_mmlp_list = []
     log_list = []
     
     t1 = time.time() 
@@ -169,23 +171,23 @@ if __name__ == "__main__":
     # ------------
     firm_list = df.index.get_level_values(0).unique()
     for firm in tqdm(firm_list):
-        y_hat_umlp = []
+        y_hat_mmlp = []
 
         # y : "EPS"
         y = df.loc[pd.IndexSlice[firm, :, :], "EPS"]
 
         # x, exogenous regressors : 'INV', 'AR', 'CAPX', 'GM', 'SA', 'ETR', 'LF'
-        #     x = df.loc[pd.IndexSlice[i, :, :], ['INV', 'AR', 'CAPX', 'GM', 'SA', 'ETR', 'LF']]
+        x = df.loc[pd.IndexSlice[firm, :, :], ['INV', 'AR', 'CAPX', 'GM', 'SA', 'ETR', 'LF']]
 
         # Unlike statsmodel SARIMA package, NN needs to prepare lagged inputs manually if needed.
         # y_lag and x_lag (lag 4 for now)
         num_lag = 4
         y_lag = lag(y, num_lag, drop_nan=False, reset_index=False)
-        #     x_lag = lag(x, num_lag, drop_nan=False, reset_index=False)
+        x_lag = lag(x, num_lag, drop_nan=False, reset_index=False)
 
         # Redefine data name as target (y) and feature (y_lag) (explanatory variable, predictor)
         target = y
-        feature = y_lag
+        feature = pd.concat([y_lag, x_lag], axis=1)
 
         # save simple test data series
         rolling_sample_size = 12
@@ -226,11 +228,23 @@ if __name__ == "__main__":
             #===============
             feature_train_val = feature_train_val[0] # extract single rolling sample batch
             target_train_val = target_train_val[0] # extract single rolling sample batch
+            feature_test = feature_test_all[rolling_sample].reshape(1, -1)
+            target_test = target_test_all[rolling_sample].reshape(-1)
+            
+            # Standard Scaling for training and validation
+            if SCALE_X:
+                # calculate mean and var based on only train (val excluded)
+                feature_train_scaler = StandardScaler().fit(feature_train_val[:TRAIN_WINDOW_SIZE])
+                # overwrite feature_train_valid memory
+                feature_train_val[:TRAIN_WINDOW_SIZE] = torch.tensor(feature_train_scaler.transform(feature_train_val[:TRAIN_WINDOW_SIZE]), dtype=dtype)
+                feature_train_val[TRAIN_WINDOW_SIZE:] = torch.tensor(feature_train_scaler.transform(feature_train_val[TRAIN_WINDOW_SIZE:]), dtype=dtype)
+                feature_test = torch.tensor(feature_train_scaler.transform(feature_test), dtype=dtype)
+                
 
             # all "batch" dataset (unit window)
             train_val_dataset = TimeSeriesDataset(feature_train_val, target_train_val, train_window=None)
             train_val_loader = torch.utils.data.DataLoader(train_val_dataset, batch_size=len(train_val_dataset), shuffle=False)
-            test_dataset = TimeSeriesDataset(feature_test_all[rolling_sample].reshape(1, -1), target_test_all[rolling_sample].reshape(-1), train_window=None)
+            test_dataset = TimeSeriesDataset(feature_test, target_test, train_window=None)
             test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=len(test_dataset), shuffle=False)
             
             #=======================
@@ -273,7 +287,7 @@ if __name__ == "__main__":
                 fig.show()
             
             # save trials as dataframe
-            study.trials_dataframe().to_csv("../../assets/trained_models/univariate/mlp_tuned/optuna_trials/optuna_trials_" + firm + "_" + str(rolling_sample) + ".csv")
+            study.trials_dataframe().to_csv("../../assets/trained_models/multivariate/mlp_tuned_scaled/optuna_trials/optuna_trials_" + firm + "_" + str(rolling_sample) + ".csv")
 
             #====================
             # Final Train_Val Fit
@@ -301,7 +315,7 @@ if __name__ == "__main__":
             # ||||||||||||||||||||||||||||||||||||||||||||
             
             # trained model save path
-            PATH = "../../assets/trained_models/univariate/mlp_tuned/" + MODEL_NAME + "_" + firm + "_" + str(rolling_sample) + '.pth'
+            PATH = "../../assets/trained_models/multivariate/mlp_tuned_scaled/" + MODEL_NAME + "_" + firm + "_" + str(rolling_sample) + '.pth'
             
             for epoch in range(NUM_EPOCHS):
                 mlp.train()
@@ -366,7 +380,7 @@ if __name__ == "__main__":
     #                 print(feature_test, target_test)
     #                 print(feature_test.size(), target_test.size())
                     y_hat = best_model(feature_test)
-                    y_hat_umlp.append(y_hat.squeeze().detach().numpy())
+                    y_hat_mmlp.append(y_hat.squeeze().detach().numpy())
 #                     y_test_list.append(target_test)
                     if VERBOSE:
                         print("y_true: {}, y_hat: {}, diff: {}".format(target_test.squeeze().detach().numpy(), y_hat.squeeze().detach().numpy(), target_test.squeeze().detach().numpy() - y_hat.squeeze().detach().numpy()))
@@ -389,25 +403,25 @@ if __name__ == "__main__":
         if VERBOSE:
             print("")
             print(firm, "accuray")
-            print("AbsolutePercentageError: ", AbsolutePercentageError(target_test_all.detach().numpy(), np.array(y_hat_umlp)))
-            print("MAPE: ", MAPE(target_test_all.detach().numpy(), np.array(y_hat_umlp)))
+            print("AbsolutePercentageError: ", AbsolutePercentageError(target_test_all.detach().numpy(), np.array(y_hat_mmlp)))
+            print("MAPE: ", MAPE(target_test_all.detach().numpy(), np.array(y_hat_mmlp)))
         
-        # aggregate y_hat_umlp for all firm y_hat_umlp_list
-        y_hat_umlp_list.extend(y_hat_umlp)
+        # aggregate y_hat_mmlp for all firm y_hat_mmlp_list
+        y_hat_mmlp_list.extend(y_hat_mmlp)
         
     # save as dataframe
     y_test = df.loc[pd.IndexSlice[:, 2018:, :], "EPS"]
-    y_test.to_csv('../../assets/y_hats/univariate/y_test_tuned.csv')
+    y_test.to_csv('../../assets/y_hats/multivariate/y_test_tuned.csv')
     
-    y_hat_umlp_list = pd.Series(y_hat_umlp_list)
-    y_hat_umlp_list.index = df.loc[pd.IndexSlice[:, 2018:, :], :].index
-    y_hat_umlp_list.name = 'y_hat_umlp'
-    y_hat_umlp_list.to_csv('../../assets/y_hats/univariate/y_hat_' + MODEL_NAME + '.csv')
+    y_hat_mmlp_list = pd.Series(y_hat_mmlp_list)
+    y_hat_mmlp_list.index = df.loc[pd.IndexSlice[:, 2018:, :], :].index
+    y_hat_mmlp_list.name = 'y_hat_mmlp'
+    y_hat_mmlp_list.to_csv('../../assets/y_hats/multivariate/y_hat_' + MODEL_NAME + '.csv')
     
     log = pd.DataFrame(log_list)
     log.index = df.loc[pd.IndexSlice[:, 2018:, :], :].index
     log.columns = ["rolling_sample", "pruned_trials", "complete_trials", "best_trial_val_error", "best_trial_params", "final_train_epochs", "final_train_min_loss", "y_test", "y_hat"]
-    log.to_csv("../../assets/y_hats/univariate/log.csv")
+    log.to_csv("../../assets/y_hats/multivariate/log_tuned_scaled.csv")
     
     t2 = time.time()
 
