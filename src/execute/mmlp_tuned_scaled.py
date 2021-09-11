@@ -4,6 +4,7 @@
 # import external libraries
 import sys
 import time
+import datetime
 import numpy as np
 import pandas as pd
 import torch
@@ -147,7 +148,7 @@ if __name__ == "__main__":
     VAL_WINDOW_SIZE = TRAIN_VAL_WINDOW_SIZE - TRAIN_WINDOW_SIZE
     TEST_WINDOW_SIZE = 1
     BATCH_SIZE = None
-    NUM_TRIALS = 300
+    NUM_TRIALS = 100
     
     MODEL_NAME = "mmlp_tuned_scaled"
     PLOT_OPTUNA = False
@@ -157,8 +158,9 @@ if __name__ == "__main__":
     # ------------
     # read processed data
     df = pd.read_csv("../../data/processed/tidy_df.csv", index_col=[0, 1, 2])
-    # samll firm data setting for debugging
+    # small firm data setting for debugging
     df = df.loc[pd.IndexSlice[df.index.get_level_values(0).unique()[0], :, :], :]
+#     df = df.loc[pd.IndexSlice[df.index.get_level_values(0).unique(), :, :], :]
     
     # empty list for agregated dataframes
     y_hat_mmlp_list = []
@@ -410,18 +412,18 @@ if __name__ == "__main__":
         y_hat_mmlp_list.extend(y_hat_mmlp)
         
     # save as dataframe
-    y_test = df.loc[pd.IndexSlice[:, 2018:, :], "EPS"]
-    y_test.to_csv('../../assets/y_hats/multivariate/y_test_tuned.csv')
+#     y_test = df.loc[pd.IndexSlice[:, 2018:, :], "EPS"]
+#     y_test.to_csv('../../assets/y_hats/multivariate/y_test_tuned.csv')
     
     y_hat_mmlp_list = pd.Series(y_hat_mmlp_list)
     y_hat_mmlp_list.index = df.loc[pd.IndexSlice[:, 2018:, :], :].index
     y_hat_mmlp_list.name = 'y_hat_mmlp'
-    y_hat_mmlp_list.to_csv('../../assets/y_hats/multivariate/y_hat_' + MODEL_NAME + '.csv')
+    y_hat_mmlp_list.to_csv('../../assets/y_hats/multivariate/y_hat_' + MODEL_NAME + str(datetime.date.today()) + '.csv')
     
     log = pd.DataFrame(log_list)
     log.index = df.loc[pd.IndexSlice[:, 2018:, :], :].index
     log.columns = ["rolling_sample", "pruned_trials", "complete_trials", "best_trial_val_error", "best_trial_params", "final_train_epochs", "final_train_min_loss", "y_test", "y_hat"]
-    log.to_csv("../../assets/y_hats/multivariate/log_tuned_scaled.csv")
+    log.to_csv("../../assets/y_hats/multivariate/log_tuned_scaled" + str(datetime.date.today()) + ".csv")
     
     t2 = time.time()
 
