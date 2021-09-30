@@ -36,11 +36,11 @@ if __name__ == "__main__":
         y = df.loc[pd.IndexSlice[i, :, :], "EPS"]
 
         # x, exogenous regressors : 'INV', 'AR', 'CAPX', 'GM', 'SA', 'ETR', 'LF'
-        x = df.loc[pd.IndexSlice[i, :, :], ['INV', 'AR', 'CAPX', 'GM', 'SA', 'ETR', 'LF']]
+#         x = df.loc[pd.IndexSlice[i, :, :], ['INV', 'AR', 'CAPX', 'GM', 'SA', 'ETR', 'LF']]
 
         # time series train test split (4/5) : (1/5), yearly bases
         y_train, y_test = train_test_split(y, ratio=(4,1))
-        x_train, x_test = train_test_split(x, ratio=(4,1))
+#         x_train, x_test = train_test_split(x, ratio=(4,1))
 
         # store y_test_i for calculating accuracy
         y_test_list.append(y_test)

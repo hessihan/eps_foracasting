@@ -31,7 +31,7 @@ def train_test_split(data, test_size=None, ratio=(4, 1)):
     
     return data.iloc[:-test_size], data.iloc[-test_size:]
 
-def lag(data, lag, drop_nan=False, reset_index=False):
+def lag(data, lag, drop_nan=False, reset_index=False, original=True):
     """
     Create lagged data for NN.
 
@@ -52,6 +52,8 @@ def lag(data, lag, drop_nan=False, reset_index=False):
         (data.shape[0] - lag) x (data.shape[1] * lag) shaped pd.DataFrame
     """
     data_lag = pd.DataFrame() # ここは横にconcatしないと、DataFrameに対応できない。
+    if original:
+        data_lag = data
     for i in range(lag):
         data = pd.DataFrame(data)
         shift = data.shift(i+1)

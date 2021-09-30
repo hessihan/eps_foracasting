@@ -1,0 +1,13 @@
+企業名,会計年度,四半期,rolling_sample,pruned_trials,complete_trials,best_trial_val_error,best_trial_params,final_train_epochs,final_train_min_loss,y_test,y_hat
+ＷＤＢホールディングス,2018,Q1,0,58,42,1.7590844436199404e-05,"dict_items([('hidden_units', 687), ('learning_rate', 0.11002288338275408)])",1000,"tensor(462712.2188, grad_fn=<MseLossBackward>)",37.19,54.542397
+ＷＤＢホールディングス,2018,Q2,1,59,41,2.0017934730276465e-05,"dict_items([('hidden_units', 666), ('learning_rate', 0.12324342375436143)])",1000,"tensor(562761.7500, grad_fn=<MseLossBackward>)",40.32,86.343796
+ＷＤＢホールディングス,2018,Q3,2,58,42,2.3447502826456912e-05,"dict_items([('hidden_units', 804), ('learning_rate', 0.11896462615629497)])",1000,"tensor(477151.2188, grad_fn=<MseLossBackward>)",46.97,42.32088
+ＷＤＢホールディングス,2018,Q4,3,59,41,1.0179630862694466e-06,"dict_items([('hidden_units', 306), ('learning_rate', 0.32095695903352234)])",1000,"tensor(1245515.1250, grad_fn=<MseLossBackward>)",22.84,151.39795
+ＷＤＢホールディングス,2019,Q1,4,70,30,2.3894568585092202e-05,"dict_items([('hidden_units', 584), ('learning_rate', 0.09695925281536595)])",1000,"tensor(383128.4062, grad_fn=<MseLossBackward>)",31.77,-29.075357
+ＷＤＢホールディングス,2019,Q2,5,66,34,2.8070621738152113e-06,"dict_items([('hidden_units', 753), ('learning_rate', 0.09764884663558468)])",1000,"tensor(151749.1406, grad_fn=<MseLossBackward>)",39.95,85.81832
+ＷＤＢホールディングス,2019,Q3,6,58,42,0.0021700237412005663,"dict_items([('hidden_units', 488), ('learning_rate', 0.17480984480253547)])",597,"tensor(1303909., grad_fn=<MseLossBackward>)",39.56,56.416145
+ＷＤＢホールディングス,2019,Q4,7,56,44,5.24290271641803e-07,"dict_items([('hidden_units', 670), ('learning_rate', 0.14095846236560952)])",845,"tensor(507550.7812, grad_fn=<MseLossBackward>)",45.69,-9.342775
+ＷＤＢホールディングス,2020,Q1,8,63,37,1.3747997229529574e-07,"dict_items([('hidden_units', 725), ('learning_rate', 0.1460534521362584)])",936,"tensor(461229.3125, grad_fn=<MseLossBackward>)",41.79,-191.58308
+ＷＤＢホールディングス,2020,Q2,9,60,40,0.0007788101793266833,"dict_items([('hidden_units', 995), ('learning_rate', 0.09157417247039187)])",1000,"tensor(186485.5469, grad_fn=<MseLossBackward>)",41.31,-68.19692
+ＷＤＢホールディングス,2020,Q3,10,63,37,0.0004091479640919715,"dict_items([('hidden_units', 884), ('learning_rate', 0.10196187558926312)])",807,"tensor(401094.6250, grad_fn=<MseLossBackward>)",48.42,200.8608
+ＷＤＢホールディングス,2020,Q4,11,62,38,0.0005398939829319715,"dict_items([('hidden_units', 424), ('learning_rate', 0.24997830419820627)])",1000,"tensor(1319567.1250, grad_fn=<MseLossBackward>)",41.72039,39.8083

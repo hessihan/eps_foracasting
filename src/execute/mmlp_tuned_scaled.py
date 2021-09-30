@@ -80,7 +80,8 @@ def objective(trial):
 
     # Construct loss and optimizer
     criterion = torch.nn.MSELoss(reduction="mean")
-    optimizer = torch.optim.Adam(mlp.parameters(), lr=learning_rate)
+#     optimizer = torch.optim.Adam(mlp.parameters(), lr=learning_rate)
+    optimizer = torch.optim.SGD(mlp.parameters(), lr=learning_rate, weight_decay=0.5)
     
     # get dataloader for this firm rolling sample
     train_loader, val_loader = get_data_loaders(train_val_dataset, TRAIN_WINDOW_SIZE)
@@ -139,12 +140,13 @@ if __name__ == "__main__":
     torch.manual_seed(0)
     
     # Config
-    NUM_EPOCHS = 10000
+    NUM_EPOCHS = 1000
     PATIENCE = 5
     SCALE_X = True
+    WEIGHT_DECAY = 0.5
     
     TRAIN_VAL_WINDOW_SIZE = 36
-    TRAIN_WINDOW_SIZE = 30
+    TRAIN_WINDOW_SIZE = 35
     VAL_WINDOW_SIZE = TRAIN_VAL_WINDOW_SIZE - TRAIN_WINDOW_SIZE
     TEST_WINDOW_SIZE = 1
     BATCH_SIZE = None
@@ -159,7 +161,7 @@ if __name__ == "__main__":
     # read processed data
     df = pd.read_csv("../../data/processed/tidy_df.csv", index_col=[0, 1, 2])
     # small firm data setting for debugging
-    df = df.loc[pd.IndexSlice[df.index.get_level_values(0).unique()[0], :, :], :]
+    df = df.loc[pd.IndexSlice[df.index.get_level_values(0).unique()[4], :, :], :]
 #     df = df.loc[pd.IndexSlice[df.index.get_level_values(0).unique(), :, :], :]
     
     # empty list for agregated dataframes
@@ -290,7 +292,9 @@ if __name__ == "__main__":
             
             # save trials as dataframe
             study.trials_dataframe().to_csv("../../assets/trained_models/multivariate/mlp_tuned_scaled/optuna_trials/optuna_trials_" + firm + "_" + str(rolling_sample) + ".csv")
-
+            # save best train model
+            
+            
             #====================
             # Final Train_Val Fit
             #====================
@@ -303,7 +307,8 @@ if __name__ == "__main__":
             
             # Construct loss and optimizer
             criterion = torch.nn.MSELoss(reduction="mean")
-            optimizer = torch.optim.Adam(mlp.parameters(), lr=best_learning_rate)
+#             optimizer = torch.optim.Adam(mlp.parameters(), lr=best_learning_rate)
+            optimizer = torch.optim.SGD(mlp.parameters(), lr=best_learning_rate, weight_decay=WEIGHT_DECAY)
             
             # learning iteration
             total_step = len(train_val_loader)
@@ -412,7 +417,7 @@ if __name__ == "__main__":
         y_hat_mmlp_list.extend(y_hat_mmlp)
         
     # save as dataframe
-#     y_test = df.loc[pd.IndexSlice[:, 2018:, :], "EPS"]
+    y_test = df.loc[pd.IndexSlice[:, 2018:, :], "EPS"]
 #     y_test.to_csv('../../assets/y_hats/multivariate/y_test_tuned.csv')
     
     y_hat_mmlp_list = pd.Series(y_hat_mmlp_list)
@@ -429,3 +434,6 @@ if __name__ == "__main__":
 
     elapsed_time = t2-t1
     print(f"elapsedtime：{elapsed_time}")
+    
+    # MAPE
+    print(MAPE(y_test, y_hat_mmlp_list))
