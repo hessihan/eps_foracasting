@@ -5,6 +5,8 @@ import sys
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import warnings
+warnings.simplefilter("ignore")
 
 # import internal modules
 sys.path.insert(1, '../')
@@ -119,82 +121,17 @@ if __name__ == "__main__":
     
     y_hats_all.to_csv("./../../assets/y_hats/y_hats_all.csv")
     
-    ## sample specific (firm x quarter) error table
-    
-    # exact error
-    error = []
-    for i in y_hats_all.columns:
-        error.append(y_test - y_hats_all[i])
-    error = pd.DataFrame(error).T
-    error.columns = ["y_test - " + i for i in  y_hats_all.columns]
-    error.to_csv("../../assets/y_hats/error.csv")
-    
-    # absolute error
-    error_abs = abs(error)
-    error_abs.columns = ["|" + i + "|" for i in error.columns]
-    error_abs.to_csv("../../assets/y_hats/error_abs.csv")
-    
-    # percentage error
-    error_p = []
-    for i in error.columns:
-        error_p.append(error[i] / y_test)
-    error_p = pd.DataFrame(error_p).T
-    error_p.columns = ["(" + i + ") / y_test" for i in error.columns]
-    error_p.to_csv("../../assets/y_hats/error_p.csv")
-    
-    # absolute percentage error
-    error_p_abs = abs(error_p)
-    error_p_abs.columns = ["|" + i + "|" for i in error_p.columns]
-    error_p_abs.to_csv("../../assets/y_hats/error_p_abs.csv")
-    
     ## agregate forceast accuracy score
     
     # forecast accuracy indicators
-    ind_name = ["Max_error", "Max_percentage_error", "MAE", "MAPE", "MSE", "RMSE", "RMSPE"]
-    indicators = [Max_error, Max_percentage_error, MAE, MAPE, MSE, RMSE, RMSPE]
+    ind_name = ["Max_error", "Max_percentage_error", "MAE", "MAPE", "MSPE", "MAPE-UB", "MSPE-UB", "Large_error_rate"]
+    indicators = [Max_error, Max_percentage_error, MAE, MAPE, MSE, MAPEUB, MSPEUB, LargeErrorRate]
     indicators = dict(zip(ind_name, indicators))
     
     # accuracy table for all firm mean
     a = accuracy_table(y_test, y_hats_all, indicators)
-    a.to_csv("../../assets/y_hats/accuracy_table.csv")
-    print(a)
+    a.to_csv("../../assets/y_hats/accuracy_table_2.csv")
     
     # accuracy table for each individual firms
     ai = accuracy_table_i(y_test, y_hats_all, indicators)
-    ai.to_csv("../../assets/y_hats/accuracy_table_i.csv")
-    print(ai)
-    
-    ## Upper bound |(Y_t - \hat Y_t) / Y_t| = 1 if exceed 1
-    
-    # absolute percentage error
-    error_p_abs_ub = error_p_abs.copy()
-    error_p_abs_ub[error_p_abs_ub > 1] = 1
-    error_p_abs_ub.to_csv("../../assets/y_hats/error_p_abs_ub.csv")
-    
-#     error_p_sq_ub = error_p.copy()
-#     error_p_sq_ub[abs(error_p_sq_ub) > 1] = 1
-#     error_p_sq_ub = error_p_sq_ub ** 2
-    
-    # squared percentage error
-    error_p_sq_ub = error_p_abs_ub ** 2
-    error_p_sq_ub.to_csv("../../assets/y_hats/error_p_abs_ub.csv")
-    
-    # large error
-    (error_p_abs_ub == 1).sum()
-    (error_p_abs_ub == 1).sum() / len(error_p_abs_ub)
-    
-    # i
-    (error_p_abs_ub == 1).sum(level=0)
-    
-    # aggregate table
-    accuracy_table_ub = pd.DataFrame([error_p_abs_ub.mean(), 
-                                      error_p_sq_ub.mean(), 
-                                      (error_p_abs_ub == 1).sum() / len(error_p_abs_ub)
-                                     ])
-    accuracy_table_ub.index = ["MAPE", "MSPE", "Large Forecast Error"]
-    accuracy_table_ub.columns = y_hats_all.columns
-    accuracy_table_ub = accuracy_table_ub.T
-    accuracy_table_ub.to_csv("../../assets/y_hats/accuracy_table_ub.csv")
-    
-        # i
-    error_p_abs_ub.mean(level=0)
+    ai.to_csv("../../assets/y_hats/accuracy_table_i_2.csv")

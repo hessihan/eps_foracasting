@@ -122,3 +122,35 @@ def AbsolutePercentageError(true, pred):
     abs((true - pred) / true)
     """
     return abs((true - pred) / true)
+
+# absolute percentage error with upper bound
+def AbsolutePercentageErrorUB(true, pred):
+    """
+    Absolute percentage error with upper bound
+    
+    Return
+    ------
+    abs((true - pred) / true) or 1
+    """
+    ape_ub = AbsolutePercentageError(true, pred)
+    ape_ub[ape_ub > 1] = 1
+    return ape_ub
+
+def LargeErrorRate(true, pred):
+    """
+    Percentage of large error forecast
+    """
+    ape_ub = AbsolutePercentageError(true, pred)
+    return np.mean(ape_ub[ape_ub > 1])
+
+def MAPEUB(true, pred):
+    """
+    Mean Absolute Percentage Error with upper bound
+    """
+    return np.mean(AbsolutePercentageErrorUB(true, pred))
+
+def MSPEUB(true, pred):
+    """
+    Mean Squared Percentage Error with upper bound
+    """
+    return np.mean(AbsolutePercentageErrorUB(true, pred)**2)
