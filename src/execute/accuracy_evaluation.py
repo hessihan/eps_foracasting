@@ -129,7 +129,7 @@ if __name__ == "__main__":
     indicators = dict(zip(ind_name, indicators))
     
     # accuracy table for all firm mean
-    a = accuracy_table(y_test, y_hats_all, indicators)
+    a = accuracy_table(y_test, y_hats_all, indicators).T
     a.to_csv("../../assets/y_hats/accuracy_table_2.csv")
     
     # accuracy table for each individual firms
