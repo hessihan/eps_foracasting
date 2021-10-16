@@ -1,41 +1,43 @@
+# https://non-dimension.com/python-multitask/
+
 import numpy as np
 import time
-from multiprocessing import Pool, cpu_count
 
-def process(n):
-    time.sleep(0.1)
-    return 2 ** n
+def task(_n):
+    s = 0
+    for i in range(1,_n+1):
+        s+=i
+        time.sleep(0.1)
+    return s
 
-def single(n):        
-    input_list = list(range(n))
-    start = time.time() #処理開始時間
+ns = list(np.arange(1,11)) #1〜10までの数字のリストを作成
 
-    #========計算処理========    
-#     for i in range(n):
-#         process(i)
-    result = map(process, input_list)
-    #     np.mean(np.array(list(result)))
-    #=======================
+start = time.time() #処理開始時間
+
+#========計算処理========
+sms_single = []
+for n in ns:
+    sms_single.append(task(n))
+#=======================
     
-    end = time.time() #処理終了時間
-    delta = end - start #処理時間
-    print('処理時間:{}s'.format(round(delta,3)))
+end = time.time() #処理終了時間
+delta = end - start #処理時間
+print('処理時間:{}s'.format(round(delta,3)))
 
-def multi(n):
-    input_list = list(range(n))
-    start = time.time()
+import numpy as np
+import time
+from concurrent.futures import ThreadPoolExecutor
 
-    #========計算処理========
-    p = Pool(cpu_count() - 1)
-    result = p.map(process, input_list)
-    p.close
-    #=======================
+ns = list(np.arange(1,11)) 
 
-    end = time.time()
-    delta = end - start
-    print('処理時間:{}s'.format(round(delta,3)))  
-    
-if __name__ == "__main__":
-    loop_n = 20000
-    single(loop_n)
-    multi(loop_n)
+start = time.time()
+
+#========計算処理========
+with ThreadPoolExecutor(6) as e:
+    ret = e.map(task, ns)
+sms_multi = [r for r in ret]
+#=======================
+  
+end = time.time()
+delta = end - start
+print('処理時間:{}s'.format(round(delta,3)))  

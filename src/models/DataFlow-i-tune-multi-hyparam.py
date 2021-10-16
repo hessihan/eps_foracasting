@@ -73,15 +73,17 @@ def tune_i(df, firm_list, test_periods, val_size, i, method, tune_space):
 
     def prim_train(hyparam):
         y_val_hat = np.arange(len(test_periods))
-        y_val_hat = list(map(lambda period: method(splitted_data_i["x_train"][period], 
-                                                   splitted_data_i["y_train"][period], 
-                                                   splitted_data_i["x_val"][period], hyparam), y_val_hat))
+        y_val_hat = list(map(lambda period: method(
+            *hyparam,
+            splitted_data_i["x_train"][period], 
+            splitted_data_i["y_train"][period], 
+            splitted_data_i["x_val"][period]
+        ), y_val_hat))
         y_val_hat = pd.concat(y_val_hat)
         return y_val_hat
 
     def search_best_hyparam(tune_space):
         y_val = pd.concat(splitted_data_i["y_val"])
-        tune_space = tune_space
         val_mspe = np.array(list(map(lambda hyparam: MSE(y_val, prim_train(hyparam)), tune_space)))
         best_hyparam = tune_space[val_mspe.argmin()]
 #         print("best hyparam:", best_hyparam)
@@ -90,9 +92,12 @@ def tune_i(df, firm_list, test_periods, val_size, i, method, tune_space):
 
     def final_train(best_hyparam):
         y_hat = np.arange(len(test_periods))
-        y_hat = list(map(lambda period: method(splitted_data_i["x_train_val"][period], 
-                                               splitted_data_i["y_train_val"][period], 
-                                               splitted_data_i["x_test"][period], best_hyparam), y_hat))
+        y_hat = list(map(lambda period: method(
+            *best_hyparam,
+            splitted_data_i["x_train_val"][period], 
+            splitted_data_i["y_train_val"][period], 
+            splitted_data_i["x_test"][period]
+        ), y_hat))
         y_hat = pd.concat(y_hat)
         return y_hat
     
@@ -107,24 +112,38 @@ if __name__ == "__main__":
     
     from sklearn.linear_model import Lasso
     from sklearn.linear_model import Ridge
+    from sklearn.linear_model import ElasticNet
+    from sklearn.ensemble import RandomForestRegressor
     from multiprocessing import Pool, cpu_count
 
-    def L1(x_train, y_train, x_test, alpha):
+    def L1(alpha, x_train, y_train, x_test):
         model = Lasso(alpha=alpha, random_state=0)
         model.fit(x_train, y_train)
         y_hat = pd.Series(model.predict(x_test), index=x_test.index)
         return y_hat
 
-    def L2(x_train, y_train, x_test, alpha):
+    def L2(alpha, x_train, y_train, x_test):
         model = Ridge(alpha=alpha, random_state=0)
         model.fit(x_train, y_train)
         y_hat = pd.Series(model.predict(x_test), index=x_test.index)
         return y_hat
     
+    def EN(hyparams_1, hyparams_2, x_train, y_train, x_test):
+        model = ElasticNet(alpha=hyparams_1, l1_ratio=hyparams_2)
+        model.fit(x_train, y_train)
+        y_hat = pd.Series(model.predict(x_test), index=x_test.index)
+        return y_hat    
+
+    def RAF(hyparams_1, hyparams_2, x_train, y_train, x_test):  
+        model = RandomForestRegressor(n_estimators=hyparams_1, max_depth=hyparams_2, max_features="auto", random_state=0)
+        model.fit(x_train, y_train)
+        y_hat = pd.Series(model.predict(x_test), index=x_test.index)
+        return y_hat    
+    
     # PREPARE LAGGED DATA
     my_df = pd.read_csv("../../data/processed/tidy_df.csv", index_col=[0, 1, 2])
-#     col = ['EPS', 'INV', 'AR', 'CAPX','GM', 'SA', 'ETR', 'LF'] # multivariate
-    col = ['EPS'] # univariate
+    col = ['EPS', 'INV', 'AR', 'CAPX','GM', 'SA', 'ETR', 'LF'] # multivariate
+#     col = ['EPS'] # univariate
     my_df = my_df[col]
     my_df = pd.concat([
         my_df,
@@ -141,11 +160,10 @@ if __name__ == "__main__":
     
     # TUNING
 #     my_tune_space = np.linspace(0, 100, 101)
-    my_tune_space = [0.001, 0.01, 0.1, 1, 10, 100, 1000]
-    
-    # LASSO
+#     my_tune_space = np.meshgrid([0.001, 0.01, 0.1, 1, 10, 100, 1000])
     
     # single
+#     my_firm_list = my_firm_list[:2]
 #     t1 = time.time()
 #     y_hats = list(map(lambda firm: tune_i(my_df, my_firm_list, my_test_periods, 1, firm, 
 #                                           L1, my_tune_space), tqdm(my_firm_list)))
@@ -153,7 +171,6 @@ if __name__ == "__main__":
 #     print(t2-t1)
     
     # Multiprocessing
-    t1 = time.time()
 #     https://stackoverflow.com/questions/4827432/how-to-let-pool-map-take-a-lambda-function
     class Tuner_i(object):
         def __init__(self, df, firm_list, test_periods, val_size, method, tune_space):
@@ -165,17 +182,79 @@ if __name__ == "__main__":
             self.tune_space = tune_space
         def __call__(self, i):
             return tune_i(self.df, self.firm_list, self.test_periods, self.val_size, i, self.method, self.tune_space)
-            
+    
+    # LASSO
+#     my_firm_list = my_firm_list[:2]
+    my_tune_space = [[0.001], [0.01], [0.1], [1], [10], [100], [1000]]
+    t1 = time.time()
+    p = Pool(cpu_count() - 1)
+    y_hats = list(p.map(Tuner_i(my_df, my_firm_list, my_test_periods, 1, L1, my_tune_space), tqdm(my_firm_list)))
+    p.close()
+    t2 = time.time()
+    print(t2-t1)
+    
+    name = #"y_hat_ml1_i_tuned_simple"
+    y_hats = pd.concat(y_hats)
+    y_hats.index = y_test.index
+    y_hats.name = name
+    y_hats.to_csv("../../assets/y_hats/multivariate/" + name + ".csv")
+    y_hats = pd.read_csv("../../assets/y_hats/multivariate/" + name + ".csv", index_col=[0, 1, 2])
+    MAPEUB(y_test.values, y_hats.values)
+    
+    # Ridge
+    my_tune_space = [[0.001], [0.01], [0.1], [1], [10], [100], [1000]]
+    t1 = time.time()
     p = Pool(cpu_count() - 1)
     y_hats = list(p.map(Tuner_i(my_df, my_firm_list, my_test_periods, 1, L2, my_tune_space), tqdm(my_firm_list)))
     p.close()
     t2 = time.time()
     print(t2-t1)
     
-    name = "y_hat_ul2_i_tuned_simple"
+    name = #"y_hat_ml2_i_tuned_simple"
     y_hats = pd.concat(y_hats)
     y_hats.index = y_test.index
-    y_hats.columns = [name]    
+    y_hats.name = name
+    y_hats.to_csv("../../assets/y_hats/multivariate/" + name + ".csv")
+    y_hats = pd.read_csv("../../assets/y_hats/multivariate/" + name + ".csv", index_col=[0, 1, 2])
+    MAPEUB(y_test.values, y_hats.values)
+    
+    # EN
+    my_tune_space = np.vstack(map(np.ravel, np.meshgrid(
+        [0.001, 0.01, 0.1, 1, 10, 100, 1000], 
+        [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    ))).T
+    t1 = time.time()
+    p = Pool(cpu_count() - 1)
+    y_hats = list(p.map(Tuner_i(my_df, my_firm_list, my_test_periods, 1, EN, my_tune_space), tqdm(my_firm_list)))
+    p.close()
+    t2 = time.time()
+    print(t2-t1)
+    
+    name = "y_hat_men_i_tuned_simple"
+    y_hats = pd.concat(y_hats)
+    y_hats.index = y_test.index
+    y_hats.name = name
+    y_hats.to_csv("../../assets/y_hats/multivariate/" + name + ".csv")
+    y_hats = pd.read_csv("../../assets/y_hats/multivariate/" + name + ".csv", index_col=[0, 1, 2])
+    MAPEUB(y_test.values, y_hats.values)
+
+    # RAF
+    my_firm_list = my_firm_list[:2]
+    my_tune_space = np.vstack(map(np.ravel, np.meshgrid(
+        [100, 500, 1000, 2000],
+        [10, 100, None]
+    ))).T
+    t1 = time.time()
+    p = Pool(cpu_count() - 1)
+    y_hats = list(p.map(Tuner_i(my_df, my_firm_list, my_test_periods, 1, RAF, my_tune_space), tqdm(my_firm_list)))
+    p.close()
+    t2 = time.time()
+    print(t2-t1)
+    
+    name = "y_hat_mraf_i_tuned_simple"
+    y_hats = pd.concat(y_hats)
+    y_hats.index = y_test.index
+    y_hats.name = name
     y_hats.to_csv("../../assets/y_hats/multivariate/" + name + ".csv")
     y_hats = pd.read_csv("../../assets/y_hats/multivariate/" + name + ".csv", index_col=[0, 1, 2])
     MAPEUB(y_test.values, y_hats.values)
