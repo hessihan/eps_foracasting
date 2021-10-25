@@ -239,19 +239,18 @@ if __name__ == "__main__":
     MAPEUB(y_test.values, y_hats.values)
 
     # RAF
-    my_firm_list = my_firm_list[:2]
     my_tune_space = np.vstack(map(np.ravel, np.meshgrid(
         [100, 500, 1000, 2000],
         [10, 100, None]
     ))).T
     t1 = time.time()
-    p = Pool(cpu_count() - 1)
+    p = Pool(4) #Pool(cpu_count() - 1)
     y_hats = list(p.map(Tuner_i(my_df, my_firm_list, my_test_periods, 1, RAF, my_tune_space), tqdm(my_firm_list)))
     p.close()
     t2 = time.time()
     print(t2-t1)
     
-    name = "y_hat_mraf_i_tuned_simple"
+    name = "y_hat_mraf_i_tuned_simple_"
     y_hats = pd.concat(y_hats)
     y_hats.index = y_test.index
     y_hats.name = name
