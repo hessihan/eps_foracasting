@@ -76,6 +76,10 @@ $$\begin{eqnarray}
     \bar{r}_{m} &=& \frac {1} {T} \sum^{T}_{M=1} r_{m, M} \\
     \bar{r}_{f} &=& \frac {1} {T} \sum^{T}_{M=1} r_{f, M} \\
 \end{eqnarray}$$
+
+実務上、月次データで過去5年間を扱うことが多い。
+https://ontrack.co.jp/f-terms/%CE%B2%EF%BC%88%E3%83%99%E3%83%BC%E3%82%BF%EF%BC%89/
+
 ## Fama-French 3 factor model (Fama and French, 1997)
 
 $$\begin{eqnarray}
