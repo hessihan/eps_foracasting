@@ -51,6 +51,33 @@ $$\begin{eqnarray}
     EPS_t &:& \text{1株当たり当期純利益} = \frac{NI_t} {発行済み株式総数} \\
     BPS_t &:& \text{1株当たり純資産} \\
 \end{eqnarray}$$
+
+# Ohlson (1995) モデル
+https://core.ac.uk/download/pdf/213000096.pdf
+Appendix C.
+
+Ohlson model
+$$
+\begin{align}
+    P_t = bv_t + \sum^{\infty}_{i=1} (1+r_t)^{-i} (x_{t+i} - r_{t}bv_{t+i-1}) \\
+    x^{a}_{t} = x_t - r_{t}bv_{t-1} \text{資本コストは1期間先なら一回だけ推定すればいい?四半期資本コストとは?}\\
+    \text{LID assumption <-- 1四半期じゃ満たされないかも?} \\
+    P_t = bv_t + \alpha_1 x^{a}_{t} + \beta_1 v_t\beta \\
+    \text{where} \\
+    \alpha_1 = \frac{\varpi_{11}}{r_{t}-1}, \beta_1 = \frac{1 + r_t}{r_t(1 + r_t - \varpi_{11})}
+    \text{regression form} \\
+    P_t = \beta_0 + \beta_1bv_t + \beta_2x^{a}_{t} + \epsilon_t
+
+\end{align}
+$$
+
+
+Ohlson Approximation
+$$
+\begin{align}
+    V^{T}_t = bv_t + \frac{(1+r_t)^{T}}{(1+r_t)^{T} - 1} \sum^{T}_{\tau=1} (1+r_t)^{-\tau} E_t[x_{t+\tau} - r_tbv_{t+\tau-1}]
+\end{align}
+$$
 ## CAPM
 
 $$\begin{eqnarray}

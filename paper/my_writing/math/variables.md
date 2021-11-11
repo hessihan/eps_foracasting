@@ -4,15 +4,19 @@
 
 https://www.asb.or.jp/jp/accounting_standards/accounting_standards/y2007/2007-0314.html
 
+https://www.fsa.go.jp/policy/m_con/20080729_a.html
+
 * 被説明変数
 
-$$\begin{eqnarray}
+$$
+\begin{align}
     Y &:& \text{四半期 1株あたり利益 (Quaterly EPS)} \\
     &=& \frac{普通株式に係る当期純利益}{普通株式の期中加重平均株式数} \\
     &=& \frac{損益計算書上の当期純利益-普通株式に帰属しない金額}{普通株式の期中加重平均発行済株式数 - 普通株式の期中加重平均自己株式数} \\
     \\
     普通株式の期中加重平均株式数 &=& 普通株式の期中加重平均発行済株式数 - 普通株式の期中加重平均自己株式数 \\
-\end{eqnarray}$$
+\end{align}
+$$
 
 https://www.shinnihon.or.jp/corporate-accounting/commentary/other/2014-10-22.html
 

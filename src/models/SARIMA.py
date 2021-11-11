@@ -90,7 +90,7 @@ class SARIMAModelList(object):
             ).fit()
 
             # append fitted model to list
-            if store_models:
+            if self.store_models:
                 self.models.append(sarima)
 
             # describe if silent == False
@@ -114,14 +114,14 @@ class SARIMAModelList(object):
         y_hat = pd.Series(y_pred, index=pred_index, dtype=self.y_test.dtype)
         return y_hat
     
-    def predict_window(self, ):
-        """
+    # def predict_window(self, ):
+    #     """
         
-        Return rolling window prediction of y from saved fitted model list.
+    #     Return rolling window prediction of y from saved fitted model list.
         
-        """
-        y_hat = pd.Series([], dtype=test.dtype)
-        # predict one period ahead
-        for i in self.models:
-            None
-        return y_hat
+    #     """
+    #     y_hat = pd.Series([], dtype=test.dtype)
+    #     # predict one period ahead
+    #     for i in self.models:
+    #         None
+    #     return y_hat
