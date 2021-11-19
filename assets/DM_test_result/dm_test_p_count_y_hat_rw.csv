@@ -1,0 +1,26 @@
+pair,p_1n,p_5n,p_10n,p_10p,p_5p,p_1p
+(1) y_hat_rw vs (2) y_test,0,0,0,857,706,389
+(1) y_hat_rw vs (2) y_hat_rw,0,0,0,0,0,0
+(1) y_hat_rw vs (2) y_hat_sarima_br,9,22,38,198,106,22
+(1) y_hat_rw vs (2) y_hat_sarima_f,0,8,24,156,81,15
+(1) y_hat_rw vs (2) y_hat_sarima_g,8,37,55,190,105,23
+(1) y_hat_rw vs (2) y_hat_srw,0,11,26,157,75,15
+(1) y_hat_rw vs (2) y_hat_uen_i_tuned_simple,24,36,46,211,100,16
+(1) y_hat_rw vs (2) y_hat_ul1_i_tuned_fine,23,36,44,207,103,16
+(1) y_hat_rw vs (2) y_hat_ul1_i_tuned_simple,24,36,48,199,95,18
+(1) y_hat_rw vs (2) y_hat_ul2_i_tuned_simple,23,38,52,187,90,16
+(1) y_hat_rw vs (2) y_hat_umlp,19,69,109,115,57,7
+(1) y_hat_rw vs (2) y_hat_umlp_sklearn_default,116,138,156,108,32,5
+(1) y_hat_rw vs (2) y_hat_men_i_tuned,1,5,10,333,190,53
+(1) y_hat_rw vs (2) y_hat_men_i_tuned_simple,2,7,11,324,189,54
+(1) y_hat_rw vs (2) y_hat_ml1_i_tuned,2,11,25,315,204,54
+(1) y_hat_rw vs (2) y_hat_ml1_i_tuned_fine,0,3,9,342,211,63
+(1) y_hat_rw vs (2) y_hat_ml1_i_tuned_simple,2,6,15,314,194,52
+(1) y_hat_rw vs (2) y_hat_ml2_i_tuned,18,62,107,179,116,28
+(1) y_hat_rw vs (2) y_hat_ml2_i_tuned_simple,8,34,60,234,138,39
+(1) y_hat_rw vs (2) y_hat_mlm1,20,63,107,100,45,10
+(1) y_hat_rw vs (2) y_hat_mlm2,26,63,124,99,47,9
+(1) y_hat_rw vs (2) y_hat_mlm3,23,81,147,89,44,10
+(1) y_hat_rw vs (2) y_hat_mlm4,131,414,587,7,2,1
+(1) y_hat_rw vs (2) y_hat_mmlp,9,42,74,117,46,10
+(1) y_hat_rw vs (2) y_hat_mraf_i_tuned_simple,0,3,9,325,194,45

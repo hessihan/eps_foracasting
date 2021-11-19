@@ -184,3 +184,6 @@ if __name__ == "__main__":
     col = [(i, j) for i in ["Q1", "Q2", "Q3", "Q4", "Overall"] for j in ["MAPE", "MSPE", "Large Forecast Error"]]
     a_by_q.columns = pd.MultiIndex.from_tuples(col)
     a_by_q.to_csv("../../assets/y_hats/accuracy_table_by_quarter.csv")
+
+    # two year test range
+    accuracy_table(y_test.loc[pd.IndexSlice[:, [2018, 2019], :]], y_hats_all.loc[pd.IndexSlice[:, [2018, 2019], :]], indicators).T

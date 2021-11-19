@@ -59,13 +59,37 @@ Appendix C.
 Ohlson model
 $$
 \begin{align}
+    \text{RIM, Pは時価総額, bvは純資産簿価総額} \\
     P_t = bv_t + \sum^{\infty}_{i=1} (1+r_t)^{-i} (x_{t+i} - r_{t}bv_{t+i-1}) \\
-    x^{a}_{t} = x_t - r_{t}bv_{t-1} \text{資本コストは1期間先なら一回だけ推定すればいい?四半期資本コストとは?}\\
-    \text{LID assumption <-- 1四半期じゃ満たされないかも?} \\
-    P_t = bv_t + \alpha_1 x^{a}_{t} + \beta_1 v_t\beta \\
+    \\
+    \text{Abnormal earnings 異常利益} \\
+    x^{a}_{t} = x_t - r_{t}bv_{t-1} \\
+    \text{資本コストは1期間先なら一回だけ推定すればいい?}\\
+    \text{四半期資本コストとは? --> 単純に1/4でいい} \\
+    \\
+    \text{AR(1) linear information dynamic (LID) assumption} \\
+    \text{太田 2002 SAJ} \\
+    \left\{
+    \begin{array}{l}
+    x^a_{t+1} = \omega x^a_t + v_t + \epsilon_{1, t+1} \\
+    v_{t+1} = \gamma v_t + \epsilon_{2, t+1}
+    \end{array}
+    \right. \\
+    \omega &: 異常利益の持続性を表すパラメータ。(0 \leq \omega \lt 1と想定される) \\
+    v_t &: t期における異常利益以外の他の情報 \\
+    \gamma &: 他の情報の持続性を表すパラメータ。(0 \leq \gamma \lt 1と想定される) \\
+    \epsilon_{1, t+1}, \epsilon_{2, t+1} &: 誤差項。ホワイトノイズ \\
+    \text{<-- 1四半期じゃ満たされないかも?} \\
+    \\
+
+    ここで、LID仮定をRIMに代入 \\
+    P_t = bv_t + \alpha_1 x^{a}_{t} + \beta_1 v_t \\
     \text{where} \\
-    \alpha_1 = \frac{\varpi_{11}}{r_{t}-1}, \beta_1 = \frac{1 + r_t}{r_t(1 + r_t - \varpi_{11})}
+    \alpha_1 = \frac{\omega}{1 + r_{t} \omega}, \beta_1 = \frac{1 + r_t}{(1 + r_t - \omega)(1 + r_t - \gamma)} \\
+    \\
     \text{regression form} \\
+    Ohlsonモデルは、このように企業価値を株主資本と異常利益の加重平均として表現したモデルであり \\
+    具体的には以下のような回帰モデルを推定して、価値関連性を分析する。\\
     P_t = \beta_0 + \beta_1bv_t + \beta_2x^{a}_{t} + \epsilon_t
 
 \end{align}
