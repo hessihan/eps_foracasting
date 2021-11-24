@@ -14,7 +14,11 @@ from execute.accuracy_evaluation import *
 y_hats_all = pd.read_csv("../../assets/y_hats/y_hats_all.csv", index_col=[0, 1, 2])
 y_hat_ibes = pd.read_csv("../../data/processed/y_hat_ibes.csv", index_col=[0, 1, 2])
 
-# limit to ibes firms
+# drop late firm for ibes
+# [x for x in y_hat_ibes.index if (x not in y_hats_all.index)]
+y_hat_ibes = y_hat_ibes.loc[[x for x in y_hat_ibes.index if (x in y_hats_all.index)]]
+
+# set ibes firm as all
 y_hats_all = y_hats_all.loc[y_hat_ibes.index]
 y_hats_all["y_hat_ibes"] = y_hat_ibes
 y_hats_all.to_csv("../../assets/y_hats/y_hats_all_vsibes.csv")
@@ -23,6 +27,8 @@ y_hats_all.to_csv("../../assets/y_hats/y_hats_all_vsibes.csv")
 ind_name = ["Max_error", "Max_percentage_error", "MAE", "MAPE", "MSPE", "MAPE-UB", "MSPE-UB", "Large_error_rate"]
 indicators = [Max_error, Max_percentage_error, MAE, MAPE, MSE, MAPEUB, MSPEUB, LargeErrorRate]
 indicators = dict(zip(ind_name, indicators))
+
+print("Num firm: ", y_hats_all.index.get_level_values(0).unique().shape)
 
 a = accuracy_table(y_hats_all["y_test"], y_hats_all, indicators).T
 a.to_csv("../../assets/y_hats/accuracy_table_vsibes.csv")
@@ -56,7 +62,7 @@ model_list = [
     ]
 y_hat_list = list(map(lambda x: y_hats_all[x], model_list))
 q_list = ["Q1", "Q2", "Q3", "Q4", ["Q1", "Q2", "Q3", "Q4"]]
-score_list = [MAPEUB, MSPEUB, LargeErrorRate]    
+score_list = [MAE, MAPEUB, MSPEUB, LargeErrorRate]    
 
 a_by_q = []
 for y_hat in y_hat_list:
@@ -68,6 +74,6 @@ for y_hat in y_hat_list:
 a_by_q = pd.DataFrame(a_by_q)
 a_by_q.index = model_list
 
-col = [(i, j) for i in ["Q1", "Q2", "Q3", "Q4", "Overall"] for j in ["MAPE", "MSPE", "Large Forecast Error"]]
+col = [(i, j) for i in ["Q1", "Q2", "Q3", "Q4", "Overall"] for j in ["MAE", "MAPE", "MSPE", "Large Forecast Error"]]
 a_by_q.columns = pd.MultiIndex.from_tuples(col)
 a_by_q.to_csv("../../assets/y_hats/accuracy_table_by_quarter_ibes.csv")

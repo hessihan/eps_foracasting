@@ -1,4 +1,4 @@
-# Univariate Machine Learning Model
+# Multivariate Machine Learning Model
 import sys
 import time
 import numpy as np
@@ -115,8 +115,8 @@ class Tuner_i(object):
         return tune_i(self.df, self.firm_list, self.test_periods, self.val_size, i, self.method, self.tune_space)
 
 # LASSO
-my_tune_space = 10 ** (np.linspace(-2, 2, 100)).reshape(-1, 1)
-# my_tune_space = [[0.001], [0.01], [0.1], [1], [10], [100], [1000]]
+# my_tune_space = 10 ** (np.linspace(-2, 2, 100)).reshape(-1, 1)
+my_tune_space = [[0.001], [0.01], [0.1], [1], [10], [100], [1000]]
 t1 = time.time()
 p = Pool(cpu_count() - 1)
 y_hats = list(p.map(Tuner_i(my_df, my_firm_list, my_test_periods, 1, L1, my_tune_space), tqdm(my_firm_list)))
@@ -124,7 +124,7 @@ p.close()
 t2 = time.time()
 print(t2-t1)
 
-name = "y_hat_ml1_i_tuned"
+name = "y_hat_ml1"
 y_hats = pd.concat(y_hats)
 y_hats.index = y_test.index
 y_hats = y_hats.rename(columns={"y_hat": name})
@@ -133,8 +133,8 @@ y_hats = pd.read_csv("../../assets/y_hats/multivariate/" + name + ".csv", index_
 MAPEUB(y_test["y_test"].values, y_hats[name].values)
 
 # Ridge
-my_tune_space = 10 ** (np.linspace(-2, 2, 100)).reshape(-1, 1)
-# my_tune_space = [[0.001], [0.01], [0.1], [1], [10], [100], [1000]]
+# my_tune_space = 10 ** (np.linspace(-2, 2, 100)).reshape(-1, 1)
+my_tune_space = [[0.001], [0.01], [0.1], [1], [10], [100], [1000]]
 t1 = time.time()
 p = Pool(cpu_count() - 1)
 y_hats = list(p.map(Tuner_i(my_df, my_firm_list, my_test_periods, 1, L2, my_tune_space), tqdm(my_firm_list)))
@@ -142,7 +142,7 @@ p.close()
 t2 = time.time()
 print(t2-t1)
 
-name = "y_hat_ml2_i_tuned"
+name = "y_hat_ml2"
 y_hats = pd.concat(y_hats)
 y_hats.index = y_test.index
 y_hats = y_hats.rename(columns={"y_hat": name})
@@ -151,14 +151,14 @@ y_hats = pd.read_csv("../../assets/y_hats/multivariate/" + name + ".csv", index_
 MAPEUB(y_test["y_test"].values, y_hats[name].values)
 
 # EN
-# my_tune_space = np.vstack(map(np.ravel, np.meshgrid(
-#     [0.001, 0.001, 0.01, 0.1, 1, 10, 100, 1000], 
-#     [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
-# ))).T
 my_tune_space = np.vstack(map(np.ravel, np.meshgrid(
-    [0.0001, 0.001, 0.01, 0.1, 1, 10, 100, 1000, 10000], 
+    [0.001, 0.001, 0.01, 0.1, 1, 10, 100, 1000], 
     [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 ))).T
+# my_tune_space = np.vstack(map(np.ravel, np.meshgrid(
+#     [0.0001, 0.001, 0.01, 0.1, 1, 10, 100, 1000, 10000], 
+#     [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+# ))).T
 t1 = time.time()
 p = Pool(cpu_count() - 1)
 y_hats = list(p.map(Tuner_i(my_df, my_firm_list, my_test_periods, 1, EN, my_tune_space), tqdm(my_firm_list)))
@@ -166,7 +166,7 @@ p.close()
 t2 = time.time()
 print(t2-t1)
 
-name = "y_hat_men_i_tuned"
+name = "y_hat_men"
 y_hats = pd.concat(y_hats)
 y_hats.index = y_test.index
 y_hats = y_hats.rename(columns={"y_hat": name})
@@ -174,19 +174,52 @@ y_hats.to_csv("../../assets/y_hats/multivariate/" + name + ".csv")
 y_hats = pd.read_csv("../../assets/y_hats/multivariate/" + name + ".csv", index_col=[0, 1, 2])
 MAPEUB(y_test["y_test"].values, y_hats[name].values)
 
-# RAF
+# RAF part
+for i in range(5):
+    len_part = len(my_firm_list) // 5
+    my_firm_list_part = my_firm_list[len_part * i:  len_part * (i+1)]
+    my_tune_space = np.vstack(map(np.ravel, np.meshgrid(
+        [100, 500, 1000],
+        [5, 10, None]
+    ))).T
+    t1 = time.time()
+    p = Pool(cpu_count() - 1) # 熱暴走。ファンをあてよう
+    y_hats = list(p.map(Tuner_i(my_df, my_firm_list_part, my_test_periods, 1, RAF, my_tune_space), tqdm(my_firm_list_part)))
+    p.close()
+    t2 = time.time()
+    print(t2-t1)
+
+    name = "y_hat_mraf_part" + str(i)
+    y_hats = pd.concat(y_hats)
+    y_hats.index = y_test.loc[pd.IndexSlice[my_firm_list_part, :, :]].index
+    y_hats = y_hats.rename(columns={"y_hat": name})
+    y_hats.to_csv("../../assets/y_hats/multivariate/" + name + ".csv")
+    y_hats = pd.read_csv("../../assets/y_hats/multivariate/" + name + ".csv", index_col=[0, 1, 2])
+    print(MAPEUB(y_test.loc[pd.IndexSlice[my_firm_list_part, :, :],"y_test"].values, y_hats[name].values))
+
+y_hat_mraf = pd.DataFrame()
+for i in range(5):
+    part = pd.read_csv("../../assets/y_hats/multivariate/y_hat_mraf_part" + str(i) + ".csv", index_col=[0, 1, 2])
+    part = part.rename(columns=lambda s: s[:-6])
+    y_hat_mraf = pd.concat([y_hat_mraf, part], axis=0)
+
+y_hat_mraf.to_csv("../../assets/y_hats/multivariate/y_hat_mraf.csv")
+print(MAPEUB(y_test.values, y_hat_mraf["y_hat_mraf"].values))
+
+# RAF all
+
 my_tune_space = np.vstack(map(np.ravel, np.meshgrid(
-    [100, 500, 1000],
-    [5, 10, 15, 20]
+    [100, 250, 500],
+    [10, 20, None]
 ))).T
 t1 = time.time()
-Pool(cpu_count() - 1) # 熱暴走。ファンをあてよう
+p = Pool(cpu_count() - 1) # 熱暴走。ファンをあてよう
 y_hats = list(p.map(Tuner_i(my_df, my_firm_list, my_test_periods, 1, RAF, my_tune_space), tqdm(my_firm_list)))
 p.close()
 t2 = time.time()
 print(t2-t1)
 
-name = "y_hat_mraf_i_tuned"
+name = "y_hat_mraf"
 y_hats = pd.concat(y_hats)
 y_hats.index = y_test.index
 y_hats = y_hats.rename(columns={"y_hat": name})

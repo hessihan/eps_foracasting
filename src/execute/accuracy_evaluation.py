@@ -86,14 +86,15 @@ def accuracy_table_i(y_test, y_hats_all, indicators):
 
 if __name__ == "__main__":
     # read y_test cdv
-    y_test = pd.read_csv("../../assets/y_hats/univariate/y_test.csv", index_col=[0, 1, 2])
-    y_test = y_test[y_test.columns[0]] # to series
+    y_test = pd.read_csv("../../data/processed/tidy_df.csv", index_col=[0, 1, 2]).loc[pd.IndexSlice[get_non_late_firm(), [2018, 2019, 2020], :], "EPS"]
+    y_test.name = "y_test"
+    y_test.to_csv("../../assets/y_hats/univariate/y_test.csv")
     
     ## make y_hats_all dataframe
     
     # Random walk prediction
-    y_hat_rw = pd.DataFrame(pd.read_csv("../../data/processed/tidy_df.csv", index_col=[0, 1, 2]).groupby(level=[0])['EPS'].shift(1).loc[y_test.index])
-    y_hat_rw.columns = ["y_hat_rw"]
+    y_hat_rw = pd.read_csv("../../data/processed/tidy_df.csv", index_col=[0, 1, 2]).groupby(level=[0])['EPS'].shift(1).loc[y_test.index]
+    y_hat_rw.name = "y_hat_rw"
     y_hat_rw.to_csv("./../../assets/y_hats/univariate/y_hat_rw.csv")
 
     # Seasonal Random walk prediction
@@ -115,7 +116,8 @@ if __name__ == "__main__":
     for path in file_paths:
         if path[:5] == "y_hat":
             # "y_hat"から始まるファイルのみ読み込み
-            y_hats_all = pd.concat([y_hats_all, pd.read_csv(dir_path + path, index_col=[0, 1, 2]).iloc[:, 0]], axis=1)
+            y_hat = pd.read_csv(dir_path + path, index_col=[0, 1, 2]).loc[y_test.index].iloc[:, 0]
+            y_hats_all = pd.concat([y_hats_all, y_hat], axis=1)
 
     # multivariate
     dir_path = "./../../assets/y_hats/multivariate/"
@@ -124,27 +126,47 @@ if __name__ == "__main__":
     file_paths = os.listdir(dir_path)
     for path in file_paths:
         if path[:5] == "y_hat":
-            # "y_hat"から始まるファイルのみ読み込み
-            y_hats_all = pd.concat([y_hats_all, pd.read_csv(dir_path + path, index_col=[0, 1, 2]).iloc[:, 0]], axis=1)
+            y_hat = pd.read_csv(dir_path + path, index_col=[0, 1, 2]).loc[y_test.index].iloc[:, 0]
+            y_hats_all = pd.concat([y_hats_all, y_hat], axis=1)
+
+    y_hats_all
+
+    # Forecast combination
+    mml =[
+        'y_hat_ml1_i_tuned_simple',
+        'y_hat_ml2_i_tuned_simple',
+        'y_hat_men_i_tuned_simple',
+        'y_hat_mraf_i_tuned_simple',
+        'y_hat_mmlp'
+        ]
+
+    y_hats_all["y_hat_ALL_comb"] = y_hats_all.mean(axis=1)
+    y_hats_all["y_hat_MML_comb"] = y_hats_all[mml].mean(axis=1)
+
+    #################################################################################################### eliminate late firm
+    # y_hats_all = y_hats_all.loc[get_non_late_firm()]
+    ####################################################################################################
     
-    y_hats_all.to_csv("./../../assets/y_hats/y_hats_all.csv")
-    
+    # y_hats_all.to_csv("./../../assets/y_hats/y_hats_all.csv")
+
     ## agregate forceast accuracy score
     
     # forecast accuracy indicators
     ind_name = ["Max_error", "Max_percentage_error", "MAE", "MAPE", "MSPE", "MAPE-UB", "MSPE-UB", "Large_error_rate"]
     indicators = [Max_error, Max_percentage_error, MAE, MAPE, MSE, MAPEUB, MSPEUB, LargeErrorRate]
     indicators = dict(zip(ind_name, indicators))
+
+    print("Num firm: ", y_hats_all.index.get_level_values(0).unique().shape)
     
     # accuracy table for all firm mean
-    a = accuracy_table(y_test, y_hats_all, indicators).T
+    a = accuracy_table(y_hats_all["y_test"], y_hats_all, indicators).T
     a.to_csv("../../assets/y_hats/accuracy_table.csv")
 
     # accuracy table for all firm mean, by quarter
 
     
     # accuracy table for each individual firms
-    ai = accuracy_table_i(y_test, y_hats_all, indicators)
+    ai = accuracy_table_i(y_hats_all["y_test"], y_hats_all, indicators)
     ai.to_csv("../../assets/y_hats/accuracy_table_i.csv")
 
     # primal accuracy table for paper
@@ -169,19 +191,19 @@ if __name__ == "__main__":
         ]
     y_hat_list = list(map(lambda x: y_hats_all[x], model_list))
     q_list = ["Q1", "Q2", "Q3", "Q4", ["Q1", "Q2", "Q3", "Q4"]]
-    score_list = [MAPEUB, MSPEUB, LargeErrorRate]    
+    score_list = [MAE, MAPEUB, MSPEUB, LargeErrorRate]    
 
     a_by_q = []
     for y_hat in y_hat_list:
         by_q = []
         for q in q_list:
-                by_q.append(list(map(lambda s: s(y_test.loc[pd.IndexSlice[:, :, q]], y_hat.loc[pd.IndexSlice[:, :, q]]), score_list)))
+            by_q.append(list(map(lambda s: s(y_hats_all["y_test"].loc[pd.IndexSlice[:, :, q]], y_hat.loc[pd.IndexSlice[:, :, q]]), score_list)))
         a_by_q.append(np.array(by_q).flatten())
 
     a_by_q = pd.DataFrame(a_by_q)
     a_by_q.index = model_list
 
-    col = [(i, j) for i in ["Q1", "Q2", "Q3", "Q4", "Overall"] for j in ["MAPE", "MSPE", "Large Forecast Error"]]
+    col = [(i, j) for i in ["Q1", "Q2", "Q3", "Q4", "Overall"] for j in ["MAE", "MAPE", "MSPE", "Large Forecast Error"]]
     a_by_q.columns = pd.MultiIndex.from_tuples(col)
     a_by_q.to_csv("../../assets/y_hats/accuracy_table_by_quarter.csv")
 

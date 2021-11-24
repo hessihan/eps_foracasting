@@ -257,10 +257,44 @@ df_pr_ibes["Spread"] = df_pr_ibes["P5"] - df_pr_ibes["P1"]
 
 df_pr = pd.concat([df_pr, df_pr_ibes], axis=0)
 
+### Example #################################################################
+m = "P/y_hat_rw"
+
+print(df_pr.loc[m])
+
+plt.figure(figsize=(16, 9))
+plt.plot(df_pr.loc[m]["P1"], marker=".", label="P1")
+plt.plot(df_pr.loc[m]["P2"], marker=".", label="P2", linestyle = "dashed")
+plt.plot(df_pr.loc[m]["P3"], marker=".", label="P3", linestyle = "dashed")
+plt.plot(df_pr.loc[m]["P4"], marker=".", label="P4", linestyle = "dashed")
+plt.plot(df_pr.loc[m]["P5"], marker=".", label="P5")
+plt.legend()
+plt.ylabel("return")
+plt.xlabel("t")
+plt.title(m + " Portfolio returns (1Q Holding and Rebalance)")
+plt.show()
+
+plt.figure(figsize=(16, 9))
+plt.plot(df_pr.loc[m]["Spread"], marker=".", label="P5 - P1")
+plt.legend()
+plt.ylabel("spread")
+plt.xlabel("t")
+plt.title(m + " P5 - P1 Portfolio spread (1Q Holding and Rebalance)")
+plt.show()
+
+plt.figure(figsize=(16, 9))
+plt.plot(df_pr.loc[m]["Spread"].cumsum(), marker=".", label="P5 - P1")
+plt.legend()
+plt.ylabel("cumulated spread")
+plt.xlabel("t")
+plt.title(m + " P5 - P1 Portfolio cumulated spread (1Q Holding and Rebalance)")
+plt.show()
+##############################################################################
+
 print(df_pr.index.get_level_values(0).unique())
 
 model_list = [
-    'P/y_test', 'P/y_hat_rw', 'P/y_hat_srw', 'P/y_hat_sarima_f', 
+    'P/y_test', 'P/y_hat_rw', 'P/y_hat_srw', 'P/y_hat_sarima_br', 
     'P/y_hat_men_i_tuned_simple', 'P/y_hat_ml1_i_tuned_simple', 'P/y_hat_ibes'
     ]
 
@@ -280,7 +314,7 @@ plt.figure(figsize=(16, 9))
 for i in model_list:
     plt.plot(df_pr["Spread"].loc[i].cumsum(), marker=".", label=i)
 plt.legend()
-plt.ylabel("Spread")
+plt.ylabel("Cumulated Spread")
 plt.xlabel("t")
 plt.title("Long-Short Portfolio Cumulated Spread (1Q Holding and Rebalance)")
 plt.show()

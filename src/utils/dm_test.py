@@ -79,7 +79,7 @@ def dm_test(actual_lst, pred1_lst, pred2_lst, h = 1, crit="MSE", power = 2):
             msg = "The number of steps ahead is too large."
             return (rt,msg)
         # Check if criterion supported
-        if (crit != "MSE" and crit != "MAPE" and crit != "MAD" and crit != "poly"):
+        if (crit != "MSE" and crit != "MAPE" and crit != "MAD" and crit != "poly" and crit != "MSPE"):
             rt = -1
             msg = "The criterion is not supported."
             return (rt,msg)  
@@ -150,7 +150,13 @@ def dm_test(actual_lst, pred1_lst, pred2_lst, h = 1, crit="MSE", power = 2):
             e1_lst.append(((actual - p1))**(power))
             e2_lst.append(((actual - p2))**(power))
         for e1, e2 in zip(e1_lst, e2_lst):
-            d_lst.append(e1 - e2)    
+            d_lst.append(e1 - e2)
+    elif (crit == "MSPE"):
+        for actual,p1,p2 in zip(actual_lst,pred1_lst,pred2_lst):
+            e1_lst.append(((actual - p1)/actual)**2)
+            e2_lst.append(((actual - p2)/actual)**2)
+        for e1, e2 in zip(e1_lst, e2_lst):
+            d_lst.append(e1 - e2)
     
     # Mean of d        
     mean_d = pd.Series(d_lst).mean()

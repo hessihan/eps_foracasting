@@ -1,0 +1,136 @@
+\begin{thebibliography}{xx}
+
+\harvarditem{Abarbanell \harvardand\ Bushee}{1997}{abarbanell1997fundamental}
+Abarbanell, J.~S. \harvardand\ Bushee, B.~J.  \harvardyearleft
+  1997\harvardyearright , `Fundamental analysis, future earnings, and stock
+  prices', {\em Journal of accounting research} {\bf 35}(1),~1--24.
+
+\harvarditem[Ahmed et~al.]{Ahmed, Atiya, Gayar \harvardand\
+  El-Shishiny}{2010}{ahmed2010empirical}
+Ahmed, N.~K., Atiya, A.~F., Gayar, N.~E. \harvardand\ El-Shishiny, H.
+  \harvardyearleft 2010\harvardyearright , `An empirical comparison of machine
+  learning models for time series forecasting', {\em Econometric Reviews} {\bf
+  29}(5-6),~594--621.
+
+\harvarditem{Bates \harvardand\ Granger}{1969}{bates1969combination}
+Bates, J.~M. \harvardand\ Granger, C.~W.  \harvardyearleft
+  1969\harvardyearright , `The combination of forecasts', {\em Journal of the
+  Operational Research Society} {\bf 20}(4),~451--468.
+
+\harvarditem[Box et~al.]{Box, Jenkins, Reinsel \harvardand\
+  Ljung}{2015}{box2015time}
+Box, G.~E., Jenkins, G.~M., Reinsel, G.~C. \harvardand\ Ljung, G.~M.
+  \harvardyearleft 2015\harvardyearright , {\em Time series analysis:
+  forecasting and control}.
+
+\harvarditem{Breiman}{2001}{breiman2001random}
+Breiman, L.  \harvardyearleft 2001\harvardyearright , `Random forests', {\em
+  Machine learning} {\bf 45}(1),~5--32.
+
+\harvarditem{Brown \harvardand\ Rozeff}{1979}{brown1979univariate}
+Brown, L.~D. \harvardand\ Rozeff, M.~S.  \harvardyearleft 1979\harvardyearright
+  , `Univariate time-series models of quarterly accounting earnings per share:
+  A proposed model', {\em Journal of Accounting Research} {\bf
+  17}(1),~179--189.
+
+\harvarditem[Callen et~al.]{Callen, Kwan, Yip \harvardand\
+  Yuan}{1996}{callen1996neural}
+Callen, J.~L., Kwan, C.~C., Yip, P.~C. \harvardand\ Yuan, Y.  \harvardyearleft
+  1996\harvardyearright , `Neural network forecasting of quarterly accounting
+  earnings', {\em International Journal of Forecasting} {\bf 12}(4),~475--482.
+
+\harvarditem{Cao \harvardand\ You}{2020}{cao2020fundamental}
+Cao, K. \harvardand\ You, H.  \harvardyearleft 2020\harvardyearright ,
+  Fundamental analysis via machine learning, Technical report, Working Paper.
+
+\harvarditem{Cao \harvardand\ Gan}{2009}{cao2009forecasting}
+Cao, Q. \harvardand\ Gan, Q.  \harvardyearleft 2009\harvardyearright ,
+  `Forecasting eps of chinese listed companies using neural network with
+  genetic algorithm', {\em 15th Americas Conference on Information Systems
+  2009, AMCIS 2009} {\bf 5},~2971--2981.
+
+\harvarditem[Etemadi et~al.]{Etemadi, Ahmadpour \harvardand\
+  Moshashaei}{2015}{etemadi2015earnings}
+Etemadi, H., Ahmadpour, A. \harvardand\ Moshashaei, S.~M.  \harvardyearleft
+  2015\harvardyearright , `Earnings per share forecast using extracted rules
+  from trained neural network by genetic algorithm', {\em Computational
+  Economics} {\bf 46}(1),~55--63.
+
+\harvarditem{Foster}{1977}{foster1977quarterly}
+Foster, G.  \harvardyearleft 1977\harvardyearright , `Quarterly accounting
+  data: Time-series properties and predictive-ability results', {\em Accounting
+  Review} {\bf 52}(1),~1--21.
+
+\harvarditem{Griffin}{1977}{griffin1977time}
+Griffin, P.~A.  \harvardyearleft 1977\harvardyearright , `The time-series
+  behavior of quarterly earnings: preliminary evidence', {\em Journal of
+  Accounting Research} pp.~71--83.
+
+\harvarditem[Hastie et~al.]{Hastie, Tibshirani \harvardand\
+  Friedman}{2009}{hastie2009esl}
+Hastie, T., Tibshirani, R. \harvardand\ Friedman, J.  \harvardyearleft
+  2009\harvardyearright , {\em The Elements of Statistical Learning: Data
+  Mining, Inference, and Prediction Second Edition}, New York, NY.
+
+\harvarditem[Hill et~al.]{Hill, Marquez, O'Connor \harvardand\
+  Remus}{1994}{hill1994artificial}
+Hill, T., Marquez, L., O'Connor, M. \harvardand\ Remus, W.  \harvardyearleft
+  1994\harvardyearright , `Artificial neural network models for forecasting and
+  decision making', {\em International journal of forecasting} {\bf
+  10}(1),~5--15.
+
+\harvarditem[Hill et~al.]{Hill, O'Connor \harvardand\
+  Remus}{1996}{hill1996neural}
+Hill, T., O'Connor, M. \harvardand\ Remus, W.  \harvardyearleft
+  1996\harvardyearright , `Neural network models for time series forecasts',
+  {\em Management science} {\bf 42}(7),~1082--1092.
+
+\harvarditem{Hopwood \harvardand\ McKeown}{1986}{hopwood1986univariate}
+Hopwood, W.~S. \harvardand\ McKeown, J.~C.  \harvardyearleft
+  1986\harvardyearright , {\em Univariate time-series analysis of quarterly
+  earnings: Some unresolved issues}, Sarasota, FL.
+
+\harvarditem[Hornik et~al.]{Hornik, Stinchcombe \harvardand\
+  White}{1989}{hornik1989multilayer}
+Hornik, K., Stinchcombe, M. \harvardand\ White, H.  \harvardyearleft
+  1989\harvardyearright , `Multilayer feedforward networks are universal
+  approximators', {\em Neural networks} {\bf 2}(5),~359--366.
+
+\harvarditem{Lev \harvardand\ Thiagarajan}{1993}{lev1993fundamental}
+Lev, B. \harvardand\ Thiagarajan, S.~R.  \harvardyearleft 1993\harvardyearright
+  , `Fundamental information analysis', {\em Journal of Accounting research}
+  {\bf 31}(2),~190--215.
+
+\harvarditem{Lorek \harvardand\ Willinger}{n.d.}{lorek1996multivariate}
+Lorek, K.~S. \harvardand\ Willinger, G.~L.  \harvardyearleft
+  n.d.\harvardyearright , `A multivariate time-series prediction model for
+  cash-flow data', {\em Accounting Review} {\bf 71}.
+
+\harvarditem{Qi}{1999}{qi1999nonlinear}
+Qi, M.  \harvardyearleft 1999\harvardyearright , `Nonlinear predictability of
+  stock returns using financial and economic variables', {\em Journal of
+  Business \& Economic Statistics} {\bf 17}(4),~419--429.
+
+\harvarditem{Tk{\'a}{\v{c}} \harvardand\ Verner}{2016}{tkavc2016artificial}
+Tk{\'a}{\v{c}}, M. \harvardand\ Verner, R.  \harvardyearleft
+  2016\harvardyearright , `Artificial neural networks in business: Two decades
+  of research', {\em Applied Soft Computing} {\bf 38},~788--804.
+
+\harvarditem[Zhang et~al.]{Zhang, Cao \harvardand\
+  Schniederjans}{2004}{zhang2004neural}
+Zhang, W., Cao, Q. \harvardand\ Schniederjans, M.~J.  \harvardyearleft
+  2004\harvardyearright , `Neural network earnings per share forecasting
+  models: A comparative analysis of alternative methods', {\em Decision
+  Sciences} {\bf 35}(2),~205--237.
+
+\harvarditem{桜井}{1990}{sakurai1990}
+桜井, 久.  \harvardyearleft 1990\harvardyearright ,
+  `会計利益の時系列特性と利益予測', {\em 経営学・会計学・商学研究年報 /
+  神戸大学大学院経営学研究科編} (36),~45--98.
+
+\harvarditem{太田}{2006}{ota2006}
+太田, 浩.  \harvardyearleft 2006\harvardyearright ,
+  `経営者予想に関する日米の研究：文献サーベイ', {\em 武蔵大学論集} {\bf
+  54}(1),~53--94.
+
+\end{thebibliography}
