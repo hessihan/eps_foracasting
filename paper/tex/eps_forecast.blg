@@ -2,7 +2,7 @@ This is pBibTeX, Version 0.99d-j0.33 (utf8.euc) (TeX Live 2019/Debian)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: eps_forecast.aux
 The style file: agsm.bst
-Illegal, another \bibstyle command---line 88 of file eps_forecast.aux
+Illegal, another \bibstyle command---line 113 of file eps_forecast.aux
  : \bibstyle
  :          {jplain}
 I'm skipping whatever remains of this command
@@ -17,12 +17,12 @@ I was expecting a `,' or a `}'---line 53 of file ref.bib
  :   publisher={American Accounting Association}
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-I was expecting a `,' or a `}'---line 190 of file ref.bib
+I was expecting a `,' or a `}'---line 191 of file ref.bib
  :   
  :   publisher={Springer}
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-I was expecting a `,' or a `}'---line 207 of file ref.bib
+I was expecting a `,' or a `}'---line 208 of file ref.bib
  :   
  :   number={1}
 (Error may have been on previous line)

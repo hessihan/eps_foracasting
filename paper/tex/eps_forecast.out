@@ -1,0 +1,16 @@
+%このファイルは日本語文字を含みます.
+\BOOKMARK [0][]{chapter.1}{第1章 はじめに}{}% 1
+\BOOKMARK [0][]{chapter.2}{第2章 過去の研究}{}% 2
+\BOOKMARK [0][]{chapter.3}{第3章 データ}{}% 3
+\BOOKMARK [1][]{section.3.1}{3.1 サンプルデータ}{chapter.3}% 4
+\BOOKMARK [1][]{section.3.2}{3.2 目的変数}{chapter.3}% 5
+\BOOKMARK [1][]{section.3.3}{3.3 説明変数}{chapter.3}% 6
+\BOOKMARK [0][]{chapter.4}{第4章 予測モデル}{}% 7
+\BOOKMARK [1][]{section.4.1}{4.1 予測のデザイン}{chapter.4}% 8
+\BOOKMARK [1][]{section.4.2}{4.2 伝統的時系列モデル}{chapter.4}% 9
+\BOOKMARK [1][]{section.4.3}{4.3 機械学習モデル}{chapter.4}% 10
+\BOOKMARK [1][]{section.4.4}{4.4 ハイパーパラメータの選択}{chapter.4}% 11
+\BOOKMARK [0][]{chapter.5}{第5章 予測精度指標}{}% 12
+\BOOKMARK [0][]{chapter.6}{第6章 予測の精度と結果}{}% 13
+\BOOKMARK [0][]{chapter.7}{第7章 予測の投資指標としての有用性}{}% 14
+\BOOKMARK [0][]{chapter.8}{第8章 終わりに}{}% 15

@@ -175,7 +175,7 @@ y_hats = pd.read_csv("../../assets/y_hats/multivariate/" + name + ".csv", index_
 MAPEUB(y_test["y_test"].values, y_hats[name].values)
 
 # RAF part
-for i in range(5):
+for i in [3, 4]:
     len_part = len(my_firm_list) // 5
     my_firm_list_part = my_firm_list[len_part * i:  len_part * (i+1)]
     my_tune_space = np.vstack(map(np.ravel, np.meshgrid(

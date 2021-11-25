@@ -6,6 +6,18 @@
 \usepackage{amsmath}
 % https://www.imperial.ac.uk/media/imperial-college/administration-and-support-services/library/public/LaTeX-example-Harvard-apr-2019.pdf
 \usepackage{natbib}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxjahyper}
+
+\hypersetup{
+setpagesize=false,
+ bookmarksnumbered=true,%
+ bookmarksopen=true,%
+ colorlinks=true,%
+ linkcolor=black,
+ citecolor=black,
+}
 
 \title{機械学習アルゴリズムによる\\
   日本企業の四半期利益予測}
@@ -72,11 +84,11 @@
 
 これを受け\cite{zhang2004neural}は、\cite{callen1996neural}の単変量ANNモデルによる四半期EPS予測の研究を発展させる形で、ANNモデルにファンダメンタル会計変数を反映させた多変量ANNモデルによる四半期EPS予測を行った。この研究では、単変量線形モデル、多変量線形モデル、単変量ANNモデル、多変量ANNモデルの4つの精度比較を行い、結果として、ANNモデルは線形モデルよりもうまくファンダメンタル会計変数の情報を反映し、より精度の高いEPSの予測値を与えた。その後、様々な国のサンプルでEPS予測におけるANNモデルの有用性を示した研究が行われている。\cite*{cao2009forecasting} は中国の上海証券取引所と深セン証券取引所の上場企業、\cite{etemadi2015earnings}はイランのテヘラン証券取引所の上場企業を対象に、ファンダメンタル会計変数を反映させたANNモデルによるEPS予測を行っており、いずれも高い精度の予測を与える結果を得ている。
 
-このように近年の四半期EPS予測の研究では機械学習アルゴリズムの1つとしてANNモデルが盛んに用いられているが、他の機械学習アルゴリズムを用いた研究は限られている。これはEPS予測の文脈に限らず、他の時系列予測研究でもANNモデルのみに着目している傾向がある\citep{ahmed2010empirical}。一方、ANNモデル以外の機械学習アルゴリズムが四半期EPS予測において成果を上げられる可能性も十分にある。代表的な機械学習アルゴリズムとして、正則化回帰モデルやランダム・フォレスト回帰モデルが挙げられる\citep{hastie2009esl}。正則化回帰モデルは、高次元データに対して変数選択・係数縮小を行うことで多数の説明変数から目的変数を予測する情報を抽出し、精度の高い予測を行うことができるため、四半期EPSの多変量予測において有用であると考えられる。また、ノンパラメトリックで非線形なランダム・フォレスト回帰モデル\citep{breiman2001random}も、ANNモデルとは異なったアルゴリズムで四半期EPSデータの非線形性を捉えることができると考えられる。\cite*{cao2020fundamental}は年次ではあるものの、これらの代表的な機械学習アルゴリズムを用いたEPS予測をしており、ベンチマークであるランダムウォーク(Random Walk: RW)モデルよりも精度の高い予測を与える結果となっている。
+このように近年の四半期EPS予測の研究では機械学習アルゴリズムの1つとしてANNモデルが盛んに用いられているが、他の機械学習アルゴリズムを用いた研究は限られている。これはEPS予測の文脈に限らず、他の時系列予測研究でもANNモデルのみに着目している傾向がある\citep{ahmed2010empirical}。一方、ANNモデル以外の機械学習アルゴリズムが四半期EPS予測において成果を上げられる可能性も十分にある。代表的な機械学習アルゴリズムとして、罰則回帰モデルやランダム・フォレスト回帰モデルが挙げられる\citep{hastie2009esl}。罰則回帰モデルは、高次元データに対して変数選択・係数縮小を行うことで多数の説明変数から目的変数を予測する情報を抽出し、精度の高い予測を行うことができるため、四半期EPSの多変量予測において有用であると考えられる。また、ノンパラメトリックで非線形なランダム・フォレスト回帰モデル\citep{breiman2001random}も、ANNモデルとは異なったアルゴリズムで四半期EPSデータの非線形性を捉えることができると考えられる。\cite*{cao2020fundamental}は年次ではあるものの、これらの代表的な機械学習アルゴリズムを用いたEPS予測をしており、ベンチマークであるランダムウォーク(Random Walk: RW)モデルよりも精度の高い予測を与える結果となっている。
 
 (Hill et al のANNディスも少し入れる)
 
-以上の過去の研究を踏まえ、現状の日本のEPS予測における「時系列モデルが古典的な手法にとどまっていること」と「時系列モデルと人的な予測の優劣の曖昧さ」の2つの課題に対し、本稿は機械学習アルゴリズム(ANNモデル、正則化回帰モデル、ランダム・フォレスト回帰モデル)にファンダメンタル会計変数を含めて日本企業の四半期EPSの予測を行い、さらに時系列モデルとアナリストのEPS予測精度を比較し、予測手法間の精度の優劣を明らかにする。
+以上の過去の研究を踏まえ、現状の日本のEPS予測における「時系列モデルが古典的な手法にとどまっていること」と「時系列モデルと人的な予測の優劣の曖昧さ」の2つの課題に対し、本稿は機械学習アルゴリズム(ANNモデル、罰則回帰モデル、ランダム・フォレスト回帰モデル)にファンダメンタル会計変数を含めて日本企業の四半期EPSの予測を行い、さらに時系列モデルとアナリストのEPS予測精度を比較し、予測手法間の精度の優劣を明らかにする。
 
 \chapter{データ}
 
@@ -93,7 +105,7 @@
   \item 各四半期の中間月末(5月末, 8月末, 11月末, 2月末)までに前四半期決算を発表している企業\footnote{IBES予測及びポートフォリオ構築のタイミングをそろえるため。}
 \end{itemize}
 
-四半期EPS(3ヶ月)およびファンダメンタル会計変数の算出に必要な四半期会計データは「日経NEEDS-FinancialQUEST」から収集している。結果、1020社、延べ 1020社 × 52四半期 = 53040個の企業四半期が最終サンプルである。図表はサンプル企業の所属業種の割合を示している。なお、所属業種は証券コード協議会の中分類(全33種)に基づいている。
+四半期EPS(3ヶ月)およびファンダメンタル会計変数の算出に必要な四半期会計データは「日経NEEDS-FinancialQUEST」から収集している。結果、1,020社、延べ 1,020社 × 52四半期 = 53,040個の企業四半期が最終サンプルである。図表はサンプル企業の所属業種の割合を示している。なお、所属業種は証券コード協議会の中分類(全33種)に基づいている。
 
 % ![ind_cat](/mnt/d/0ngoing/thesis/repo/paper/my_writing/imgs/_ind_cat_table.png) 
 
@@ -133,10 +145,10 @@
 
 \section{予測のデザイン}
 
-本稿では、サンプル企業1020社について、それぞれ1社ごとに1四半期先予測を12期(3年)分行う。まず、ある企業の全52四半期サンプル期間\footnote{実際のモデル推定では説明変数にラグ変数を含める。したがって利用できるサンプル期間は$52 - ラグの次数 $である。モデルのデザインによってラグの次数は異なるため、利用できる訓練データの長さもモデルによって異なる。}をもとに、1つあたり長さ41期のローリングサンプル(rolling sample)を12個形成する。次に、1つのローリングサンプルを、過去40期の訓練データ(training data, in-sample)と最新1期のテストデータ(test data, out-of-sample)に分ける。そして訓練データを用いてモデルを推定し、テストデータと同じ期にあたる1期先の予測を行う。これを12個のローリングサンプルで繰り返すことによって、ある企業の1四半期先予測が12期分得られる。
+本稿では、サンプル企業1,020社について、それぞれ1社ごとに1四半期先予測を12期(3年)分行う。まず、ある企業の全52四半期サンプル期間\footnote{実際のモデル推定では説明変数にラグ変数を含める。したがって利用できるサンプル期間は$52 - ラグの次数 $である。モデルのデザインによってラグの次数は異なるため、利用できる訓練データの長さもモデルによって異なる。}をもとに、1つあたり長さ41期のローリングサンプル(rolling sample)を12個形成する。次に、1つのローリングサンプルを、過去40期の訓練データ(training data, in-sample)と最新1期のテストデータ(test data, out-of-sample)に分ける。そして訓練データを用いてモデルを推定し、テストデータと同じ期にあたる1期先の予測を行う。これを12個のローリングサンプルで繰り返すことによって、ある企業の1四半期先予測が12期分得られる。
 
 
-つまり具体的には、ある企業の全52四半期サンプル期間 $(Data_{\text{2008Q1}}, Data_{\text{2008Q2}}, \cdots, Data_{\text{2020Q4}})$ から12個のローリングサンプルを作り、1つ目の長さ41期のローリングサンプル $(Data_{\text{2008Q1}}, Data_{\text{2008Q2}}, \cdots, Data_{\text{2017Q4}}, Data_{\text{2018Q1}})$ を長さ40期の訓練データ $(Data_{\text{2008Q1}}, Data_{\text{2008Q2}}, \cdots, Data_{\text{2017Q4}})$ と長さ1期のテストデータ ($Data_{\text{2018Q1}})$ に分け、訓練データを用いてモデルを推定し、テストデータの説明変数を代入して訓練データの1期先の四半期EPS $y_{2018Q1}$ の予測値 $\hat{y}_{2018Q1}$ を求める。2つ目のローリングサンプル $(Data_{\text{2008Q2}}, Data_{\text{2008Q3}}, \cdots, Data_{\text{2018Q1}}, Data_{\text{2018Q2}})$ も同様に 訓練データ $(Data_{\text{2008Q2}}, Data_{\text{2008Q3}}, \cdots, Data_{\text{2018Q1}})$ を用いて1期先の四半期EPSの予測値 $\hat{y}_{2018Q2}$ を求める。同様に他のローリングサンプルに対しても、それぞれ同じモデルを異なる期間の訓練データで推定し、1企業につき12期分の1四半期先予測値系列 $(\hat{y}_{2018Q1}, \hat{y}_{2018Q2}, \cdots, \hat{y}_{2018Q2})$ が得られる。この予測プロセスを全サンプル企業1020社に対して行うことで、最終的に$12期 \times 1020社 = 12240個$の四半期EPS予測値が各予測手法から算出される。
+つまり具体的には、ある企業の全52四半期サンプル期間 $(Data_{\text{2008Q1}}, Data_{\text{2008Q2}}, \cdots, Data_{\text{2020Q4}})$ から12個のローリングサンプルを作り、1つ目の長さ41期のローリングサンプル $(Data_{\text{2008Q1}}, Data_{\text{2008Q2}}, \cdots, Data_{\text{2017Q4}}, Data_{\text{2018Q1}})$ を長さ40期の訓練データ $(Data_{\text{2008Q1}}, Data_{\text{2008Q2}}, \cdots, Data_{\text{2017Q4}})$ と長さ1期のテストデータ ($Data_{\text{2018Q1}})$ に分け、訓練データを用いてモデルを推定し、テストデータの説明変数を代入して訓練データの1期先の四半期EPS $y_{2018Q1}$ の予測値 $\hat{y}_{2018Q1}$ を求める。2つ目のローリングサンプル $(Data_{\text{2008Q2}}, Data_{\text{2008Q3}}, \cdots, Data_{\text{2018Q1}}, Data_{\text{2018Q2}})$ も同様に 訓練データ $(Data_{\text{2008Q2}}, Data_{\text{2008Q3}}, \cdots, Data_{\text{2018Q1}})$ を用いて1期先の四半期EPSの予測値 $\hat{y}_{2018Q2}$ を求める。同様に他のローリングサンプルに対しても、それぞれ同じモデルを異なる期間の訓練データで推定し、1企業につき12期分の1四半期先予測値系列 $(\hat{y}_{2018Q1}, \hat{y}_{2018Q2}, \cdots, \hat{y}_{2018Q2})$ が得られる。この予測プロセスを全サンプル企業1,020社に対して行うことで、最終的に$12期 \times 1,020社 = 12,240個$の四半期EPS予測値が各予測手法から算出される。
 
 図表は本稿のローリングサンプルによる1期先予測の概要を示している。
 
@@ -147,22 +159,39 @@
 
 \subsection{ランダムウォークモデル}
 
-もっとも単純な単変量モデルであるランダムウォークモデルは次のとおりである。
+$Y_t$をある企業におけるt期の四半期EPSとすると、もっとも単純な単変量モデルであるランダムウォークモデルは次のとおりである。
 
 \begin{equation}
   \begin{split}
     & Y_t = Y_{t-1} + \epsilon_t \\
-    & ただし, \epsilon_t は全ての時点 t において \\
+    & E[Y_t] = Y_{t-1} \\
+  \end{split}
+\end{equation}        
+
+%     \\
+%     & ただし, \epsilon_t は全ての時点 t において \\
+%     & E[\epsilon_t] = 0 \\
+%     & E[\epsilon_t \epsilon_{t-k}] = \left\{
+%         \begin{array}{ll}
+%         \sigma^2 & k=0 \\
+%         0 & k \neq 0
+% \end{array}\right. \\
+%     & を満たすホワイトノイズである. \\
+%     \\
+
+ただし, $\epsilon_t$は全ての時点tにおいて
+\begin{equation}
+  \begin{split}
     & E[\epsilon_t] = 0 \\
     & E[\epsilon_t \epsilon_{t-k}] = \left\{
-        \begin{array}{ll}
+      \begin{array}{ll}
         \sigma^2 & k=0 \\
         0 & k \neq 0
-\end{array}\right. \\
-    & を満たすホワイトノイズである. \\
-    & E[Y_t] = Y_{t-1} \\
-\end{split}
+      \end{array}\right. \\
+  \end{split}
 \end{equation}    
+
+を満たすホワイトノイズである.
 
 一方、四半期EPS時系列には１年単位での季節的変動パターンがあると考えられる。そこでランダムウォーク過程を1四半期単位ではなく、1会計年度単位(4四半期)であると考慮した季節ランダムウォークモデルが次のとおりである。
 
@@ -181,8 +210,13 @@
 
 \begin{equation}
   \begin{split}
-    \phi_p(B)\Phi_{P}(B)(1-B)^d(1-B^s)^DY_t &= \theta_q(B)\Theta_Q(B^s)a_t \\
-    ただし, \\
+    \phi_p(B)\Phi_{P}(B)(1-B)^d(1-B^s)^DY_t &= \theta_q(B)\Theta_Q(B^s)\epsilon_t
+  \end{split}
+\end{equation}
+
+ただし、
+\begin{equation}
+  \begin{split}
     p &: トレンドの自己回帰過程の階数 \\
     d &: トレンド階差の次数 \\
     q &: トレンドの移動平均過程の階数 \\
@@ -199,23 +233,36 @@
 
 通常、SARIMAモデルは$(p, d, q) \times (P, D, Q)$の値の組み合わせをBox-Jenkins法によってデータごとに選定し、モデルの構築を行う。一方、これまでの四半期EPSの時系列予測の分野では全ての企業に適合するSARIMAモデルが探求され、次の3つのSARIMAモデル\citep*{foster1977quarterly, griffin1977time, brown1979univariate}があらゆる企業の四半期EPSの時系列特性を描写するモデルであるとされている。\footnote{先行研究では、企業ごとにモデルを構築するよりも、企業で共通の構築で予測したほうが全体として予測のパフォーマンスが良いと示されている。}
 
+\cite{foster1977quarterly} $: (p, d, q) \times (P, D, Q)_s = (1, 0, 0) \times (0, 1, 0)_4$
+
 \begin{equation}
   \begin{split}
-    \text{ Foster (1977) } &: (p, d, q) \times (P, D, Q)_s = (1, 0, 0) \times (0, 1, 0)_4 \\
-    Y_t &= Y_{t-4} + \phi_1(Y_{t-1} - Y_{t-5}) + a_t \\
+    % \text{ Foster (1977) } &: (p, d, q) \times (P, D, Q)_s = (1, 0, 0) \times (0, 1, 0)_4 \\
+    Y_t &= Y_{t-4} + \phi_1(Y_{t-1} - Y_{t-5}) + \epsilon_t \\
     E[Y_t] &= Y_{t-4} + \phi_1(Y_{t-1} - Y_{t-5}) + \delta \\
-    \\
-    \text{ Griffin (1977), Watts (1975) } &: (p, d, q) \times (P, D, Q)_s = (0, 1, 1) \times (0, 1, 1)_4 \\
-    Y_t &= Y_{t-4} + (Y_{t-1} - Y_{t-5}) - \theta_1a_{t-1} - \Theta_1a_{t-4} + \theta_1\Theta_1a_{t-5} + a_t \\
-    E[Y_t] &= Y_{t-4} + (Y_{t-1} - Y_{t-5}) - \theta_1a_{t-1} - \Theta_1a_{t-4} + \theta_1\Theta_1a_{t-5} + \delta \\
-    \\
-    \text{ Brown and Rozeff (1979) } &: (p, d, q) \times (P, D, Q)_s = (1, 0, 0) \times (0, 1, 1)_4 \\
-    Y_t &= Y_{t-4} + \phi_1(Y_{t-1}-Y_{t-5}) - \Theta_1a_{t-4} + a_t \\
-    E[Y_t] &= Y_{t-4} + \phi_1(Y_{t-1}-Y_{t-5}) - \Theta_1a_{t-4} + \delta \\
-    \\
-    & \text{ただし, }\delta\text{はSARIMAモデルの定数項.}
   \end{split}
 \end{equation}
+
+\cite{griffin1977time} $: (p, d, q) \times (P, D, Q)_s = (0, 1, 1) \times (0, 1, 1)_4$
+
+\begin{equation}
+  \begin{split}
+    Y_t &= Y_{t-4} + (Y_{t-1} - Y_{t-5}) - \theta_1a_{t-1} - \Theta_1a_{t-4} + \theta_1\Theta_1a_{t-5} + \epsilon_t \\
+    E[Y_t] &= Y_{t-4} + (Y_{t-1} - Y_{t-5}) - \theta_1a_{t-1} - \Theta_1a_{t-4} + \theta_1\Theta_1a_{t-5} + \delta \\
+  \end{split}
+\end{equation}
+
+\cite*{brown1979univariate} $: (p, d, q) \times (P, D, Q)_s = (1, 0, 0) \times (0, 1, 1)_4$
+
+\begin{equation}
+  \begin{split}    
+    Y_t &= Y_{t-4} + \phi_1(Y_{t-1}-Y_{t-5}) - \Theta_1a_{t-4} + \epsilon_t \\
+    E[Y_t] &= Y_{t-4} + \phi_1(Y_{t-1}-Y_{t-5}) - \Theta_1a_{t-4} + \delta \\
+    \\
+  \end{split}
+\end{equation}
+
+ただし, $\delta$はSARIMAモデルの定数項.
 
 本稿では先行研究に倣い、特に支持されてきたこの3つのモデルを単変量線形時系列モデルとして用いることとする。
 
@@ -226,7 +273,7 @@
 \begin{equation}
   \begin{split}
     \label{mlm1}
-    E[Y_t] = \alpha + \beta_1Y_{t-1} + \beta_2Y_{t-4} 
+    E[Y_t] = \beta_0 + \beta_1Y_{t-1} + \beta_2Y_{t-4} 
     &+ \beta_3INV_{t-1} + \beta_4AR_{t-1} + \beta_5CAPX_{t-1} \\
     &+ \beta_6GM_{t-1} + \beta_7SA_{t-1} + \beta_8ETR_{t-1} + \beta_9LF_{t-1} \\
   \end{split}
@@ -235,7 +282,7 @@
 \begin{equation}
   \begin{split}
     \label{mlm2}
-    E[Y_t] = \alpha + \beta_1Y_{t-1} + \beta_2Y_{t-4} 
+    E[Y_t] = \beta_0 + \beta_1Y_{t-1} + \beta_2Y_{t-4} 
     &+ \beta_3INV_{t-4} + \beta_4AR_{t-4} + \beta_5CAPX_{t-4} \\
     &+ \beta_6GM_{t-4} + \beta_7SA_{t-4} + \beta_8ETR_{t-4} + \beta_9LF_{t-4} \\
   \end{split}
@@ -245,7 +292,7 @@
 
 \begin{equation}
   \begin{split}
-    E[Y_t] = \alpha + \sum^{4}_{\tau=1} \left( \beta_{1\tau}Y_{t-\tau} 
+    E[Y_t] = \beta_0 + \sum^{4}_{\tau=1} \left( \beta_{1\tau}Y_{t-\tau} 
     + \beta_{2\tau}INV_{t-\tau} + \beta_{3\tau}AR_{t-\tau} + \beta_{4\tau}CAPX_{t-\tau} \right. \\
     \left. + \beta_{5\tau}GM_{t-\tau} + \beta_{6\tau}SA_{t-\tau} + \beta_{7\tau}ETR_{t-\tau} + \beta_{8\tau}LF_{t-\tau} \right) \\
   \end{split}
@@ -258,36 +305,94 @@
 % 金融データは高次元、7変数しかもラグ、普通のモデルは変数多いと精度下がる。機械学習で次元削減。
 % 金融データは非線形。非線形なモデル2つ。AnnとノンパラなRF
 
-ここでは、本稿で用いる機械学習的手法について紹介する。なお、以下より共通して説明変数ベクトル$\bm{X}$については、単変量モデルにおいて、
+ここでは、本稿で用いる機械学習的手法について紹介する。なお、以下より共通して時点tの説明変数ベクトル$\bm{X}_t$について、単変量モデルでは、
 
 \begin{equation}
   \begin{split}
-    \bm{X} = (Y_{t-1}, Y_{t-2}, Y_{t-3}, Y_{t-4})
+    \bm{X}_t &= (X_{t1}, \cdots ,X_{t4}) \\
+    &= (Y_{t-1}, Y_{t-2}, Y_{t-3}, Y_{t-4}) \\
   \end{split}
 \end{equation}
 
-多変量モデルにおいて、
+多変量モデルでは、
 
 \begin{equation}
   \begin{split}
-    \bm{X} = (
-    & Y_{t-1}, Y_{t-2}, Y_{t-3}, Y_{t-4}, \\
+    \bm{X}_t = (&X_{t1}, \cdots ,X_{t32}) \\ 
+    =(&Y_{t-1}, Y_{t-2}, Y_{t-3}, Y_{t-4}, \\
     & INV_{t-1}, INV_{t-2}, INV_{t-3}, INV_{t-4}, \\
     & AR_{t-1}, AR_{t-2}, AR_{t-3}, AR_{t-4}, \\
     & CAPX_{t-1}, CAPX_{t-2}, CAPX_{t-3}, CAPX_{t-4}, \\
     & GM_{t-1}, GM_{t-2}, GM_{t-3}, GM_{t-4}, \\
     & SA_{t-1}, SA_{t-2}, SA_{t-3}, SA_{t-4}, \\
     & ETR_{t-1}, ETR_{t-2}, ETR_{t-3}, ETR_{t-4}, \\ 
-    & LF_{t-1}, LF_{t-2}, LF_{t-3}, LF_{t-4}
-    )
+    & LF_{t-1}, LF_{t-2}, LF_{t-3}, LF_{t-4}) \\
   \end{split}
 \end{equation}
 
 としてモデルを構築する。
 
+\subsection{罰則回帰モデル}
+
+説明変数間に複数の強い相関が存在する場合、線形回帰モデルの最小二乗推定量の分散は大きくなる。そして高分散(high variance)により係数の推定値が極端な値をとると、in-sampleでの予測精度は高くても、out-of-sampleにおける予測精度が低くなる恐れがある。このように予測モデルがin-sampleデータの規則性のみを捉えてしまい、out-of-sampleを含めたデータ全体に対して汎化できていないことを過学習(overfitting)という。
+
+線形回帰モデルの係数の推定値が極端な値をとることに起因する過学習を防ぐために、係数の大きさに罰則を与えて推定する手法が罰則回帰モデル(penalized regression model)である。罰則回帰モデルは、その罰則の与え方によって推定で最小化する目的関数が異なる。本稿では罰則回帰モデルのうち、代表的なRidge回帰モデル、LASSO回帰モデル、Elastic Net回帰モデルの3つを用いる。
+
+Ridge回帰モデルの係数の推定式は次のとおりである。
+
+\begin{equation} \label{ridge}
+  \begin{split}
+    \hat{\bm{\beta}}^{Ridge} = \argmin_{\bm{\beta}}\left\{ \sum_{t=1}^{T} \left( Y_t - \beta_0 - \sum_{j=1}^{k} \beta_{j} X_{tj} \right)^2 + \lambda \sum_{j=1}^{k} \beta_{j}^{2} \right\}
+  \end{split}
+\end{equation}
+
+ここで、$\lambda \geq 0$は罰則の強さを調節するパラメータであり、モデル推定の枠組みの中で決定されないパラメータ(ハイパーパラメータ)である。ハイパーパラメータの値はデータに応じて指定する必要があり、ハイパーパラメータの選択方法の詳細については\ref{hyparam}節で説明する。(\ref{ridge})式で示されるように、Ridge回帰モデルでは目的関数に係数の二乗和が含まれており、係数が過大な値をとることを防ぐ構造となっている。したがってRidge回帰モデルは予測情報を持たない説明変数に対して係数縮小(parameter shrinkage)し、モデルの過学習を防ぐ。
+
+LASSO(Least Absolute Shrinkage and Selection Operator)回帰モデルの係数の推定式は次のとおりである。
+
+\begin{equation} \label{lasso}
+  \begin{split}
+    \hat{\bm{\beta}}^{LASSO} = \argmin_{\bm{\beta}}\left\{ \sum_{t=1}^{T} \left( Y_t - \beta_0 - \sum_{j=1}^{k} \beta_{j} X_{tj} \right)^2 + \lambda \sum_{j=1}^{k} \left|\beta_{j}\right| \right\}
+  \end{split}
+\end{equation}
+
+LASSO回帰モデルは、Ridge回帰モデルと同様、目的関数にパラメータのサイズに関する罰則項が含まれているが、罰則として係数の絶対値の和を用いている点がRidgr回帰モデルとの違いである。この罰則の与え方により、予測情報を持たない説明変数の係数が丁度0となるスパース推定が行われる。つまり、LASSO回帰モデルを推定することで変数選択が行われる。
+
+Elastic Net回帰モデルの係数の推定式は次のとおりである。
+
+\begin{equation}
+  \begin{split}
+    \hat{\bm{\beta}}^{EN} = \argmin_{\bm{\beta}}\left\{ \sum_{t=1}^{T} \left( Y_t - \beta_0 - \sum_{j=1}^{k} \beta_{j} X_{tj} \right)^2 + 
+    \lambda \left\{ 
+      \left( 1 - \alpha \right) \sum_{j=1}^{k} \beta_{j}^2 + 
+      \alpha \sum_{j=1}^{k} \left|\beta_{j}\right| 
+      \right\} 
+    \right\}
+  \end{split}
+\end{equation}
+
+Elastic Net回帰モデルは、Ridge回帰モデルとLASSO回帰モデル両方の罰則項を利用する構造となっている。$\alpha$はLASSO回帰モデルの罰則の影響の割合を調節するハイパーパラメータであり、罰則の強さのハイパーパラメータ$\lambda$と併せて指定する必要がある。
+
+なお、それぞれの罰則回帰モデルの予測値は次のとおりである。
+
+\begin{equation}
+  \begin{split}
+    &E[Y_t]^{Ridge} = \hat{y}_t^{Ridge} = \beta_0^{Ridge} + \sum_{j=1}^{k} \beta_{j}^{Ridge} x_{tj} \\
+    &E[Y_t]^{LASSO} = \hat{y}_t^{LASSO} = \beta_0^{LASSO} + \sum_{j=1}^{k} \beta_{j}^{LASSO} x_{tj} \\
+    &E[Y_t]^{EN} = \hat{y}_t^{EN} = \beta_0^{EN} + \sum_{j=1}^{k} \beta_{j}^{EN} x_{tj} \\
+  \end{split}
+\end{equation}
+
+\subsection{ランダム・フォレスト回帰モデル}
+
+\begin{equation}
+  \begin{split}
+  \end{split}
+\end{equation}
+
 \subsection{人工ニューラルネットワークモデル}
 
-人工ニューラルネットワーク(Artificial Neural Network: ANN)モデルについて述べる。まずANNの構造の最小単位であるユニット(unit)またはニューロン(neuron)について考える。$(X_1, \cdots, X_k)$を入力ベクトルとする。$(w_1, \cdots, w_k)$は入力ベクトルの要素それぞれに対応する重み(weight)であり、スカラー値$b$はバイアス(bias)という。ユニットではまず始めに$(X_1, \cdots, X_k)$と$(w_1, \cdots, w_k)$の内積と$b$の和であるプレアクティベーション(pre-activation)$z$を計算する。
+人工ニューラルネットワーク(Artificial Neural Network: ANN)モデルについて述べる。まずANNの構造の最小単位であるユニット(unit)またはニューロン(neuron)について考える。$\bm{X}=(X_1, \cdots, X_k)$を入力ベクトルとする。$(w_1, \cdots, w_k)$は入力ベクトルの要素それぞれに対応する重み(weight)であり、スカラー値$b$はバイアス(bias)という。ユニットではまず始めに$\bm{X}=(X_1, \cdots, X_k)$と$(w_1, \cdots, w_k)$の内積と$b$の和であるプレアクティベーション(pre-activation)$z$を計算する。
 
 \begin{equation}
   \begin{split}
@@ -344,8 +449,14 @@ MLPの特徴として、横のつながりのユニットをそれぞれ層と�
 
 \begin{equation}
   \begin{split}
-    Y_t &= f({\bf X, \alpha, \beta}) =\sum^{L}_{l=1} \left( \alpha_l H_l + \alpha_0 \right)= \sum^{L}_{l=1} \alpha_l \text{logsig} \left(\sum^{K}_{k=1} \left( \beta_{kl} X_k + \beta_{0l} \right) \right) \\
-    ただし、\\
+    Y_t &= f({\bf X, \alpha, \beta}) =\sum^{L}_{l=1} \left(\alpha_0 + \alpha_l H_l \right)= \sum^{L}_{l=1} \alpha_l \text{logsig} \left(\sum^{K}_{k=1} \left(\beta_{0l} + \beta_{kl} X_k \right) \right) \\
+  \end{split}
+\end{equation}
+
+ただし、
+
+\begin{equation}
+  \begin{split}
     Y_t &: 出力(目的変数) \\
     {\bf X}=(X_1, \cdots, X_{K}) &: 入力(説明変数)ベクトル \\
     X_k &: k番目の入力(説明変数) \\
@@ -358,27 +469,22 @@ MLPの特徴として、横のつながりのユニットをそれぞれ層と�
   \end{split}
 \end{equation}
 
-なお、ANNモデルの推定は誤差逆伝播法(Backward propagation algorithm)を用いてウェイトの勾配を計算し、勾配降下によって行う。
+ANNモデルの推定は誤差逆伝播法(Backward propagation algorithm)を用いてウェイトの勾配を計算し、勾配降下によって行う。なお、モデルの複雑さを調節する隠れ層のユニット数とウェイトの更新量の幅を調節する学習率をハイパーパラメータとして、検証データによって決定する。
 
-\subsection{正則化回帰モデル}
+\section{ハイパーパラメータの選択} \label{hyparam}
 
-\begin{equation}
-  \begin{split}
-  \end{split}
-\end{equation}
+\cite*{cao2020fundamental}, 予測がうまい代わりに複雑さの調節が必要。
 
-\subsection{ランダム・フォレスト回帰モデル}
+本稿ではグリッドサーチによって機械学習モデルのハイパーパラメータを選択する。
 
-\begin{equation}
-  \begin{split}
-  \end{split}
-\end{equation}
-
-\section{ハイパーパラメータの選択}
+% 過学習の原因の1つとして、モデルが過度に複雑であることが挙げられる。
 
 \chapter{予測精度指標}
 
 \chapter{予測の精度と結果}
+
+フリードマン?
+DM検定
 
 桜井1990の第4四半期が最も不正確なのと整合的
 
