@@ -112,7 +112,20 @@ if __name__ == "__main__":
     dir_path = "./../../assets/y_hats/univariate/"
 
     # get all paths in selected directody
-    file_paths = os.listdir(dir_path)
+    # file_paths = os.listdir(dir_path)
+    # selected final y_hat
+    file_paths = [
+        "y_hat_rw.csv",
+        "y_hat_srw.csv",
+        "y_hat_sarima_br.csv",
+        "y_hat_sarima_f.csv",
+        "y_hat_sarima_g.csv",
+        "y_hat_uen.csv",
+        "y_hat_ul1.csv",
+        "y_hat_ul2.csv",
+        "y_hat_umlp_hid1000_lr0.001_iter10000.csv",
+    ]
+
     for path in file_paths:
         if path[:5] == "y_hat":
             # "y_hat"から始まるファイルのみ読み込み
@@ -123,7 +136,20 @@ if __name__ == "__main__":
     dir_path = "./../../assets/y_hats/multivariate/"
 
     # get all paths in selected directody
-    file_paths = os.listdir(dir_path)
+    # file_paths = os.listdir(dir_path)
+    # selected final y_hat
+    file_paths = [
+        "y_hat_ols1.csv",
+        "y_hat_ols2.csv",
+        "y_hat_ols3.csv",
+        "y_hat_men.csv",
+        "y_hat_ml1.csv",
+        "y_hat_ml2.csv",
+        "y_hat_mraf.csv",
+        "y_hat_mmlp_tuned_scaled0911.csv",
+
+    ]
+
     for path in file_paths:
         if path[:5] == "y_hat":
             y_hat = pd.read_csv(dir_path + path, index_col=[0, 1, 2]).loc[y_test.index].iloc[:, 0]
@@ -132,20 +158,57 @@ if __name__ == "__main__":
     y_hats_all
 
     # Forecast combination
-    mml =[
-        'y_hat_ml1_i_tuned_simple',
-        'y_hat_ml2_i_tuned_simple',
-        'y_hat_men_i_tuned_simple',
-        'y_hat_mraf_i_tuned_simple',
+    uall = [
+        'y_hat_rw', 
+        'y_hat_srw',
+        'y_hat_sarima_br', 
+        'y_hat_sarima_f',
+        'y_hat_sarima_g', 
+        'y_hat_uen', 
+        'y_hat_ul1', 
+        'y_hat_ul2', 
+        # 'y_hat_uraf',         
+        'y_hat_umlp',
+    ]
+
+    uml = [
+        'y_hat_uen', 
+        'y_hat_ul1', 
+        'y_hat_ul2', 
+        # 'y_hat_uraf',         
+        'y_hat_umlp',
+    ]
+
+    mall = [
+        'y_hat_men', 
+        'y_hat_ml1',
+        'y_hat_ml2', 
+        'y_hat_mraf', 
         'y_hat_mmlp'
-        ]
+    ]
 
-    y_hats_all["y_hat_ALL_comb"] = y_hats_all.mean(axis=1)
-    y_hats_all["y_hat_MML_comb"] = y_hats_all[mml].mean(axis=1)
+    mml =[
+        'y_hat_ols1', 
+        'y_hat_ols2', 
+        'y_hat_ols3', 
+        'y_hat_men', 
+        'y_hat_ml1',
+        'y_hat_ml2', 
+        'y_hat_mraf', 
+        'y_hat_mmlp'
+    ]
 
-    #################################################################################################### eliminate late firm
-    # y_hats_all = y_hats_all.loc[get_non_late_firm()]
-    ####################################################################################################
+    y_hats_all["y_hat_comb_all"] = y_hats_all[y_hats_all.columns[1:]].mean(axis=1)
+    y_hats_all["y_hat_comb_uall"] = y_hats_all[uall].mean(axis=1)
+    y_hats_all["y_hat_comb_uml"] = y_hats_all[uml].mean(axis=1)
+    y_hats_all["y_hat_comb_mall"] = y_hats_all[mall].mean(axis=1)
+    y_hats_all["y_hat_comb_mml"] = y_hats_all[mml].mean(axis=1)
+
+    y_hats_all["y_hat_comb_all"].to_csv("./../../assets/y_hats/y_hat_comb_all.csv")
+    y_hats_all["y_hat_comb_uall"].to_csv("./../../assets/y_hats/y_hat_comb_uall.csv")
+    y_hats_all["y_hat_comb_uml"].to_csv("./../../assets/y_hats/y_hat_comb_uml.csv")
+    y_hats_all["y_hat_comb_mall"].to_csv("./../../assets/y_hats/y_hat_comb_mall.csv")
+    y_hats_all["y_hat_comb_mml"].to_csv("./../../assets/y_hats/y_hat_comb_mml.csv")
     
     # y_hats_all.to_csv("./../../assets/y_hats/y_hats_all.csv")
 
@@ -176,18 +239,23 @@ if __name__ == "__main__":
         'y_hat_sarima_f', 
         'y_hat_sarima_g', 
         'y_hat_sarima_br',
-        'y_hat_mlm1', 
-        'y_hat_mlm2',
-        'y_hat_mlm4',
-        'y_hat_ul1_i_tuned_simple',
-        'y_hat_ul2_i_tuned_simple',
-        'y_hat_uen_i_tuned_simple',        
+        'y_hat_ols1', 
+        'y_hat_ols2',
+        'y_hat_ols3',
+        'y_hat_ul1',
+        'y_hat_ul2',
+        'y_hat_uen',        
         'y_hat_umlp',
-        'y_hat_ml1_i_tuned_simple',
-        'y_hat_ml2_i_tuned_simple',
-        'y_hat_men_i_tuned_simple',
-        'y_hat_mraf_i_tuned_simple',
-        'y_hat_mmlp'
+        'y_hat_ml1',
+        'y_hat_ml2',
+        'y_hat_men',
+        'y_hat_mraf',
+        'y_hat_mmlp',
+        # "y_hat_comb_all",
+        # "y_hat_comb_uall",
+        # "y_hat_comb_uml",
+        # "y_hat_comb_mall",
+        # "y_hat_comb_mml",
         ]
     y_hat_list = list(map(lambda x: y_hats_all[x], model_list))
     q_list = ["Q1", "Q2", "Q3", "Q4", ["Q1", "Q2", "Q3", "Q4"]]
@@ -207,5 +275,5 @@ if __name__ == "__main__":
     a_by_q.columns = pd.MultiIndex.from_tuples(col)
     a_by_q.to_csv("../../assets/y_hats/accuracy_table_by_quarter.csv")
 
-    # two year test range
-    accuracy_table(y_test.loc[pd.IndexSlice[:, [2018, 2019], :]], y_hats_all.loc[pd.IndexSlice[:, [2018, 2019], :]], indicators).T
+    # # two year test range
+    # accuracy_table(y_test.loc[pd.IndexSlice[:, [2018, 2019], :]], y_hats_all.loc[pd.IndexSlice[:, [2018, 2019], :]], indicators).T

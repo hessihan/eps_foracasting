@@ -437,3 +437,14 @@ def get_non_late_firm():
 
 df = df.loc[get_non_late_firm()]
 df.to_csv("./../../data/processed/tidy_df.csv")
+
+# drop negative num stock firm
+df = pd.read_csv("./../../data/processed/tidy_df.csv", index_col=[0, 1, 2])
+tse1 = pd.read_csv("./../../data/processed/tidy_tse1.csv", index_col=[0, 1, 2])
+
+negative_num_stock_firm = tse1['期中平均株式数［３ヵ月］'][tse1['期中平均株式数［３ヵ月］']<0].index.get_level_values(0).unique()
+firm1020 = df.index.get_level_values(0).unique()
+non_negative_num_stock_firm = [i for i in firm1020 if i not in negative_num_stock_firm]
+
+df = df.loc[pd.IndexSlice[non_negative_num_stock_firm, :, :], :]
+df.to_csv("./../../data/processed/tidy_df.csv")

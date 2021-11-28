@@ -155,10 +155,6 @@ my_tune_space = np.vstack(map(np.ravel, np.meshgrid(
     [0.001, 0.001, 0.01, 0.1, 1, 10, 100, 1000], 
     [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 ))).T
-# my_tune_space = np.vstack(map(np.ravel, np.meshgrid(
-#     [0.0001, 0.001, 0.01, 0.1, 1, 10, 100, 1000, 10000], 
-#     [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
-# ))).T
 t1 = time.time()
 p = Pool(cpu_count() - 1)
 y_hats = list(p.map(Tuner_i(my_df, my_firm_list, my_test_periods, 1, EN, my_tune_space), tqdm(my_firm_list)))
@@ -179,8 +175,8 @@ for i in [3, 4]:
     len_part = len(my_firm_list) // 5
     my_firm_list_part = my_firm_list[len_part * i:  len_part * (i+1)]
     my_tune_space = np.vstack(map(np.ravel, np.meshgrid(
-        [100, 500, 1000],
-        [5, 10, None]
+        [100, 500, 1000, 2000],
+        [10, 100, None]
     ))).T
     t1 = time.time()
     p = Pool(cpu_count() - 1) # 熱暴走。ファンをあてよう
@@ -207,10 +203,9 @@ y_hat_mraf.to_csv("../../assets/y_hats/multivariate/y_hat_mraf.csv")
 print(MAPEUB(y_test.values, y_hat_mraf["y_hat_mraf"].values))
 
 # RAF all
-
 my_tune_space = np.vstack(map(np.ravel, np.meshgrid(
-    [100, 250, 500],
-    [10, 20, None]
+    [100, 500, 1000, 2000],
+    [10, 100, None]
 ))).T
 t1 = time.time()
 p = Pool(cpu_count() - 1) # 熱暴走。ファンをあてよう

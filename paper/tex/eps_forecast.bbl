@@ -85,6 +85,11 @@ Hill, T., O'Connor, M. \harvardand\ Remus, W.  \harvardyearleft
   1996\harvardyearright , `Neural network models for time series forecasts',
   {\em Management science} {\bf 42}(7),~1082--1092.
 
+\harvarditem{Hoerl \harvardand\ Kennard}{1970}{hoerl1970ridge}
+Hoerl, A.~E. \harvardand\ Kennard, R.~W.  \harvardyearleft
+  1970\harvardyearright , `Ridge regression: Biased estimation for
+  nonorthogonal problems', {\em Technometrics} {\bf 12}(1),~55--67.
+
 \harvarditem{Hopwood \harvardand\ McKeown}{1986}{hopwood1986univariate}
 Hopwood, W.~S. \harvardand\ McKeown, J.~C.  \harvardyearleft
   1986\harvardyearright , {\em Univariate time-series analysis of quarterly
@@ -111,6 +116,11 @@ Qi, M.  \harvardyearleft 1999\harvardyearright , `Nonlinear predictability of
   stock returns using financial and economic variables', {\em Journal of
   Business \& Economic Statistics} {\bf 17}(4),~419--429.
 
+\harvarditem{Tibshirani}{1996}{tibshirani1996regression}
+Tibshirani, R.  \harvardyearleft 1996\harvardyearright , `Regression shrinkage
+  and selection via the lasso', {\em Journal of the Royal Statistical Society:
+  Series B (Methodological)} {\bf 58}(1),~267--288.
+
 \harvarditem{Tk{\'a}{\v{c}} \harvardand\ Verner}{2016}{tkavc2016artificial}
 Tk{\'a}{\v{c}}, M. \harvardand\ Verner, R.  \harvardyearleft
   2016\harvardyearright , `Artificial neural networks in business: Two decades
@@ -122,6 +132,12 @@ Zhang, W., Cao, Q. \harvardand\ Schniederjans, M.~J.  \harvardyearleft
   2004\harvardyearright , `Neural network earnings per share forecasting
   models: A comparative analysis of alternative methods', {\em Decision
   Sciences} {\bf 35}(2),~205--237.
+
+\harvarditem{Zou \harvardand\ Hastie}{2005}{zou2005regularization}
+Zou, H. \harvardand\ Hastie, T.  \harvardyearleft 2005\harvardyearright ,
+  `Regularization and variable selection via the elastic net', {\em Journal of
+  the royal statistical society: series B (statistical methodology)} {\bf
+  67}(2),~301--320.
 
 \harvarditem{桜井}{1990}{sakurai1990}
 桜井, 久.  \harvardyearleft 1990\harvardyearright ,

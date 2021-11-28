@@ -94,7 +94,7 @@ if __name__ == "__main__":
 
     y_test_series = pd.concat(y_test_list)
     y_test_series.name = "y_test"
-    y_test_series.to_csv('../../assets/y_hats/univariate/y_test_.csv')
+    y_test_series.to_csv('../../assets/y_hats/univariate/y_test.csv')
     
     y_hat_sarima_br_series = pd.concat(y_hat_sarima_br_list)
     y_hat_sarima_br_series.name = "y_hat_sarima_br"
