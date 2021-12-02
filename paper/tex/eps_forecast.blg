@@ -2,7 +2,7 @@ This is pBibTeX, Version 0.99d-j0.33 (utf8.euc) (TeX Live 2019/Debian)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: eps_forecast.aux
 The style file: agsm.bst
-Illegal, another \bibstyle command---line 115 of file eps_forecast.aux
+Illegal, another \bibstyle command---line 132 of file eps_forecast.aux
  : \bibstyle
  :          {jplain}
 I'm skipping whatever remains of this command
@@ -27,21 +27,23 @@ I was expecting a `,' or a `}'---line 208 of file ref.bib
  :   number={1}
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for ""
+Warning--I didn't find a database entry for "nakai2004"
 Warning--empty publisher in box2015time
 Warning--empty publisher in hastie2009esl
 Warning--empty publisher in hopwood1986univariate
 Warning--there's a number but no volume in sakurai1990
 You've used 27 entries,
             2909 wiz_defined-function locations,
-            813 strings with 8996 characters,
-and the built_in function-call counts, 100957 in all, are:
-= -- 16266
+            814 strings with 9010 characters,
+and the built_in function-call counts, 101259 in all, are:
+= -- 16322
 > -- 1399
 < -- 0
-+ -- 7643
++ -- 7668
 - -- 420
-* -- 8733
-:= -- 20455
+* -- 8761
+:= -- 20511
 add.period$ -- 27
 call.type$ -- 27
 change.case$ -- 376
@@ -50,7 +52,7 @@ cite$ -- 31
 duplicate$ -- 432
 empty$ -- 912
 format.name$ -- 527
-if$ -- 18085
+if$ -- 18141
 int.to.chr$ -- 5
 int.to.str$ -- 0
 missing$ -- 29
@@ -62,7 +64,7 @@ purify$ -- 405
 quote$ -- 0
 skip$ -- 352
 stack$ -- 0
-substring$ -- 22829
+substring$ -- 22910
 swap$ -- 76
 text.length$ -- 378
 text.prefix$ -- 0

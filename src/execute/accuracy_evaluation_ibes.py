@@ -23,6 +23,24 @@ y_hats_all = y_hats_all.loc[y_hat_ibes.index]
 y_hats_all["y_hat_ibes"] = y_hat_ibes
 y_hats_all.to_csv("../../assets/y_hats/y_hats_all_vsibes.csv")
 
+# Forecast combination
+mml = [
+    'y_hat_men', 
+    'y_hat_ml1', 
+    'y_hat_ml2', 
+    'y_hat_mraf',         
+    'y_hat_mmlp',
+    'y_hat_ibes'
+]
+
+y_hats_all["y_hat_ibes_comb_all"] = y_hats_all[y_hats_all.columns[1:]].mean(axis=1)
+y_hats_all["y_hat_ibes_comb_mml"] = y_hats_all[mml].mean(axis=1)
+
+y_hats_all["y_hat_ibes_comb_all"].to_csv("./../../assets/y_hats/y_hat_ibes_comb_all.csv")
+y_hats_all["y_hat_ibes_comb_mml"].to_csv("./../../assets/y_hats/y_hat_ibes_comb_mml.csv")
+
+y_hats_all.to_csv("./../../assets/y_hats/y_hats_all.csv")
+
 # accuracy table
 ind_name = ["Max_error", "Max_percentage_error", "MAE", "MAPE", "MSPE", "MAPE-UB", "MSPE-UB", "Large_error_rate"]
 indicators = [Max_error, Max_percentage_error, MAE, MAPE, MSE, MAPEUB, MSPEUB, LargeErrorRate]
@@ -34,9 +52,9 @@ a = accuracy_table(y_hats_all["y_test"], y_hats_all, indicators).T
 a.to_csv("../../assets/y_hats/accuracy_table_vsibes.csv")
 a
 
-ai = accuracy_table_i(y_hats_all["y_test"], y_hats_all, indicators)
-ai.to_csv("../../assets/y_hats/accuracy_table_i_vsibes.csv")
-ai
+# ai = accuracy_table_i(y_hats_all["y_test"], y_hats_all, indicators)
+# ai.to_csv("../../assets/y_hats/accuracy_table_i_vsibes.csv")
+# ai
 
 # primal accuracy table for paper
 y_test = y_hats_all["y_test"]
@@ -46,17 +64,18 @@ model_list = [
     'y_hat_sarima_f', 
     'y_hat_sarima_g', 
     'y_hat_sarima_br',
-    'y_hat_mlm1', 
-    'y_hat_mlm2',
-    'y_hat_mlm4',
-    'y_hat_ul1_i_tuned_simple',
-    'y_hat_ul2_i_tuned_simple',
-    'y_hat_uen_i_tuned_simple',        
+    'y_hat_ols1', 
+    'y_hat_ols2',
+    'y_hat_ols3',
+    'y_hat_ul1', # 順番Ridge先かも
+    'y_hat_ul2',
+    'y_hat_uen',        
+    # 'y_hat_uraf'
     'y_hat_umlp',
-    'y_hat_ml1_i_tuned_simple',
-    'y_hat_ml2_i_tuned_simple',
-    'y_hat_men_i_tuned_simple',
-    'y_hat_mraf_i_tuned_simple',
+    'y_hat_ml1',
+    'y_hat_ml2',
+    'y_hat_men',
+    'y_hat_mraf',
     'y_hat_mmlp',
     'y_hat_ibes'
     ]
@@ -74,6 +93,6 @@ for y_hat in y_hat_list:
 a_by_q = pd.DataFrame(a_by_q)
 a_by_q.index = model_list
 
-col = [(i, j) for i in ["Q1", "Q2", "Q3", "Q4", "Overall"] for j in ["MAE", "MAPE", "MSPE", "Large Forecast Error"]]
+col = [(i, j) for i in ["Q1", "Q2", "Q3", "Q4", "Overall"] for j in ["MAE", "MAPE", "MSPE", "Large Forecast Error(%)"]]
 a_by_q.columns = pd.MultiIndex.from_tuples(col)
 a_by_q.to_csv("../../assets/y_hats/accuracy_table_by_quarter_ibes.csv")

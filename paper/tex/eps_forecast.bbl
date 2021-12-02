@@ -12,11 +12,6 @@ Ahmed, N.~K., Atiya, A.~F., Gayar, N.~E. \harvardand\ El-Shishiny, H.
   learning models for time series forecasting', {\em Econometric Reviews} {\bf
   29}(5-6),~594--621.
 
-\harvarditem{Bates \harvardand\ Granger}{1969}{bates1969combination}
-Bates, J.~M. \harvardand\ Granger, C.~W.  \harvardyearleft
-  1969\harvardyearright , `The combination of forecasts', {\em Journal of the
-  Operational Research Society} {\bf 20}(4),~451--468.
-
 \harvarditem[Box et~al.]{Box, Jenkins, Reinsel \harvardand\
   Ljung}{2015}{box2015time}
 Box, G.~E., Jenkins, G.~M., Reinsel, G.~C. \harvardand\ Ljung, G.~M.
@@ -48,6 +43,11 @@ Cao, Q. \harvardand\ Gan, Q.  \harvardyearleft 2009\harvardyearright ,
   `Forecasting eps of chinese listed companies using neural network with
   genetic algorithm', {\em 15th Americas Conference on Information Systems
   2009, AMCIS 2009} {\bf 5},~2971--2981.
+
+\harvarditem{Diebold \harvardand\ Mariano}{2002}{diebold2002comparing}
+Diebold, F.~X. \harvardand\ Mariano, R.~S.  \harvardyearleft
+  2002\harvardyearright , `Comparing predictive accuracy', {\em Journal of
+  Business \& economic statistics} {\bf 20}(1),~134--144.
 
 \harvarditem[Etemadi et~al.]{Etemadi, Ahmadpour \harvardand\
   Moshashaei}{2015}{etemadi2015earnings}

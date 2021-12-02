@@ -180,6 +180,9 @@ if __name__ == "__main__":
     ]
 
     mall = [
+        'y_hat_ols1', 
+        'y_hat_ols2', 
+        'y_hat_ols3', 
         'y_hat_men', 
         'y_hat_ml1',
         'y_hat_ml2', 
@@ -188,9 +191,6 @@ if __name__ == "__main__":
     ]
 
     mml =[
-        'y_hat_ols1', 
-        'y_hat_ols2', 
-        'y_hat_ols3', 
         'y_hat_men', 
         'y_hat_ml1',
         'y_hat_ml2', 
@@ -210,7 +210,7 @@ if __name__ == "__main__":
     y_hats_all["y_hat_comb_mall"].to_csv("./../../assets/y_hats/y_hat_comb_mall.csv")
     y_hats_all["y_hat_comb_mml"].to_csv("./../../assets/y_hats/y_hat_comb_mml.csv")
     
-    # y_hats_all.to_csv("./../../assets/y_hats/y_hats_all.csv")
+    y_hats_all.to_csv("./../../assets/y_hats/y_hats_all.csv")
 
     ## agregate forceast accuracy score
     
@@ -229,8 +229,8 @@ if __name__ == "__main__":
 
     
     # accuracy table for each individual firms
-    ai = accuracy_table_i(y_hats_all["y_test"], y_hats_all, indicators)
-    ai.to_csv("../../assets/y_hats/accuracy_table_i.csv")
+    # ai = accuracy_table_i(y_hats_all["y_test"], y_hats_all, indicators)
+    # ai.to_csv("../../assets/y_hats/accuracy_table_i.csv")
 
     # primal accuracy table for paper
     model_list = [
@@ -271,7 +271,7 @@ if __name__ == "__main__":
     a_by_q = pd.DataFrame(a_by_q)
     a_by_q.index = model_list
 
-    col = [(i, j) for i in ["Q1", "Q2", "Q3", "Q4", "Overall"] for j in ["MAE", "MAPE", "MSPE", "Large Forecast Error"]]
+    col = [(i, j) for i in ["Q1", "Q2", "Q3", "Q4", "Overall"] for j in ["MAE", "MAPE", "MSPE", "Large Forecast Error(%)"]]
     a_by_q.columns = pd.MultiIndex.from_tuples(col)
     a_by_q.to_csv("../../assets/y_hats/accuracy_table_by_quarter.csv")
 

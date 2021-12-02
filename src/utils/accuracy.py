@@ -137,12 +137,15 @@ def AbsolutePercentageErrorUB(true, pred):
     ape_ub[ape_ub > 1] = 1
     return ape_ub
 
-def LargeErrorRate(true, pred):
+def LargeErrorRate(true, pred, percent=True):
     """
     Percentage of large error forecast
     """
     ape_ub = AbsolutePercentageError(true, pred)
-    return np.mean(ape_ub > 1)
+    lfe = np.mean(ape_ub > 1)
+    if percent:
+        lfe *= 100        
+    return lfe
 
 def MAPEUB(true, pred):
     """
