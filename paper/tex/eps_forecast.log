@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.8.2-190908-2.6 (utf8.euc) (TeX Live 2019/Debian) (preloaded format=platex 2021.11.15)  2 DEC 2021 21:26
+This is e-pTeX, Version 3.14159265-p3.8.2-190908-2.6 (utf8.euc) (TeX Live 2019/Debian) (preloaded format=platex 2021.11.15)  10 DEC 2021 14:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -332,44 +332,83 @@ Package: threeparttable 2003/06/13  v 3.0
 Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
 \@enLab=\toks22
 )
-Package hyperref Info: Option `setpagesize' set `false' on input line 36.
-Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 36.
-Package hyperref Info: Option `bookmarksopen' set `true' on input line 36.
-Package hyperref Info: Option `colorlinks' set `true' on input line 36.
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2020/01/03 v3.4h Customizing captions (AR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2020/01/03 v1.8h caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 61.
+\captionmargin=\dimen190
+\captionmargin@=\dimen191
+\captionwidth=\dimen192
+\caption@tempdima=\dimen193
+\caption@indent=\dimen194
+\caption@parindent=\dimen195
+\caption@hangindent=\dimen196
+Package caption Info: Unknown document class (or package),
+(caption)             standard defaults will be used.
+Package caption Info: \@makecaption = \long macro:#1#2->{\small \advance \lefts
+kip .0628\linewidth \advance \rightskip .0628\linewidth \vskip \abovecaptionski
+p \sbox \@tempboxa {#1\hskip 1zw\relax #2}\ifdim \wd \@tempboxa <\hsize \center
+ing \fi #1{\hskip 1zw\relax }#2\par \vskip \belowcaptionskip } on input line 10
+82.
+)
+
+Package caption Warning: Unknown document class (or package),
+(caption)                standard defaults will be used.
+See the caption package documentation for explanation.
+
+\c@caption@flags=\count272
+\c@continuedfloat=\count273
+Package caption Info: hyperref package is loaded.
+Package caption Info: threeparttable package is loaded.
+) (/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2020/01/22 v1.3d Sub-captions (AR)
+\c@subfigure=\count274
+\c@subtable=\count275
+)
+Package hyperref Info: Option `setpagesize' set `false' on input line 41.
+Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 41.
+Package hyperref Info: Option `bookmarksopen' set `true' on input line 41.
+Package hyperref Info: Option `colorlinks' set `true' on input line 41.
 
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-dvips.def
 File: l3backend-dvips.def 2020-02-03 L3 backend support: dvips
 \l__pdf_internal_box=\box75
-\g__pdf_backend_object_int=\count272
+\g__pdf_backend_object_int=\count276
 \l__pdf_backend_content_box=\box76
 \l__pdf_backend_model_box=\box77
-\g__pdf_backend_annotation_int=\count273
-\g__pdf_backend_link_int=\count274
-\g__pdf_backend_link_sf_int=\count275
+\g__pdf_backend_annotation_int=\count277
+\g__pdf_backend_link_int=\count278
+\g__pdf_backend_link_sf_int=\count279
 )
+
+LaTeX Warning: Unused global option(s):
+    [a4paper，12pt].
+
 (./eps_forecast.aux)
 \openout1 = `eps_forecast.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
 \AtBeginShipoutBox=\box78
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
@@ -383,7 +422,7 @@ Package color Info: Driver file: dvipdfmx.def on input line 147.
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/dvipsnam.def
 File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
 ))
-Package hyperref Info: Link coloring ON on input line 44.
+Package hyperref Info: Link coloring ON on input line 49.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -394,44 +433,46 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count276
+\c@section@level=\count280
 )
-LaTeX Info: Redefining \ref on input line 44.
-LaTeX Info: Redefining \pageref on input line 44.
-LaTeX Info: Redefining \nameref on input line 44.
+LaTeX Info: Redefining \ref on input line 49.
+LaTeX Info: Redefining \pageref on input line 49.
+LaTeX Info: Redefining \nameref on input line 49.
 
 (./eps_forecast.out) (./eps_forecast.out)
 \@outlinefile=\write3
 \openout3 = `eps_forecast.out'.
 
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 16.60605pt on input line 46.
+(Font)              scaled to size 16.60605pt on input line 51.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 16.60605pt on input line 46.
+(Font)              scaled to size 16.60605pt on input line 51.
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 11.53198pt on input line 46.
+(Font)              scaled to size 11.53198pt on input line 51.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 11.53198pt on input line 46.
+(Font)              scaled to size 11.53198pt on input line 51.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 5.76599pt on input line 46.
+(Font)              scaled to size 5.76599pt on input line 51.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 11.53198pt on input line 46.
+(Font)              scaled to size 11.53198pt on input line 51.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 7.68799pt on input line 46.
+(Font)              scaled to size 7.68799pt on input line 51.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 5.76599pt on input line 46.
+(Font)              scaled to size 5.76599pt on input line 51.
 LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 9.60999pt on input line 46.
+(Font)              scaled to size 9.60999pt on input line 51.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 9.60999pt on input line 46.
+(Font)              scaled to size 9.60999pt on input line 51.
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 13.83836pt on input line 46.
+(Font)              scaled to size 13.83836pt on input line 51.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 13.83836pt on input line 46.
+(Font)              scaled to size 13.83836pt on input line 51.
 LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 13.83836pt on input line 46.
+(Font)              scaled to size 13.83836pt on input line 51.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 13.83836pt on input line 46.
+(Font)              scaled to size 13.83836pt on input line 51.
  (./eps_forecast.toc
 LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
 (Font)              scaled to size 11.53198pt on input line 1.
@@ -450,72 +491,63 @@ LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
 \openout4 = `eps_forecast.toc'.
 
 LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 19.9311pt on input line 48.
+(Font)              scaled to size 19.9311pt on input line 53.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 19.9311pt on input line 48.
+(Font)              scaled to size 19.9311pt on input line 53.
  [2] [3]
-[4] [5] [6] [7]
+[4] [5]
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 6.72699pt on input line 116.
+(Font)              scaled to size 6.72699pt on input line 119.
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 5.76599pt on input line 116.
- [8]
+(Font)              scaled to size 5.76599pt on input line 119.
+ [6]
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 8.64899pt on input line 131.
+(Font)              scaled to size 8.64899pt on input line 134.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 8.64899pt on input line 131.
+(Font)              scaled to size 8.64899pt on input line 134.
+LaTeX Font Info:    Font shape `JT1/mc/b/n' in size <9> not available
+(Font)              Font shape `JT1/mc/bx/n' tried instead on input line 134.
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <9> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 134.
+LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
+(Font)              scaled to size 8.64899pt on input line 134.
+LaTeX Font Info:    Font shape `JY1/mc/b/n' in size <9> not available
+(Font)              Font shape `JY1/mc/bx/n' tried instead on input line 134.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <9> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 134.
+LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
+(Font)              scaled to size 8.64899pt on input line 134.
  (./img/ind_cat_table.tex)
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 4.805pt on input line 147.
- [9]
-Overfull \vbox (64.43684pt too high) has occurred while \output is active []
-
-
-[10] (./img/var_sum_table.tex)
-Overfull \hbox (54.79433pt too wide) in paragraph at lines 185--186
-[]\JY1/mc/m/n/10 つまり具体的には 、 ある企業の全 \OT1/cmr/m/n/10 52 \JY1/mc/m/
-n/10 四半期サンプル期間 $\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 Data[]; Data[]; []  
-; Data[]\OT1/cmr/m/n/10 )$
- []
-
-[11]
+(Font)              scaled to size 4.805pt on input line 150.
+ [7] (./img/var_sum_table.tex) [8]
 File: ./img/_rolling_sample.png Graphic file (type bmp)
 <./img/_rolling_sample.png>
- [12] [13] [14] [15] [16] [17]
+
+[9] [10] [11] [12] [13]
 LaTeX Font Info:    Font shape `JT1/mc/m/it' in size <10> not available
-(Font)              Font shape `JT1/mc/m/n' tried instead on input line 432.
+(Font)              Font shape `JT1/mc/m/n' tried instead on input line 433.
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 9.60999pt on input line 432.
+(Font)              scaled to size 9.60999pt on input line 433.
 LaTeX Font Info:    Font shape `JY1/mc/m/it' in size <10> not available
-(Font)              Font shape `JY1/mc/m/n' tried instead on input line 432.
+(Font)              Font shape `JY1/mc/m/n' tried instead on input line 433.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 9.60999pt on input line 432.
- [18] [19]
+(Font)              scaled to size 9.60999pt on input line 433.
+ [14]
 File: ./img/_ann_unit.png Graphic file (type bmp)
 <./img/_ann_unit.png>
- [20]
+ [15]
 File: ./img/_ann_mlp.png Graphic file (type bmp)
 <./img/_ann_mlp.png>
- [21]
-Overfull \hbox (90.52278pt too wide) detected at line 534
+ [16]
+Overfull \hbox (7.30093pt too wide) detected at line 535
 []
  []
 
-[22]
-Overfull \hbox (6.05447pt too wide) in paragraph at lines 542--543
-\JY1/mc/m/n/10 ロ ーリングサンプル $\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 Data[]; D
-ata[]; []  ; Data[]; Data[]; Data[]\OT1/cmr/m/n/10 )$
- []
-
-
-Underfull \hbox (badness 1803) in paragraph at lines 542--543
-\JY1/mc/m/n/10 では 、 訓練デ ータを $\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 Data[];
- Data[]; []  ; Data[]\OT1/cmr/m/n/10 )$, \JY1/mc/m/n/10 検証デ ータを
- []
-
+[17]
 File: ./img/_rolling_sample_val_i.png Graphic file (type bmp)
 <./img/_rolling_sample_val_i.png>
-[23] [24] [25] (./img/accuracy_edit.tex
+ [18] [19] [20] (./img/accuracy_edit.tex
 Underfull \hbox (badness 10000) in paragraph at lines 16--16
 []\OT1/cmr/m/n/10 Large
  []
@@ -566,44 +598,104 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--18
  []
 
 )
-Overfull \hbox (50.88326pt too wide) in paragraph at lines 596--597
+Overfull \hbox (82.81192pt too wide) in paragraph at lines 643--644
 [][] 
  []
 
-[26] [27
+[21]
+File: ./img/_dm_MAD_y_hat_srw.pdf Graphic file (type pdf)
+<./img/_dm_MAD_y_hat_srw.pdf>
+ [22
 
 
-] [28]
+] [23]
+File: ./img/_dm_MAD_y_hat_sarima_br.pdf Graphic file (type pdf)
+<./img/_dm_MAD_y_hat_sarima_br.pdf>
+ [24]
 File: ./img/_ibes_timing.png Graphic file (type bmp)
 <./img/_ibes_timing.png>
+ [25] (./img/accuracy_ibes_edit.tex
+Underfull \hbox (badness 10000) in paragraph at lines 16--16
+[]\OT1/cmr/m/n/10 Large
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--16
+\OT1/cmr/m/n/10 Fore-cast
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--16
+[]\OT1/cmr/m/n/10 Large
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--16
+\OT1/cmr/m/n/10 Fore-cast
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--16
+[]\OT1/cmr/m/n/10 Large
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--16
+\OT1/cmr/m/n/10 Fore-cast
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--16
+[]\OT1/cmr/m/n/10 Large
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--16
+\OT1/cmr/m/n/10 Fore-cast
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--18
+[]\OT1/cmr/m/n/10 Large
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--18
+\OT1/cmr/m/n/10 Fore-cast
+ []
+
+)
+Overfull \hbox (82.81192pt too wide) in paragraph at lines 725--726
+[][] 
+ []
+
+[26]
+File: ./img/_dm_MAD_y_hat_ibes.pdf Graphic file (type pdf)
+<./img/_dm_MAD_y_hat_ibes.pdf>
+ [27
+
+
+]
+File: ./img/_dm_MAPE_y_hat_ibes.pdf Graphic file (type pdf)
+<./img/_dm_MAPE_y_hat_ibes.pdf>
+ [28]
 LaTeX Font Info:    Font shape `JT1/mc/b/n' in size <10> not available
-(Font)              Font shape `JT1/mc/bx/n' tried instead on input line 637.
+(Font)              Font shape `JT1/mc/bx/n' tried instead on input line 774.
 LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <10> not available
-(Font)              Font shape `JT1/gt/m/n' tried instead on input line 637.
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 774.
 LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 9.60999pt on input line 637.
+(Font)              scaled to size 9.60999pt on input line 774.
 LaTeX Font Info:    Font shape `JY1/mc/b/n' in size <10> not available
-(Font)              Font shape `JY1/mc/bx/n' tried instead on input line 637.
+(Font)              Font shape `JY1/mc/bx/n' tried instead on input line 774.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <10> not available
-(Font)              Font shape `JY1/gt/m/n' tried instead on input line 637.
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 774.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 9.60999pt on input line 637.
+(Font)              scaled to size 9.60999pt on input line 774.
 
 
-LaTeX Warning: Reference `sec:sample' on page 29 undefined on input line 637.
+LaTeX Warning: Reference `' on page 29 undefined on input line 774.
 
-[29
-
-
-] [30] [31]
-
-Package natbib Warning: Citation `nakai2004' on page 32 undefined on input line
- 654.
-
-[32
-
-
-] (./eps_forecast.bbl
+(./eps_forecast.bbl
 LaTeX Font Info:    Font shape `JT1/gt/m/it' in size <10> not available
 (Font)              Font shape `JT1/gt/m/n' tried instead on input line 6.
 LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
@@ -612,34 +704,28 @@ LaTeX Font Info:    Font shape `JY1/gt/m/it' in size <10> not available
 (Font)              Font shape `JY1/gt/m/n' tried instead on input line 6.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
 (Font)              scaled to size 9.60999pt on input line 6.
- [33] [34])
-
-Package natbib Warning: There were undefined citations.
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 691.
-[35]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 691.
+ [29] [30])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 807.
+ [31]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 807.
  (./eps_forecast.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 691.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 691.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 807.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 807.
 Package rerunfilecheck Info: File `eps_forecast.out' has not changed.
-(rerunfilecheck)             Checksum: 8C0D565CD1A58EE3AC22CD43FC864441;1817.
+(rerunfilecheck)             Checksum: 3D84C1E3B793BF47E47F7B0E624E6415;1940.
 
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 691.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 807.
  ) 
 Here is how much of TeX's memory you used:
- 7252 strings out of 481768
- 104899 string characters out of 5933619
- 424800 words of memory out of 5000000
- 22503 multiletter control sequences out of 15000+600000
- 553216 words of font info for 115 fonts, out of 8000000 for 9000
+ 8426 strings out of 481768
+ 126430 string characters out of 5933619
+ 451862 words of memory out of 5000000
+ 23660 multiletter control sequences out of 15000+600000
+ 553805 words of font info for 118 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
- 34i,21n,30p,1320b,474s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,21n,42p,1404b,522s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on eps_forecast.dvi (35 pages, 152800 bytes).
+Output written on eps_forecast.dvi (31 pages, 198900 bytes).

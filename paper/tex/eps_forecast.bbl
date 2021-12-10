@@ -12,6 +12,11 @@ Ahmed, N.~K., Atiya, A.~F., Gayar, N.~E. \harvardand\ El-Shishiny, H.
   learning models for time series forecasting', {\em Econometric Reviews} {\bf
   29}(5-6),~594--621.
 
+\harvarditem{Bates \harvardand\ Granger}{1969}{bates1969combination}
+Bates, J.~M. \harvardand\ Granger, C.~W.  \harvardyearleft
+  1969\harvardyearright , `The combination of forecasts', {\em Journal of the
+  Operational Research Society} {\bf 20}(4),~451--468.
+
 \harvarditem[Box et~al.]{Box, Jenkins, Reinsel \harvardand\
   Ljung}{2015}{box2015time}
 Box, G.~E., Jenkins, G.~M., Reinsel, G.~C. \harvardand\ Ljung, G.~M.
@@ -43,6 +48,11 @@ Cao, Q. \harvardand\ Gan, Q.  \harvardyearleft 2009\harvardyearright ,
   `Forecasting eps of chinese listed companies using neural network with
   genetic algorithm', {\em 15th Americas Conference on Information Systems
   2009, AMCIS 2009} {\bf 5},~2971--2981.
+
+\harvarditem{Chatfield et~al.}{1993}{chatfield1993neural}
+Chatfield, C. et~al.  \harvardyearleft 1993\harvardyearright , `Neural
+  networks: Forecasting breakthrough or passing fad?', {\em International
+  Journal of Forecasting} {\bf 9}(1),~1--3.
 
 \harvarditem{Diebold \harvardand\ Mariano}{2002}{diebold2002comparing}
 Diebold, F.~X. \harvardand\ Mariano, R.~S.  \harvardyearleft
@@ -148,5 +158,10 @@ Zou, H. \harvardand\ Hastie, T.  \harvardyearleft 2005\harvardyearright ,
 太田, 浩.  \harvardyearleft 2006\harvardyearright ,
   `経営者予想に関する日米の研究：文献サーベイ', {\em 武蔵大学論集} {\bf
   54}(1),~53--94.
+
+\harvarditem{中井}{2006}{nakai2006}
+中井, 誠.  \harvardyearleft 2006\harvardyearright ,
+  `アナリストカバレッジと機関投資家保有', {\em 『証券アナリストジャーナル』}
+  {\bf 44}(6),~84--97.
 
 \end{thebibliography}

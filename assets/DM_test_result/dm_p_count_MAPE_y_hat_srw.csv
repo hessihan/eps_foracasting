@@ -1,0 +1,25 @@
+pair,p_1n,p_5n,p_10n,p_10p,p_5p,p_1p
+(1) y_hat_srw vs (2) y_test,0,0,0,795,681,436
+(1) y_hat_srw vs (2) y_hat_rw,14,73,152,24,11,0
+(1) y_hat_srw vs (2) y_hat_srw,0,0,0,0,0,0
+(1) y_hat_srw vs (2) y_hat_sarima_br,10,23,45,69,27,2
+(1) y_hat_srw vs (2) y_hat_sarima_f,3,12,30,30,11,3
+(1) y_hat_srw vs (2) y_hat_sarima_g,9,35,62,35,12,0
+(1) y_hat_srw vs (2) y_hat_uen,23,43,54,70,30,2
+(1) y_hat_srw vs (2) y_hat_ul1,24,43,60,59,24,1
+(1) y_hat_srw vs (2) y_hat_ul2,22,42,66,55,31,0
+(1) y_hat_srw vs (2) y_hat_uraf,0,8,22,56,22,1
+(1) y_hat_srw vs (2) y_hat_umlp,28,87,143,19,7,0
+(1) y_hat_srw vs (2) y_hat_ols1,27,79,134,15,2,0
+(1) y_hat_srw vs (2) y_hat_ols2,26,78,145,19,5,0
+(1) y_hat_srw vs (2) y_hat_ols3,154,462,643,0,0,0
+(1) y_hat_srw vs (2) y_hat_men,2,7,20,213,140,33
+(1) y_hat_srw vs (2) y_hat_ml1,5,10,27,192,122,38
+(1) y_hat_srw vs (2) y_hat_ml2,6,30,67,126,71,17
+(1) y_hat_srw vs (2) y_hat_mraf,0,7,13,155,77,16
+(1) y_hat_srw vs (2) y_hat_mmlp,16,63,105,37,13,1
+(1) y_hat_srw vs (2) y_hat_comb_all,13,33,53,98,48,6
+(1) y_hat_srw vs (2) y_hat_comb_uall,17,35,44,103,45,3
+(1) y_hat_srw vs (2) y_hat_comb_uml,28,45,64,66,21,0
+(1) y_hat_srw vs (2) y_hat_comb_mall,15,65,125,66,33,7
+(1) y_hat_srw vs (2) y_hat_comb_mml,3,10,16,214,136,33

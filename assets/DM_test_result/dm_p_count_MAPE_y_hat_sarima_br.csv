@@ -1,0 +1,25 @@
+pair,p_1n,p_5n,p_10n,p_10p,p_5p,p_1p
+(1) y_hat_sarima_br vs (2) y_test,0,0,0,803,684,448
+(1) y_hat_sarima_br vs (2) y_hat_rw,21,104,193,34,20,9
+(1) y_hat_sarima_br vs (2) y_hat_srw,2,27,69,45,23,10
+(1) y_hat_sarima_br vs (2) y_hat_sarima_br,0,0,0,0,0,0
+(1) y_hat_sarima_br vs (2) y_hat_sarima_f,4,29,72,43,28,11
+(1) y_hat_sarima_br vs (2) y_hat_sarima_g,4,33,68,24,8,0
+(1) y_hat_sarima_br vs (2) y_hat_uen,10,33,52,49,18,1
+(1) y_hat_sarima_br vs (2) y_hat_ul1,11,36,56,40,16,1
+(1) y_hat_sarima_br vs (2) y_hat_ul2,6,28,58,21,12,1
+(1) y_hat_sarima_br vs (2) y_hat_uraf,2,16,35,49,24,10
+(1) y_hat_sarima_br vs (2) y_hat_umlp,20,76,137,7,3,1
+(1) y_hat_sarima_br vs (2) y_hat_ols1,15,85,162,14,8,1
+(1) y_hat_sarima_br vs (2) y_hat_ols2,13,80,176,8,3,0
+(1) y_hat_sarima_br vs (2) y_hat_ols3,160,479,645,8,6,3
+(1) y_hat_sarima_br vs (2) y_hat_men,0,6,15,203,111,33
+(1) y_hat_sarima_br vs (2) y_hat_ml1,2,7,19,192,112,35
+(1) y_hat_sarima_br vs (2) y_hat_ml2,7,41,83,111,66,26
+(1) y_hat_sarima_br vs (2) y_hat_mraf,0,8,14,134,67,12
+(1) y_hat_sarima_br vs (2) y_hat_mmlp,18,67,123,32,15,3
+(1) y_hat_sarima_br vs (2) y_hat_comb_all,4,24,40,93,39,11
+(1) y_hat_sarima_br vs (2) y_hat_comb_uall,5,13,31,81,30,8
+(1) y_hat_sarima_br vs (2) y_hat_comb_uml,12,34,53,28,9,2
+(1) y_hat_sarima_br vs (2) y_hat_comb_mall,10,61,116,47,26,9
+(1) y_hat_sarima_br vs (2) y_hat_comb_mml,1,5,6,196,106,33

@@ -108,7 +108,7 @@ def plot_heatmap(y_hats_all, dm_test_p_count, loss):
     sns.heatmap(dm_test_p_count[["p_1n", "p_5n", "p_10n"]].values, cmap='Blues', ax=axs[0], vmax=None, vmin=None, annot=True, fmt="d", cbar=False, cbar_kws={})
     sns.heatmap(dm_test_p_count[["p_10p", "p_5p", "p_1p"]].values, cmap='Reds', ax=axs[1], vmax=None, vmin=None, annot=True, fmt="d", cbar=False, yticklabels=False)
 
-    fig.suptitle("DM score (d=MAPE), firm counts (" + str(num_firm) + "firms) by significance level: method (1): " + m1)
+    fig.suptitle("DM score (loss: " + loss + "), firm counts (" + str(num_firm) + "firms) by significance level: method (1): " + m1)
     axs[0].set_title("# negative statistically significant firm")
     axs[0].set_xticklabels(labels=["p<0.01", "p<0.05", "p<0.10"], rotation=45, ha='right')
     axs[1].set_title("# positive statistically significant firm")
@@ -146,27 +146,30 @@ if __name__ == "__main__":
     # TS models
     y_hats_all = pd.read_csv("../../assets/y_hats/y_hats_all.csv", index_col=[0, 1, 2])
 
-    loss = "MAD"
+    # loss = "MAD"
+    # loss = "MAPE"
+    loss = "MSPE"
     
-    # m1 = "y_hat_rw"
+    # m1 = "y_hat_srw"
     m1 = "y_hat_sarima_br"
-    # m1 = "y_hat_ml1_i_tuned_simple"
     
     dm_test_p, dm_test_p_count = dm_integrated_table(m1, y_hats_all.columns, y_hats_all, crit=loss)
-    # dm_test_p.to_csv("../assets/DM_test_result/dm_test_p_" + m1 + ".csv")
-    # dm_test_p_count.to_csv("../assets/DM_test_result/dm_test_p_count_" + m1 + ".csv")
+    dm_test_p.to_csv("./../../assets/DM_test_result/dm_stats_" + loss + "_" + m1 + ".csv")
+    dm_test_p_count.to_csv("./../../assets/DM_test_result/dm_p_count_" + loss + "_" + m1 + ".csv")
 
     plot_heatmap(y_hats_all, dm_test_p_count, loss)
 
     # IBES
     y_hats_all_vsibes = pd.read_csv("../../assets/y_hats/y_hats_all_vsibes.csv", index_col=[0, 1, 2])
 
-    loss = "MAPE"
+    # loss = "MAD"
+    # loss = "MAPE"
+    loss = "MSPE"
 
     m1 = "y_hat_ibes"
     
     dm_test_p_ibes, dm_test_p_count_ibes = dm_integrated_table(m1, y_hats_all_vsibes.columns, y_hats_all_vsibes, crit=loss)
-    # dm_test_p_ibes.to_csv("../assets/DM_test_result/dm_test_p_vsibes_" + m1 + ".csv")
-    # dm_test_p_count_ibes.to_csv("../assets/DM_test_result/dm_test_p_count_vsibes_" + m1 + ".csv")
+    dm_test_p_ibes.to_csv("./../../assets/DM_test_result/dm_stats_vsibes_" + loss + "_" + m1 + ".csv")
+    dm_test_p_count_ibes.to_csv("./../../assets/DM_test_result/dm_p_count_vsibes_" + loss + "_" +  m1 + ".csv")
 
     plot_heatmap(y_hats_all_vsibes, dm_test_p_count_ibes, loss)

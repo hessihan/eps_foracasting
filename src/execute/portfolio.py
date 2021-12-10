@@ -144,6 +144,9 @@ stock_price.loc["未来工業"]
 
 [x for x in y_hats_all.index if (x not in stock_price.index)]
 
+stock_price.to_csv("./../../assets/portfolio_material/portfolio_stock_price.csv")
+stock_price = pd.read_csv("./../../assets/portfolio_material/portfolio_stock_price.csv", index_col=[0, 1, 2])
+
 # P / Earnings ratio
 ratio = []
 for e in y_hats_all.columns:

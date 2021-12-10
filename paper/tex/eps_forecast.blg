@@ -2,7 +2,7 @@ This is pBibTeX, Version 0.99d-j0.33 (utf8.euc) (TeX Live 2019/Debian)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: eps_forecast.aux
 The style file: agsm.bst
-Illegal, another \bibstyle command---line 132 of file eps_forecast.aux
+Illegal, another \bibstyle command---line 154 of file eps_forecast.aux
  : \bibstyle
  :          {jplain}
 I'm skipping whatever remains of this command
@@ -27,52 +27,50 @@ I was expecting a `,' or a `}'---line 208 of file ref.bib
  :   number={1}
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for ""
-Warning--I didn't find a database entry for "nakai2004"
 Warning--empty publisher in box2015time
 Warning--empty publisher in hastie2009esl
 Warning--empty publisher in hopwood1986univariate
 Warning--there's a number but no volume in sakurai1990
-You've used 27 entries,
+You've used 30 entries,
             2909 wiz_defined-function locations,
-            814 strings with 9010 characters,
-and the built_in function-call counts, 101259 in all, are:
-= -- 16322
-> -- 1399
+            831 strings with 9339 characters,
+and the built_in function-call counts, 109810 in all, are:
+= -- 17675
+> -- 1517
 < -- 0
-+ -- 7668
-- -- 420
-* -- 8761
-:= -- 20511
-add.period$ -- 27
-call.type$ -- 27
-change.case$ -- 376
-chr.to.int$ -- 27
-cite$ -- 31
-duplicate$ -- 432
-empty$ -- 912
-format.name$ -- 527
-if$ -- 18141
++ -- 8279
+- -- 455
+* -- 9478
+:= -- 22290
+add.period$ -- 30
+call.type$ -- 30
+change.case$ -- 418
+chr.to.int$ -- 30
+cite$ -- 34
+duplicate$ -- 480
+empty$ -- 1014
+format.name$ -- 574
+if$ -- 19667
 int.to.chr$ -- 5
 int.to.str$ -- 0
-missing$ -- 29
-newline$ -- 84
-num.names$ -- 279
-pop$ -- 99
+missing$ -- 32
+newline$ -- 93
+num.names$ -- 309
+pop$ -- 108
 preamble$ -- 1
-purify$ -- 405
+purify$ -- 450
 quote$ -- 0
-skip$ -- 352
+skip$ -- 391
 stack$ -- 0
-substring$ -- 22910
-swap$ -- 76
-text.length$ -- 378
+substring$ -- 24768
+swap$ -- 85
+text.length$ -- 420
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 102
+type$ -- 114
 warning$ -- 4
-while$ -- 610
+while$ -- 679
 width$ -- 0
-write$ -- 344
+write$ -- 380
 is.kanji.str$ -- 0
 (There were 5 error messages)

@@ -123,7 +123,8 @@ if __name__ == "__main__":
         "y_hat_uen.csv",
         "y_hat_ul1.csv",
         "y_hat_ul2.csv",
-        "y_hat_umlp_hid1000_lr0.001_iter10000.csv",
+        "y_hat_uraf.csv",
+        "y_hat_umlp.csv",
     ]
 
     for path in file_paths:
@@ -156,6 +157,7 @@ if __name__ == "__main__":
             y_hats_all = pd.concat([y_hats_all, y_hat], axis=1)
 
     y_hats_all
+    y_hats_all.to_csv("./../../assets/y_hats/y_hats_all.csv")
 
     # Forecast combination
     uall = [
@@ -213,6 +215,7 @@ if __name__ == "__main__":
     y_hats_all.to_csv("./../../assets/y_hats/y_hats_all.csv")
 
     ## agregate forceast accuracy score
+    y_hats_all = pd.read_csv("./../../assets/y_hats/y_hats_all.csv", index_col=[0, 1, 2])
     
     # forecast accuracy indicators
     ind_name = ["Max_error", "Max_percentage_error", "MAE", "MAPE", "MSPE", "MAPE-UB", "MSPE-UB", "Large_error_rate"]
@@ -242,12 +245,13 @@ if __name__ == "__main__":
         'y_hat_ols1', 
         'y_hat_ols2',
         'y_hat_ols3',
-        'y_hat_ul1',
         'y_hat_ul2',
+        'y_hat_ul1',
         'y_hat_uen',        
+        'y_hat_uraf',
         'y_hat_umlp',
-        'y_hat_ml1',
         'y_hat_ml2',
+        'y_hat_ml1',
         'y_hat_men',
         'y_hat_mraf',
         'y_hat_mmlp',
