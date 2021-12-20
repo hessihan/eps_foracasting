@@ -145,6 +145,8 @@ stock_price.loc["未来工業"]
 [x for x in y_hats_all.index if (x not in stock_price.index)]
 
 stock_price.to_csv("./../../assets/portfolio_material/portfolio_stock_price.csv")
+
+## from here after first saving
 stock_price = pd.read_csv("./../../assets/portfolio_material/portfolio_stock_price.csv", index_col=[0, 1, 2])
 
 # P / Earnings ratio
@@ -260,6 +262,17 @@ df_pr_ibes["Spread"] = df_pr_ibes["P5"] - df_pr_ibes["P1"]
 
 df_pr = pd.concat([df_pr, df_pr_ibes], axis=0)
 
+# t の置き換え
+t = df_pr.index.get_level_values(1).unique()
+date = stock_price["end_month_date"].unique()[1:]
+df_pr = df_pr.reset_index()
+df_pr["date"] = df_pr["t"].replace(dict(zip(t, date)))
+df_pr = df_pr.set_index(["model", "date"])
+df_pr["Cum_Spread"] = df_pr["Spread"].groupby("model").cumsum()
+df_pr.to_csv("./../../assets/portfolio_material/portfolio_spreads.csv")
+df_pr = pd.read_csv("./../../assets/portfolio_material/portfolio_spreads.csv", index_col=[0, 1])
+
+
 ### Example #################################################################
 m = "P/y_hat_rw"
 
@@ -298,7 +311,7 @@ print(df_pr.index.get_level_values(0).unique())
 
 model_list = [
     'P/y_test', 'P/y_hat_rw', 'P/y_hat_srw', 'P/y_hat_sarima_br', 
-    'P/y_hat_men_i_tuned_simple', 'P/y_hat_ml1_i_tuned_simple', 'P/y_hat_ibes'
+    'P/y_hat_men', 'P/y_hat_ml1', 'P/y_hat_ibes'
     ]
 
 plt.figure(figsize=(16, 9))

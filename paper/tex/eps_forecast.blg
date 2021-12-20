@@ -1,11 +1,19 @@
 This is pBibTeX, Version 0.99d-j0.33 (utf8.euc) (TeX Live 2019/Debian)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: eps_forecast.aux
-The style file: agsm.bst
-Illegal, another \bibstyle command---line 154 of file eps_forecast.aux
- : \bibstyle
- :          {jplain}
-I'm skipping whatever remains of this command
+The style file: jecon.bst
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=200001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Reallocated glb_str_ptr (elt_size=4) to 30 items from 20.
+Reallocated global_strs (elt_size=200001) to 30 items from 20.
+Reallocated glb_str_end (elt_size=4) to 30 items from 20.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
 Database file #1: ref.bib
 I was expecting a `,' or a `}'---line 26 of file ref.bib
  :   
@@ -27,50 +35,62 @@ I was expecting a `,' or a `}'---line 208 of file ref.bib
  :   number={1}
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 12000 items from 9000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+`year' is a missing field, not a string, for entry lorek1996multivariate
+while executing---line 4862 of file jecon.bst
+`year' is a missing field, not a string, for entry lorek1996multivariate
+while executing---line 4866 of file jecon.bst
+`year' is a missing field, not a string, for entry lorek1996multivariate
+while executing---line 4866 of file jecon.bst
 Warning--empty publisher in box2015time
 Warning--empty publisher in hastie2009esl
 Warning--empty publisher in hopwood1986univariate
+Warning--there's no year in lorek1996multivariate
+Warning--empty year in lorek1996multivariate
 Warning--there's a number but no volume in sakurai1990
-You've used 30 entries,
-            2909 wiz_defined-function locations,
-            831 strings with 9339 characters,
-and the built_in function-call counts, 109810 in all, are:
-= -- 17675
-> -- 1517
-< -- 0
-+ -- 8279
-- -- 455
-* -- 9478
-:= -- 22290
-add.period$ -- 30
-call.type$ -- 30
-change.case$ -- 418
-chr.to.int$ -- 30
-cite$ -- 34
-duplicate$ -- 480
-empty$ -- 1014
-format.name$ -- 574
-if$ -- 19667
-int.to.chr$ -- 5
+Warning--there's a number but no volume in yoneyama2010
+You've used 31 entries,
+            9739 wiz_defined-function locations,
+            1980 strings with 17914 characters,
+and the built_in function-call counts, 51874 in all, are:
+= -- 8913
+> -- 1362
+< -- 84
++ -- 441
+- -- 505
+* -- 2116
+:= -- 6227
+add.period$ -- 27
+call.type$ -- 31
+change.case$ -- 225
+chr.to.int$ -- 31
+cite$ -- 38
+duplicate$ -- 1206
+empty$ -- 2819
+format.name$ -- 458
+if$ -- 14801
+int.to.chr$ -- 0
 int.to.str$ -- 0
-missing$ -- 32
-newline$ -- 93
-num.names$ -- 309
-pop$ -- 108
+missing$ -- 0
+newline$ -- 118
+num.names$ -- 292
+pop$ -- 510
 preamble$ -- 1
-purify$ -- 450
+purify$ -- 243
 quote$ -- 0
-skip$ -- 391
+skip$ -- 4949
 stack$ -- 0
-substring$ -- 24768
-swap$ -- 85
-text.length$ -- 420
-text.prefix$ -- 0
+substring$ -- 4057
+swap$ -- 200
+text.length$ -- 50
+text.prefix$ -- 20
 top$ -- 0
-type$ -- 114
-warning$ -- 4
-while$ -- 679
+type$ -- 354
+warning$ -- 7
+while$ -- 275
 width$ -- 0
-write$ -- 380
-is.kanji.str$ -- 0
-(There were 5 error messages)
+write$ -- 483
+is.kanji.str$ -- 1031
+(There were 7 error messages)
