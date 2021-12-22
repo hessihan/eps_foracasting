@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.8.2-190908-2.6 (utf8.euc) (TeX Live 2019/Debian) (preloaded format=platex 2021.11.15)  20 DEC 2021 13:59
+This is e-pTeX, Version 3.14159265-p3.8.2-190908-2.6 (utf8.euc) (TeX Live 2019/Debian) (preloaded format=platex 2021.11.15)  23 DEC 2021 00:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -367,58 +367,20 @@ Package: subcaption 2020/01/22 v1.3d Sub-captions (AR)
 \c@subfigure=\count274
 \c@subtable=\count275
 )
-(/usr/share/texlive/texmf-dist/tex/latex/floatrow/floatrow.sty
-Package: floatrow 2008/08/02 v0.3b floatrow: float package extension
-\c@float@type=\count276
-\float@exts=\toks23
-\float@box=\box75
-\@floatcapt=\box76
-Package floatrow Info: Modified float package code loaded on input line 455.
-Package floatrow Info: Modified rotfloat package code loaded on input line 473.
-
-\FR@everyfloat=\toks24
-\flrow@foot=\insert252
-\FB@wd=\dimen197
-\FBo@wd=\dimen198
-\FBc@wd=\dimen199
-\FBo@ht=\skip56
-\FBc@ht=\skip57
-\FBf@ht=\skip58
-\FBo@max=\skip59
-\FBc@max=\skip60
-\FBf@max=\skip61
-\c@FBl@b=\count277
-\floatbox@depth=\count278
-\c@FRobj=\count279
-\c@FRsobj=\count280
-\Xhsize=\skip62
-\sXhsize=\skip63
-\Zhsize=\skip64
-\sZhsize=\skip65
-\flrow@rowbox=\box77
-\FR@Zunitlength=\dimen256
-\c@FBcnt=\count281
-\FPOScnt=\count282
-\LTleft=\skip66
-\LTright=\skip67
-\LTleft=\skip68
-\LTright=\skip69
-\flrow@types=\toks25
-)
-Package hyperref Info: Option `setpagesize' set `false' on input line 43.
-Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 43.
-Package hyperref Info: Option `bookmarksopen' set `true' on input line 43.
-Package hyperref Info: Option `colorlinks' set `true' on input line 43.
+Package hyperref Info: Option `setpagesize' set `false' on input line 44.
+Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 44.
+Package hyperref Info: Option `bookmarksopen' set `true' on input line 44.
+Package hyperref Info: Option `colorlinks' set `true' on input line 44.
 
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-dvips.def
 File: l3backend-dvips.def 2020-02-03 L3 backend support: dvips
-\l__pdf_internal_box=\box78
-\g__pdf_backend_object_int=\count283
-\l__pdf_backend_content_box=\box79
-\l__pdf_backend_model_box=\box80
-\g__pdf_backend_annotation_int=\count284
-\g__pdf_backend_link_int=\count285
-\g__pdf_backend_link_sf_int=\count286
+\l__pdf_internal_box=\box75
+\g__pdf_backend_object_int=\count276
+\l__pdf_backend_content_box=\box76
+\l__pdf_backend_model_box=\box77
+\g__pdf_backend_annotation_int=\count277
+\g__pdf_backend_link_int=\count278
+\g__pdf_backend_link_sf_int=\count279
 )
 
 LaTeX Warning: Unused global option(s):
@@ -427,27 +389,27 @@ LaTeX Warning: Unused global option(s):
 (./eps_forecast.aux)
 \openout1 = `eps_forecast.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-\AtBeginShipoutBox=\box81
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+\AtBeginShipoutBox=\box78
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
 Package: color 2019/11/23 v1.2a Standard LaTeX Color (DPC)
@@ -460,7 +422,7 @@ Package color Info: Driver file: dvipdfmx.def on input line 147.
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/dvipsnam.def
 File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
 ))
-Package hyperref Info: Link coloring ON on input line 51.
+Package hyperref Info: Link coloring ON on input line 52.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -471,48 +433,46 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count287
+\c@section@level=\count280
 )
-LaTeX Info: Redefining \ref on input line 51.
-LaTeX Info: Redefining \pageref on input line 51.
-LaTeX Info: Redefining \nameref on input line 51.
+LaTeX Info: Redefining \ref on input line 52.
+LaTeX Info: Redefining \pageref on input line 52.
+LaTeX Info: Redefining \nameref on input line 52.
 
 (./eps_forecast.out) (./eps_forecast.out)
 \@outlinefile=\write3
 \openout3 = `eps_forecast.out'.
 
 Package caption Info: Begin \AtBeginDocument code.
-Package caption Info: float package is loaded.
-Package caption Info: floatrow package is loaded.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 16.60605pt on input line 53.
+(Font)              scaled to size 16.60605pt on input line 54.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 16.60605pt on input line 53.
+(Font)              scaled to size 16.60605pt on input line 54.
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 11.53198pt on input line 53.
+(Font)              scaled to size 11.53198pt on input line 54.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 11.53198pt on input line 53.
+(Font)              scaled to size 11.53198pt on input line 54.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 5.76599pt on input line 53.
+(Font)              scaled to size 5.76599pt on input line 54.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 11.53198pt on input line 53.
+(Font)              scaled to size 11.53198pt on input line 54.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 7.68799pt on input line 53.
+(Font)              scaled to size 7.68799pt on input line 54.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 5.76599pt on input line 53.
+(Font)              scaled to size 5.76599pt on input line 54.
 LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 9.60999pt on input line 53.
+(Font)              scaled to size 9.60999pt on input line 54.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 9.60999pt on input line 53.
+(Font)              scaled to size 9.60999pt on input line 54.
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 13.83836pt on input line 53.
+(Font)              scaled to size 13.83836pt on input line 54.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 13.83836pt on input line 53.
+(Font)              scaled to size 13.83836pt on input line 54.
 LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 13.83836pt on input line 53.
+(Font)              scaled to size 13.83836pt on input line 54.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 13.83836pt on input line 53.
+(Font)              scaled to size 13.83836pt on input line 54.
  (./eps_forecast.toc
 LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
 (Font)              scaled to size 11.53198pt on input line 1.
@@ -531,62 +491,62 @@ LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
 \openout4 = `eps_forecast.toc'.
 
 LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 19.9311pt on input line 55.
+(Font)              scaled to size 19.9311pt on input line 56.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 19.9311pt on input line 55.
+(Font)              scaled to size 19.9311pt on input line 56.
  [2] [3]
 [4] [5]
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 6.72699pt on input line 121.
+(Font)              scaled to size 6.72699pt on input line 119.
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 5.76599pt on input line 121.
- [6]
+(Font)              scaled to size 5.76599pt on input line 119.
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 8.64899pt on input line 136.
+(Font)              scaled to size 8.64899pt on input line 134.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 8.64899pt on input line 136.
+(Font)              scaled to size 8.64899pt on input line 134.
 LaTeX Font Info:    Font shape `JT1/mc/b/n' in size <9> not available
-(Font)              Font shape `JT1/mc/bx/n' tried instead on input line 136.
+(Font)              Font shape `JT1/mc/bx/n' tried instead on input line 134.
 LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <9> not available
-(Font)              Font shape `JT1/gt/m/n' tried instead on input line 136.
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 134.
 LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 8.64899pt on input line 136.
+(Font)              scaled to size 8.64899pt on input line 134.
 LaTeX Font Info:    Font shape `JY1/mc/b/n' in size <9> not available
-(Font)              Font shape `JY1/mc/bx/n' tried instead on input line 136.
+(Font)              Font shape `JY1/mc/bx/n' tried instead on input line 134.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <9> not available
-(Font)              Font shape `JY1/gt/m/n' tried instead on input line 136.
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 134.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 8.64899pt on input line 136.
- (./img/ind_cat_table_edit.tex)
+(Font)              scaled to size 8.64899pt on input line 134.
+ (./img/ind_cat_table_edit.tex) [6]
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 4.805pt on input line 152.
+(Font)              scaled to size 4.805pt on input line 150.
  [7] (./img/var_sum_table_edit.tex)
 [8]
-File: ./img/_rolling_sample.png Graphic file (type bmp)
-<./img/_rolling_sample.png>
+File: ./img/_rolling_sample.pdf Graphic file (type pdf)
+<./img/_rolling_sample.pdf>
  [9] [10] [11] [12] [13]
 LaTeX Font Info:    Font shape `JT1/mc/m/it' in size <10> not available
-(Font)              Font shape `JT1/mc/m/n' tried instead on input line 437.
+(Font)              Font shape `JT1/mc/m/n' tried instead on input line 429.
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 9.60999pt on input line 437.
+(Font)              scaled to size 9.60999pt on input line 429.
 LaTeX Font Info:    Font shape `JY1/mc/m/it' in size <10> not available
-(Font)              Font shape `JY1/mc/m/n' tried instead on input line 437.
+(Font)              Font shape `JY1/mc/m/n' tried instead on input line 429.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 9.60999pt on input line 437.
+(Font)              scaled to size 9.60999pt on input line 429.
  [14]
-File: ./img/_ann_unit.png Graphic file (type bmp)
-<./img/_ann_unit.png>
+File: ./img/_ann_unit.pdf Graphic file (type pdf)
+<./img/_ann_unit.pdf>
  [15]
-File: ./img/_ann_mlp.png Graphic file (type bmp)
-<./img/_ann_mlp.png>
+File: ./img/_ann_mlp.pdf Graphic file (type pdf)
+<./img/_ann_mlp.pdf>
  [16]
-Underfull \hbox (badness 2158) in paragraph at lines 546--547
+Underfull \hbox (badness 2158) in paragraph at lines 538--539
 \JY1/mc/m/n/10 サンプル $[]$ では ， 訓練デ ータを
  []
 
-File: ./img/_rolling_sample_val_i.png Graphic file (type bmp)
-<./img/_rolling_sample_val_i.png>
-[17] [18] [19] (./img/accuracy_edit.tex
+[17]
+File: ./img/_rolling_sample_val.pdf Graphic file (type pdf)
+<./img/_rolling_sample_val.pdf>
+ [18] [19] [20] (./img/accuracy_edit.tex
 Underfull \hbox (badness 10000) in paragraph at lines 16--16
 []\OT1/cmr/m/n/10 Large
  []
@@ -637,23 +597,26 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--18
  []
 
 )
-Overfull \hbox (82.81192pt too wide) in paragraph at lines 646--647
- [][] 
+Overfull \hbox (82.81192pt too wide) in paragraph at lines 638--639
+[][] 
  []
 
-[20]
+
+LaTeX Warning: Float too large for page by 6.75006pt on input line 639.
+
+[21]
 File: ./img/_dm_MAD_y_hat_srw.pdf Graphic file (type pdf)
 <./img/_dm_MAD_y_hat_srw.pdf>
- [21
+ [22
 
 
-] [22]
+] [23]
 File: ./img/_dm_MAD_y_hat_sarima_br.pdf Graphic file (type pdf)
 <./img/_dm_MAD_y_hat_sarima_br.pdf>
- [23]
-File: ./img/_ibes_timing.png Graphic file (type bmp)
-<./img/_ibes_timing.png>
- [24] (./img/accuracy_ibes_edit.tex
+ [24]
+File: ./img/_ibes_timing.pdf Graphic file (type pdf)
+<./img/_ibes_timing.pdf>
+ [25] (./img/accuracy_ibes_edit.tex
 Underfull \hbox (badness 10000) in paragraph at lines 16--16
 []\OT1/cmr/m/n/10 Large
  []
@@ -704,44 +667,44 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--18
  []
 
 )
-Overfull \hbox (82.81192pt too wide) in paragraph at lines 708--709
- [][] 
+Overfull \hbox (82.81192pt too wide) in paragraph at lines 700--701
+[][] 
  []
 
 
-LaTeX Warning: Float too large for page by 6.75006pt on input line 709.
+LaTeX Warning: Float too large for page by 30.75006pt on input line 701.
 
-[25]
+[26]
 File: ./img/_dm_MAD_y_hat_ibes.pdf Graphic file (type pdf)
 <./img/_dm_MAD_y_hat_ibes.pdf>
- [26
+ [27
 
 
 ]
 File: ./img/_dm_MAPE_y_hat_ibes.pdf Graphic file (type pdf)
 <./img/_dm_MAPE_y_hat_ibes.pdf>
- [27]
+ [28]
 File: ./img/_portfolio_return.pdf Graphic file (type pdf)
 <./img/_portfolio_return.pdf>
- [28] [29] [30] (./eps_forecast.bbl [31])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 817.
- [32]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 817.
+ [29] [30] (./eps_forecast.bbl [31] [32])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 809.
+ [33]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 809.
 
 (./eps_forecast.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 817.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 817.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 809.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 809.
 Package rerunfilecheck Info: File `eps_forecast.out' has not changed.
 (rerunfilecheck)             Checksum: 2BBF6A18904BBFE9227E27DB8DF2CFA5;1873.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 817.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 809.
  ) 
 Here is how much of TeX's memory you used:
- 8952 strings out of 481768
- 134141 string characters out of 5933619
- 464238 words of memory out of 5000000
- 24180 multiletter control sequences out of 15000+600000
- 553805 words of font info for 118 fonts, out of 8000000 for 9000
+ 8441 strings out of 481768
+ 126724 string characters out of 5933619
+ 453178 words of memory out of 5000000
+ 23670 multiletter control sequences out of 15000+600000
+ 555256 words of font info for 123 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
- 41i,21n,42p,1517b,629s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,21n,42p,1517b,522s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on eps_forecast.dvi (32 pages, 215380 bytes).
+Output written on eps_forecast.dvi (33 pages, 213116 bytes).
