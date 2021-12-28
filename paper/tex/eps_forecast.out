@@ -9,12 +9,12 @@
 \BOOKMARK [1][]{section.4}{4 予測のデザイン}{part.4}% 8
 \BOOKMARK [1][]{section.5}{5 伝統的時系列モデル}{part.4}% 9
 \BOOKMARK [2][]{subsection.5.1}{5.1 ランダムウォーク}{section.5}% 10
-\BOOKMARK [2][]{subsection.5.2}{5.2 ARIMAモデル}{section.5}% 11
-\BOOKMARK [2][]{subsection.5.3}{5.3 多変量線形モデル}{section.5}% 12
+\BOOKMARK [2][]{subsection.5.2}{5.2 自己回帰和分移動平均\(AutoRegressive Integrated Moving Average: ARIMA\)モデル}{section.5}% 11
+\BOOKMARK [2][]{subsection.5.3}{5.3 多変量線形回帰モデル}{section.5}% 12
 \BOOKMARK [1][]{section.6}{6 機械学習モデル}{part.4}% 13
 \BOOKMARK [2][]{subsection.6.1}{6.1 罰則回帰モデル}{section.6}% 14
 \BOOKMARK [2][]{subsection.6.2}{6.2 ランダムフォレスト回帰}{section.6}% 15
-\BOOKMARK [2][]{subsection.6.3}{6.3 ニューラルネットワークモデル}{section.6}% 16
+\BOOKMARK [2][]{subsection.6.3}{6.3 ニューラルネットワーク\(Neural Network: NN\)}{section.6}% 16
 \BOOKMARK [1][]{section.7}{7 ハイパーパラメータの選択}{part.4}% 17
 \BOOKMARK [1][]{section.8}{8 予測精度指標}{part.4}% 18
 \BOOKMARK [1][]{section.9}{9 Diebold-Mariano\(DM\)検定}{part.4}% 19
@@ -24,4 +24,4 @@
 \BOOKMARK [1][]{section.12}{12 アナリスト予測との予測精度比較}{part.5}% 23
 \BOOKMARK [1][]{section.13}{13 アナリスト予測との予測精度差の検定}{part.5}% 24
 \BOOKMARK [0][]{part.6}{第VI部 予測の投資指標としての有用性}{}% 25
-\BOOKMARK [0][]{part.7}{第VII部 終わりに}{}% 26
+\BOOKMARK [0][]{part.7}{第VII部 おわりに}{}% 26

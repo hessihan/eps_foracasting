@@ -44,7 +44,8 @@ Bates, John~M and Clive~WJ Granger (1969) ``The combination of forecasts,''
 
 \harvarditem[Box et~al.]{Box, Jenkins, Reinsel and Ljung}{2015}{box2015time}
 Box, George~EP, Gwilym~M Jenkins, Gregory~C Reinsel, and Greta~M Ljung (2015)
-  \textit{ Time series analysis: forecasting and control}.
+  \textit{ Time series analysis: forecasting and control}, Hoboken, NJ: John
+  Wiley \& Sons.
 
 \harvarditem[Breiman]{Breiman}{2001}{breiman2001random}
 Breiman, Leo (2001) ``Random forests,'' \textit{ Machine learning}, Vol. 45,
@@ -68,6 +69,11 @@ Cao, Kai and Haifeng You (2020) ``Fundamental Analysis Via Machine
 Cao, Qing and Qiwei Gan (2009) ``Forecasting EPS of Chinese Listed Companies
   Using Neural Network with Genetic Algorithm,'' \textit{ 15th Americas
   Conference on Information Systems 2009, AMCIS 2009}, Vol. 5, pp. 2971--2981.
+
+\harvarditem[Cao and Parry]{Cao and Parry}{2009}{cao2009neural}
+Cao, Qing and Mark~E Parry (2009) ``Neural network earnings per share
+  forecasting models: A comparison of backward propagation and the genetic
+  algorithm,'' \textit{ Decision Support Systems}, Vol. 47, No. 1, pp. 32--41.
 
 \harvarditem[Chatfield et~al.]{Chatfield et~al.}{1993}{chatfield1993neural}
 Chatfield, Chris et~al. (1993) ``Neural networks: Forecasting breakthrough or
@@ -94,13 +100,14 @@ Foster, George (1977) ``Quarterly accounting data: Time-series properties and
 
 \harvarditem[Griffin]{Griffin}{1977}{griffin1977time}
 Griffin, Paul~A (1977) ``The time-series behavior of quarterly earnings:
-  preliminary evidence,'' \textit{ Journal of Accounting Research}, pp. 71--83.
+  preliminary evidence,'' \textit{ Journal of Accounting Research}, Vol. 15,
+  No. 1, pp. 71--83.
 
 \harvarditem[Hastie et~al.]{Hastie, Tibshirani and
   Friedman}{2009}{hastie2009esl}
 Hastie, Trevor, Robert Tibshirani, and Jerome Friedman (2009)  \textit{ The
   Elements of Statistical Learning: Data Mining, Inference, and Prediction
-  Second Edition}, New York, NY.
+  Second Edition}, NY: Springer.
 
 \harvarditem[Hill et~al.]{Hill, Marquez, O'Connor and
   Remus}{1994}{hill1994artificial}
@@ -121,7 +128,8 @@ Hoerl, Arthur~E and Robert~W Kennard (1970) ``Ridge regression: Biased
 \harvarditem[Hopwood and McKeown]{Hopwood and
   McKeown}{1986}{hopwood1986univariate}
 Hopwood, William~S and James~C McKeown (1986)  \textit{ Univariate time-series
-  analysis of quarterly earnings: Some unresolved issues}, Sarasota, FL.
+  analysis of quarterly earnings: Some unresolved issues}, Sarasota, FL:
+  American Accounting Association.
 
 \harvarditem[Hornik et~al.]{Hornik, Stinchcombe and
   White}{1989}{hornik1989multilayer}
@@ -134,9 +142,11 @@ Hornik, Kurt, Maxwell Stinchcombe, and Halbert White (1989) ``Multilayer
 Lev, Baruch and S~Ramu Thiagarajan (1993) ``Fundamental information analysis,''
   \textit{ Journal of Accounting research}, Vol. 31, No. 2, pp. 190--215.
 
-\harvarditem[Lorek and Willinger]{Lorek and Willinger}{}{lorek1996multivariate}
-Lorek, Kenneth~S and G~Lee Willinger``A multivariate time-series prediction
-  model for cash-flow data,'' \textit{ Accounting Review}, Vol. 71.
+\harvarditem[Lorek and Willinger]{Lorek and
+  Willinger}{1996}{lorek1996multivariate}
+Lorek, Kenneth~S and G~Lee Willinger (1996) ``A multivariate time-series
+  prediction model for cash-flow data,'' \textit{ Accounting Review}, Vol. 71,
+  No. 1, pp. 81--102.
 
 \harvarditem[Qi]{Qi}{1999}{qi1999nonlinear}
 Qi, Min (1999) ``Nonlinear predictability of stock returns using financial and
@@ -164,18 +174,18 @@ Zou, Hui and Trevor Hastie (2005) ``Regularization and variable selection via
   the elastic net,'' \textit{ Journal of the royal statistical society: series
   B (statistical methodology)}, Vol. 67, No. 2, pp. 301--320.
 
+\harvarditem[太田]{太田}{2006}{ota2006}
+太田浩司 (2006)
+  「経営者予想に関する日米の研究：文献サーベイ」，『武蔵大学論集』，第54巻，第1号，53--94頁．
+
 \harvarditem[桜井]{桜井}{1990}{sakurai1990}
 桜井久勝 (1990)
   「会計利益の時系列特性と利益予測」，『経営学・会計学・商学研究年報 /
   神戸大学大学院経営学研究科編』，第36号，45--98頁．
 
-\harvarditem[太田]{太田}{2006}{ota2006}
-太田浩司 (2006)
-  「経営者予想に関する日米の研究：文献サーベイ」，『武蔵大学論集』，第54巻，第1号，53--94頁．
-
 \harvarditem[中井]{中井}{2006}{nakai2006}
 中井誠司 (2006)
-  「アナリストカバレッジと機関投資家保有」，『『証券アナリストジャーナル』』，第44巻，第6号，84--97頁，6月．
+  「アナリストカバレッジと機関投資家保有」，『証券アナリストジャーナル』，第44巻，第6号，84--97頁．
 
 \harvarditem[米山]{米山}{2010}{yoneyama2010}
 米山徹幸 (2010)
