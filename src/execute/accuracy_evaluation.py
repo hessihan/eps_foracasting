@@ -169,15 +169,23 @@ if __name__ == "__main__":
         'y_hat_uen', 
         'y_hat_ul1', 
         'y_hat_ul2', 
-        # 'y_hat_uraf',         
+        'y_hat_uraf',         
         'y_hat_umlp',
+    ]
+
+    uts = [
+        'y_hat_rw', 
+        'y_hat_srw',
+        'y_hat_sarima_br', 
+        'y_hat_sarima_f',
+        'y_hat_sarima_g',         
     ]
 
     uml = [
         'y_hat_uen', 
         'y_hat_ul1', 
         'y_hat_ul2', 
-        # 'y_hat_uraf',         
+        'y_hat_uraf',         
         'y_hat_umlp',
     ]
 
@@ -192,6 +200,12 @@ if __name__ == "__main__":
         'y_hat_mmlp'
     ]
 
+    mols = [
+        'y_hat_ols1', 
+        'y_hat_ols2', 
+        'y_hat_ols3', 
+    ]
+
     mml =[
         'y_hat_men', 
         'y_hat_ml1',
@@ -202,14 +216,18 @@ if __name__ == "__main__":
 
     y_hats_all["y_hat_comb_all"] = y_hats_all[y_hats_all.columns[1:]].mean(axis=1)
     y_hats_all["y_hat_comb_uall"] = y_hats_all[uall].mean(axis=1)
+    y_hats_all["y_hat_comb_uts"] = y_hats_all[uts].mean(axis=1)
     y_hats_all["y_hat_comb_uml"] = y_hats_all[uml].mean(axis=1)
     y_hats_all["y_hat_comb_mall"] = y_hats_all[mall].mean(axis=1)
+    y_hats_all["y_hat_comb_mols"] = y_hats_all[mols].mean(axis=1)
     y_hats_all["y_hat_comb_mml"] = y_hats_all[mml].mean(axis=1)
 
     y_hats_all["y_hat_comb_all"].to_csv("./../../assets/y_hats/y_hat_comb_all.csv")
     y_hats_all["y_hat_comb_uall"].to_csv("./../../assets/y_hats/y_hat_comb_uall.csv")
+    y_hats_all["y_hat_comb_uts"].to_csv("./../../assets/y_hats/y_hat_comb_uts.csv")
     y_hats_all["y_hat_comb_uml"].to_csv("./../../assets/y_hats/y_hat_comb_uml.csv")
     y_hats_all["y_hat_comb_mall"].to_csv("./../../assets/y_hats/y_hat_comb_mall.csv")
+    y_hats_all["y_hat_comb_mols"].to_csv("./../../assets/y_hats/y_hat_comb_mols.csv")
     y_hats_all["y_hat_comb_mml"].to_csv("./../../assets/y_hats/y_hat_comb_mml.csv")
     
     y_hats_all.to_csv("./../../assets/y_hats/y_hats_all.csv")
