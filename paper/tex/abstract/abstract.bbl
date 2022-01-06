@@ -1,0 +1,63 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  This bbl file is created by jecon.bst ver.6.4
+%  The latest jecon.bst is available at
+%  <http://shirotakeda.org/ja/tex-ja/jecon-ja.html>
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Definition of \bysame
+\ifx\undefined\bysame
+\newcommand{\bysame}{\hskip.3em \leavevmode\rule[.5ex]{2.5em}{.3pt}\hskip0.5em}
+\fi
+
+%%% Definition of \bysamejp
+\ifx\undefined\bysamejp
+\newcommand{\bysamejp}{\hskip.2em
+  \leavevmode\rule[.7ex]{2.5em}{.3pt}\hskip0.3em}
+\fi
+
+
+\makeatletter\@ifundefined{ifNAT@openbib}{\@latex@error{Package 'natbib' is not
+  loaded! Please load Package 'natbib' in your preamble.\MessageBreak
+  Additionally, if you use url field in your bib record entry, please also load
+  Package 'hyperref' or 'pxjahyper', 'url' package.}\@ehc}{}\relax\makeatother
+\begin{thebibliography}{xxx}
+
+
+\harvarditem[Brown and Rozeff]{Brown and Rozeff}{1979}{brown1979univariate}
+Brown, Lawrence~D and Michael~S Rozeff (1979) ``Univariate time-series models
+  of quarterly accounting earnings per share: A proposed model,'' \textit{
+  Journal of Accounting Research}, Vol. 17, No. 1, pp. 179--189.
+
+\harvarditem[Cao and You]{Cao and You}{2020}{cao2020fundamental}
+Cao, Kai and Haifeng You (2020) ``Fundamental Analysis Via Machine
+  Learning,''Technical report, Working Paper.
+
+\harvarditem[Foster]{Foster}{1977}{foster1977quarterly}
+Foster, George (1977) ``Quarterly accounting data: Time-series properties and
+  predictive-ability results,'' \textit{ Accounting Review}, Vol. 52, No. 1,
+  pp. 1--21.
+
+\harvarditem[Griffin]{Griffin}{1977}{griffin1977time}
+Griffin, Paul~A (1977) ``The time-series behavior of quarterly earnings:
+  preliminary evidence,'' \textit{ Journal of Accounting Research}, Vol. 15,
+  No. 1, pp. 71--83.
+
+\harvarditem[Hill et~al.]{Hill, Marquez, O'Connor and
+  Remus}{1994}{hill1994artificial}
+Hill, Tim, Leorey Marquez, Marcus O'Connor, and William Remus (1994)
+  ``Artificial neural network models for forecasting and decision making,''
+  \textit{ International journal of forecasting}, Vol. 10, No. 1, pp. 5--15.
+
+\harvarditem[太田]{太田}{2006}{ota2006}
+太田浩司 (2006)
+  「経営者予想に関する日米の研究：文献サーベイ」，『武蔵大学論集』，第54巻，第1号，53--94頁．
+
+\harvarditem[桜井]{桜井}{1990}{sakurai1990}
+桜井久勝 (1990)
+  「会計利益の時系列特性と利益予測」，『経営学・会計学・商学研究年報 /
+  神戸大学大学院経営学研究科編』，第36号，45--98頁．
+
+\end{thebibliography}
+
