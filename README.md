@@ -26,7 +26,7 @@ Compareing the forecast performance of classical time-series models (several typ
 
 Examing the forecasting power of exogenous variable including accounting data.  
 
-Conducting Diebold-Mariano test to check the statistical significance of the difference in two forecast methods' accuracy.
+Conducting Diebold-Mariano test to check the statistical significance of the difference between two forecast methods' accuracy.
 
 <!-- ## Additional research
 
